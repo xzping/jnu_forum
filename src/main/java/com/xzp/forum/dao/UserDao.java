@@ -9,6 +9,12 @@ import org.apache.ibatis.annotations.Select;
 
 import com.xzp.forum.model.User;
 
+/**
+ * user的dao层
+ * 
+ * @author xiezhiping
+ *
+ */
 @Mapper
 public interface UserDao {
 	String TABLE_NAME = "user";

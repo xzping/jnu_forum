@@ -14,7 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * User的model层
+ * User的model实体层
  * 
  * @author xiezhiping
  *

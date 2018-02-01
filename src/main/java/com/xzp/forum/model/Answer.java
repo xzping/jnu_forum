@@ -2,6 +2,12 @@ package com.xzp.forum.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * answer的model实体层
+ * 
+ * @author xiezhiping
+ *
+ */
 public class Answer {
 	private Long id;
 	private String content;

@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.User;
 
+/**
+ * 注册的service层
+ * 
+ * @author xiezhiping
+ *
+ */
 //@Service
 public class RegisterService {
 //	@Autowired

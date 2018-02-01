@@ -3,6 +3,11 @@ package com.xzp.forum.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * topic的model实体层
+ * @author xiezhiping
+ *
+ */
 public class Topic {
 	private Long id;
 	private String title;

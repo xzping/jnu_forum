@@ -1,14 +1,9 @@
 package com.xzp.forum.controller;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +15,12 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.User;
 
+/**
+ * 注册接口
+ * 
+ * @author xiezhiping
+ *
+ */
 @Controller
 public class RegisterController {
 
@@ -28,17 +29,6 @@ public class RegisterController {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
-
-	// @Autowired
-	// public RegisterController(UserDao userDao, PasswordEncoder passwordEncoder) {
-	// this.userDao = userDao;
-	// this.passwordEncoder = passwordEncoder;
-	// }
-
-	// @Bean
-	// public PasswordEncoder passwordEncoder() {
-	// return new BCryptPasswordEncoder();
-	// }
 
 	@RequestMapping(path = "/register", method = RequestMethod.GET)
 	public String register() {
@@ -59,7 +49,6 @@ public class RegisterController {
 			} else {
 				user.setIntroduction(introduction);
 			}
-			// user.setCreatedDate(LocalDateTime.now());
 			user.setCreatedDate(new Date());
 			userDao.addUser(user);
 			return new RedirectView(contextPath + "/login");

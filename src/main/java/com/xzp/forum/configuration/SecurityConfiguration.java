@@ -1,6 +1,7 @@
 package com.xzp.forum.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,6 +16,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.xzp.forum.dao.UserDao;
 
+/**
+ * 
+ * @author xiezhiping
+ *
+ */
 @Configuration
 @EnableGlobalMethodSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {

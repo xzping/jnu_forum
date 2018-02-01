@@ -8,6 +8,12 @@ import org.apache.ibatis.annotations.Select;
 
 import com.xzp.forum.model.Topic;
 
+/**
+ * topic的dao层
+ * 
+ * @author xiezhiping
+ *
+ */
 @Mapper
 public interface TopicDao {
 	String TABLE_NAME = "topic";

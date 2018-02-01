@@ -13,6 +13,12 @@ import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.User;
 
+/**
+ * 个人简介接口
+ * 
+ * @author xiezhiping
+ *
+ */
 @Controller
 public class ProfileController {
 	@Autowired
@@ -26,21 +32,21 @@ public class ProfileController {
 
 	@RequestMapping(path = "/profile", method = RequestMethod.GET)
 	public String displayMyProfile(Model model) {
-		Object principal=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username=((UserDetails) principal).getUsername();
-		
-		User user=userDao.getUserByUsername(username);
-		Long points=userDao.getPoints(user.getId());
-		
-		Long numberOfTopics=topicDao.countTopicsByUser_Id(user.getId());
-		Long numberOfAnswers=answerDao.countAnswersByUser_Id(user.getId());
-		Long numberOfHelped=answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
-		
-		model.addAttribute("user",user);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((UserDetails) principal).getUsername();
+
+		User user = userDao.getUserByUsername(username);
+		Long points = userDao.getPoints(user.getId());
+
+		Long numberOfTopics = topicDao.countTopicsByUser_Id(user.getId());
+		Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
+		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
+
+		model.addAttribute("user", user);
 		model.addAttribute("points", points);
 		model.addAttribute("numberOfTopics", numberOfTopics);
-        model.addAttribute("numberOfAnswers", numberOfAnswers);
-        model.addAttribute("numberOfHelped", numberOfHelped);
+		model.addAttribute("numberOfAnswers", numberOfAnswers);
+		model.addAttribute("numberOfHelped", numberOfHelped);
 		return "profile";
 	}
 }
