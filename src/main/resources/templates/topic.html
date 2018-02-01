@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/online">
+<!--/*@thymesVar id="topic" type="com.plkpiotr.forum.entities.Topic"*/-->
+<head>
+    <title th:text="${topic.getTitle()} + '| JF'">Topic's title | JF</title>
+</head>
+<body>
+    <main layout:fragment="content">
+        <article class="container" style="padding: 3% 0 2%;">
+            <header class="row">
+                <div class="col s12">
+                    <blockquote class="flow-text left" th:text="${topic.getTitle()}">Topic's title</blockquote>
+                </div>
+            </header>
+            <section class="row">
+                <div class="col s12">
+                    <a th:href="@{'/profile/' + ${topic.getUser().getId()}}">
+                        <span class="chip left" th:text="${topic.getUser().getUsername()}">Topic's author</span>
+                    </a>
+                    <a th:href="@{'/topics/' + ${topic.getCategory()}}">
+                        <span class="chip left" th:text="${topic.getCategory()}" style="background-color: #ee6e73;">Category</span>
+                    </a>
+                    <span class="right" th:text="${topic.displayParsedCreatedDate()}"></span>
+                </div>
+            </section>
+            <section class="row">
+                <p class="col s12" style="text-align: justify; display:block; white-space:pre-wrap"
+                   th:text="${topic.getContent()}">Topic's content</p>
+            </section>
+            <section class="row">
+                <code style="display:block; white-space:pre-wrap" class="col s12" th:text="${topic.displayCode()}">Source code</code>
+            </section>
+            <header class="row">
+                <div class="col s12">
+                    <blockquote class="flow-text left" th:text="|Answers: | + ${answers.size()}">Number of answers</blockquote>
+                </div>
+            </header>
+            <section class="row">
+                <div class="col s12" th:each="answer : ${answers}" style="margin: 3% 0 3%; padding: 2%; border-top-right-radius: 10px;
+                        border-bottom-right-radius: 10px; background: linear-gradient(to right, #e7e4e4, #f3f2f2);
+                        background: -webkit-linear-gradient(left, #e7e4e4, #f3f2f2);
+                        background: -o-linear-gradient(right, #e7e4e4, #f3f2f2);
+                        background: -moz-linear-gradient(right, #e7e4e4, #f3f2f2);">
+                    <a th:href="@{'/profile/' + ${answer.getUser().getId()}}">
+                        <span class="chip left" style="background-color: #f3f2f2;" th:text="${answer.getUser().getUsername()}">
+                            Answer's author
+                        </span>
+                    </a>
+                    <span class="chip left" th:if="${answer.isUseful()}" th:text="|Useful|" style="background-color: #ee6e73;">
+                        Useful
+                    </span>
+                    <span class="right" th:text="${answer.displayParsedCreatedDate()}"></span>
+                    <span th:if="${topic.getUser().getId() == idUser}">
+                        <form th:action="@{/topic/{topic.getId()}}" method="post">
+                            <input type="hidden" name="id_answer" th:value="${answer.getId()}"/>
+                            <input type="hidden" name="state" th:value="${answer.isUseful()}"/>
+                            <input type="hidden" name="action" th:value="useful"/>
+                            <input type="hidden" name="id_topic" th:value="${topic.getId()}"/>
+                            <button class="chip left" style="background-color: #37b7ab;">Set useful/useless</button>
+                        </form>
+                    </span>
+                    <span th:if="${answer.getUser().getId() == idUser}">
+                        <form th:action="@{/topic/{topic.getId()}}" method="post">
+                            <input type="hidden" name="id_answer" th:value="${answer.getId()}"/>
+                            <input type="hidden" name="action" th:value="delete"/>
+                            <input type="hidden" name="id_topic" th:value="${topic.getId()}"/>
+                            <button class="chip left" style="background-color: #37b7ab;">Delete</button>
+                        </form>
+                    </span>
+                    <div class="row">
+                        <p class="col s12" style="text-align: justify; display:block; white-space:pre-wrap"
+                           th:text="${answer.getContent()}">
+                            Answer's content
+                        </p>
+                    </div>
+                    <div class="row">
+                        <code style="display:block; white-space:pre-wrap" class="col s12" th:text="${answer.displayCode()}">
+                            Source code
+                        </code>
+                    </div>
+                </div>
+            </section>
+            <header class="row">
+                <div class="col s12">
+                    <blockquote class="flow-text left" th:text="|Add answer: |">Add answer</blockquote>
+                </div>
+            </header>
+            <section>
+                <form th:action="@{/topic}" method="post">
+                    <div class="row">
+                        <div class="col s12">
+                            <label>Content:
+                                <textarea name="content" class="materialize-textarea" minlength="5" maxlength="1024"
+                                          data-length="1024" required="required"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <label>Code:
+                                <textarea name="code" class="materialize-textarea" placeholder="[optional]"
+                                style="font-family: monospace, monospace;" maxlength="1024" data-length="1024"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="id_topic" th:value="${topic.getId()}"/>
+                    <input type="hidden" name="id_user" th:value="${idUser}"/>
+                    <div class="row">
+                        <div class="col s12 center">
+                            <button class="btn waves-effect waves-light btn-large" type="submit" name="answer">Answer</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </article>
+    </main>
+    <!--/*@thymesVar id="getTitle" type="com.plkpiotr.forum.entities.Topic"*/-->
+    <!--/*@thymesVar id="answers" type="java.util.List"*/-->
+</body>
+</html>

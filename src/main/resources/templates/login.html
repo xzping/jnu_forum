@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/offline">
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <main layout:fragment="content">
+        <article class="container" style="padding-top: 3%;">
+            <header class="row">
+                <div class="col s12">
+                    <h3 class="center">登录</h3>
+                    <h5 class="center">Sign in</h5>
+                    <p class="center flow-text" th:if="${param.error}">请输入正确的用户名或密码!</p>
+                </div>
+            </header>
+            <section>
+                <form th:action="@{/login}" method="post">
+                    <div class="row">
+                        <div class="col s12">
+                            <label> 用户名:
+                                <input type="text" name="username" maxlength="10" data-length="10" required="required"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <label> 密码:
+                                <input type="password" name="password" maxlength="10" data-length="10" required="required"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 center">
+                            <button class="btn waves-effect waves-light btn-large" type="submit" name="login">登陆</button>
+                        </div>
+                    </div>
+                    <!-- 这一句主要防止CSRF攻击 -->
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+            </section>
+        </article>
+    </main>
+</body>
+</html>

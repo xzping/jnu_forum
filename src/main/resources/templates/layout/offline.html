@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="description" content="Programming forum about Java powered by Spring Framework"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>Internet Forum</title>
+    <link href="/webjars/materializecss/0.100.2/css/materialize.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <div class="container">
+                <ul id="nav-left" class="right hide-on-med-and-down">
+                    <li><a th:href="@{'/'}">主页</a></li>
+                    <li><a th:href="@{'/login'}">登录</a></li>
+                    <li><a th:href="@{'/register'}">注册</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main layout:fragment="content">
+        <p>Default content</p>
+    </main>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Java Forum</h5>
+                    <p class="white-text">Programming forum about Java powered by Spring Framework</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li><a class="white-text" href="https://github.com/xzping/forum">Github</a></li>
+                        <li><a class="white-text" href="https://forum.pasja-informatyki.pl/user/plkpiotr">关于我们</a></li>
+                        <li><a class="white-text" href="/">2018年本科毕业设计</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="footer-copyright">
+            <div class="container">
+                All rights reserved &nbsp;|&nbsp; Xzping &nbsp;|&nbsp; 01/2018
+            </div>
+        </div> -->
+    </footer>
+    <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/webjars/materializecss/0.100.2/js/materialize.min.js"></script>
+</body>
+</html>

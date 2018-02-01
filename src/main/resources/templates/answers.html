@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/online">
+<head>
+    <title>Answers | JF</title>
+</head>
+<body>
+    <main layout:fragment="content">
+        <article class="container" style="padding: 3% 0 2%;">
+            <header class="row">
+                <div class="col s12">
+                    <blockquote class="flow-text left" th:text="|Answers:|">Header</blockquote>
+                </div>
+            </header>
+            <section class="row">
+                <div class="col s12">
+                    <table class="striped bordered centered" th:if="${answers.size() != 0}">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>Content</th>
+                                <th>Enter</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="answer : ${answers}">
+                            <tr>
+                                <td th:text="${answer.getTopic().getTitle()}">Topic's title</td>
+                                <td th:text="${answer.displayBeginning()}">Topic's title</td>
+                                <td>
+                                    <a th:href="@{'/topic/' + ${answer.getTopic().getId()}}" class="btn btn-floating pulse">
+                                        <i class="material-icons">arrow_forward</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="row">
+                <div class="col s12">
+                    <div th:if="${answers.size() == 0}">
+                        <p class="flow-text center">No answers</p>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+<!--/*@thymesVar id="answers" type="java.util.List"*/-->
+</body>
+</html>

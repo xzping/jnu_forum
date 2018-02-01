@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/online">
+<!--/*@thymesVar id="user" type="com.plkpiotr.forum.entities.User"*/-->
+<head>
+    <title th:text="${user.getUsername() + ' | JF'}">Title of profile view</title>
+</head>
+<body>
+    <main layout:fragment="content">
+        <article class="container" style="padding: 3% 0 2%;">
+            <header class="row">
+                <div class="col s12">
+                    <blockquote class="flow-text left" th:text="${user.getUsername()} + |&apos; s profile|">Profile</blockquote>
+                    <blockquote class="flow-text right" th:text="|Points: | + ${points}">Commitment</blockquote>
+                </div>
+            </header>
+            <section class="row">
+                <div class="col s12 m6">
+                    <ul class="collection">
+                        <li class="collection-item center">Personal data</li>
+                        <li class="collection-item">
+                            <span class="badge">
+                                <span th:text="${user.getUsername()}">Nick</span>
+                            </span>用户名:
+                        </li>
+                        <li class="collection-item">
+                            <span class="badge">
+                                <span th:text="${user.displayContentOfOptional()}">Introduction</span>
+                            </span>简介:
+                        </li>
+                        <li class="collection-item">
+                            <span class="badge">
+                                <span th:text="${user.displayParsedDate()}">Created date</span>
+                            </span>注册时间:
+                        </li>
+                    </ul>
+                </div>
+                <div class="col s12 m6">
+                    <ul class="collection">
+                        <li class="collection-item center strong">Activity</li>
+                        <li class="collection-item">
+                            <a th:href="@{'/topics/user/' + ${user.getId()}}" style="display: block; color: #26a69a">
+                                <span class="badge">
+                                    <span th:text="${numberOfTopics}"></span>
+                                </span>Topics:
+                            </a>
+                        </li>
+                        <li class="collection-item">
+                            <a th:href="@{'/answers/' + ${user.getId()}}" style="display: block; color: #26a69a">
+                                <span class="badge">
+                                    <span th:text="${numberOfAnswers}"></span>
+                                </span>Answers:
+                            </a>
+                        </li>
+                        <li class="collection-item">
+                            <a th:href="@{'/answers/useful/' + ${user.getId()}}" style="display: block; color: #26a69a">
+                                <span class="badge">
+                                    <span th:text="${numberOfHelped}"></span>
+                                </span>Helped:
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <header class="row">
+                <div class="col s12">
+                    <blockquote class="flow-text left" th:text="|Select category and add topic: |">Add topic</blockquote>
+                </div>
+            </header>
+            <section>
+                <form th:action="@{/profile}" method="post">
+                    <div class="row">
+                        <div class="col s12">
+                            <p>
+                                <input value="se" name="category" class="with-gap" type="radio" id="se" required="required"/>
+                                <label for="se">Java Standard Edition</label>
+                            </p>
+                            <p>
+                                <input value="ee" name="category" class="with-gap" type="radio" id="ee" required="required"/>
+                                <label for="ee">Java Enterprise Edition</label>
+                            </p>
+                            <p>
+                                <input value="jpa" name="category" class="with-gap" type="radio" id="jpa" required="required"/>
+                                <label for="jpa">Java Persistence API and Hibernate</label>
+                            </p>
+                            <p>
+                                <input value="spring" name="category" class="with-gap" type="radio" id="spring" required="required"/>
+                                <label for="spring">Spring Framework</label>
+                            </p>
+                            <p>
+                                <input value="web" name="category" class="with-gap" type="radio" id="web" required="required"/>
+                                <label for="web">HTML/CSS/JavaScript</label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <label>Title:
+                                <input type="text" name="title" minlength="10" maxlength="32" data-length="32" required="required"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <label>Content:
+                                <textarea name="content" class="materialize-textarea" minlength="5" maxlength="1024"
+                                          data-length="1024" required="required"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <label>Code:
+                                <textarea name="code" class="materialize-textarea" placeholder="[optional]"
+                                          style="font-family: monospace, monospace;" maxlength="1024" data-length="1024"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="id_user" th:value="${user.getId()}"/>
+                    <div class="row">
+                        <div class="col s12 center">
+                            <button class="btn waves-effect waves-light btn-large" type="submit" name="add">Add topic</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <!--/*@thymesVar id="points" type="java.lang.Long"*/-->
+        </article>
+    </main>
+</body>
+</html>

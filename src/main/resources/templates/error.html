@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/online">
+<head>
+    <title th:text="${status}">404</title>
+</head>
+<body>
+    <main layout:fragment="content" class="container">
+        <section class="row">
+            <div class="col s12">
+                <h1 class="flow-text center">Error</h1>
+                <p class="center">This is not the web page you are looking for.</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

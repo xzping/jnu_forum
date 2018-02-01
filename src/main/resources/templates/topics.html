@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/online">
+<head>
+    <title>Topics | JF</title>
+</head>
+<body>
+    <main layout:fragment="content">
+        <article class="container" style="padding: 3% 0 2%;">
+            <header class="row">
+                <blockquote class="flow-text left" th:text="${header}">Header</blockquote>
+                <blockquote class="flow-text right" th:text="|Topics: | + ${topics.size()}">Number of topics</blockquote>
+            </header>
+            <section class="row">
+                <div class="col s12">
+                    <table class="striped bordered centered" th:if="${topics.size() != 0}">
+                        <thead>
+                        <tr>
+                            <th>Answers</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Created</th>
+                            <th>Enter</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="topic : ${topics}">
+                                <tr>
+                                    <td th:text="${answerRepository.countAnswersByTopic_Id(topic.getId())}">Number of answers</td>
+                                    <td th:text="${topic.getTitle()}">Topic's title</td>
+                                    <td>
+                                        <a th:href="@{'/profile/' + ${topic.getUser().getId()}}">
+                                            <div class="chip" th:text="${topic.getUser().getUsername()}">Topic's author</div>
+                                        </a>
+                                    </td>
+                                    <td th:text="${topic.displayParsedCreatedDate()}">Topic's created date</td>
+                                    <td>
+                                        <a th:href="@{'/topic/' + ${topic.getId()}}" class="btn btn-floating pulse">
+                                            <i class="material-icons">arrow_forward</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </article>
+    </main>
+    <!--/*@thymesVar id="header" type="java.lang.String"*/-->
+    <!--/*@thymesVar id="topics" type="java.util.List"*/-->
+    <!--/*@thymesVar id="answerRepository" type="com.plkpiotr.forum.repositories.AnswerRepository"*/-->
+    <!--/*@thymesVar id="countAnswersByTopic_Id" type="com.plkpiotr.forum.repositories.AnswerRepository"*/-->
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/offline">
+<head>
+    <meta charset="utf-8"/>
+    <title>Register</title>
+</head>
+<body>
+    <main layout:fragment="content">
+        <article class="container" style="padding-top: 3%;">
+            <header class="row">
+                <div class="col s12">
+                    <h3 class="center">注册</h3>
+                    <h5 class="center">Sign up</h5>
+                </div>
+            </header>
+            <section>
+                <form th:action="@{/register}" method="post">
+                    <div class="row">
+                        <div class="col s12">
+                            <label> 用户名:
+                                <input type="text" name="username" minlength="3" maxlength="10" data-length="10" required="required"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <label> 密码:
+                                <input type="password" name="password" minlength="6" maxlength="10" data-length="10" required="required"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <label> 简介:
+                                <input type="text" name="introduction" maxlength="16" data-length="16" placeholder="[optional]"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 center">
+                            <p class="center">In case of the success, you will be redirected to login page</p>
+                            <p class="center">Otherwise change your username</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 center">
+                            <button class="btn waves-effect waves-light btn-large" type="submit" name="register">注册</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
