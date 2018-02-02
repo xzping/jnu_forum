@@ -1,6 +1,7 @@
 package com.xzp.forum.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,8 +14,17 @@ public class Topic {
 	private String title;
 	private String content;
 	private String category;
-	private LocalDateTime createdDate;
+	private Date createdDate;
 	private String code;
+	private Integer idUser;
+	public Integer getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
+	}
+
 	private User user;
 	private List<Answer> answers;
 
@@ -50,11 +60,11 @@ public class Topic {
 		this.category = category;
 	}
 
-	public LocalDateTime getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(LocalDateTime createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 

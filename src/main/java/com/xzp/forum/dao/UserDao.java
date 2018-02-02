@@ -28,12 +28,11 @@ public interface UserDao {
 	@Select({ "SELECT", SELECT_FIELDS, "FROM ", TABLE_NAME, "WHERE username=#{username}" })
 	User getUserByUsername(@Param("username") String username);
 
-	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id=#{id}" })
+	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id=#{id}" })
 	User getUserById(@Param("id") Long id);
-
-	
-//	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME })
-//	List<User> findAll();
+	 
+	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME })
+	List<User> findAll();
 
 	@Select({ "(SELECT SUM(points) FROM (SELECT COUNT(topic.id_user) AS points FROM topic WHERE topic.id_user=#{id}"
 			+ " UNION ALL SELECT 2*COUNT(answer.id_user) AS points FROM answer WHERE answer.id_user=#{id} UNION ALL "

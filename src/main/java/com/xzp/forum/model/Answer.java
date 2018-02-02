@@ -1,6 +1,7 @@
 package com.xzp.forum.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * answer的model实体层
@@ -12,8 +13,26 @@ public class Answer {
 	private Long id;
 	private String content;
 	private boolean useful;
-	private LocalDateTime createdDate;
+	private Date createdDate;
 	private String code;
+	private Integer idTopic;
+	private Integer idUser;
+	public Integer getIdTopic() {
+		return idTopic;
+	}
+
+	public void setIdTopic(Integer idTopic) {
+		this.idTopic = idTopic;
+	}
+
+	public Integer getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
+	}
+
 	private User user;
 	private Topic topic;
 
@@ -41,11 +60,11 @@ public class Answer {
 		this.useful = useful;
 	}
 
-	public LocalDateTime getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(LocalDateTime createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
