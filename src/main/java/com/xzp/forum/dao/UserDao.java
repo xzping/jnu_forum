@@ -30,13 +30,16 @@ public interface UserDao {
 
 	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id=#{id}" })
 	User getUserById(@Param("id") Long id);
-	 
+
+	// 返回User和返回List<User>的主要区别是：返回User的只有一条信息，而返回List<User>是有多条信息，然后封装为List集合。
 	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME })
 	List<User> findAll();
 
 	@Select({ "(SELECT SUM(points) FROM (SELECT COUNT(topic.id_user) AS points FROM topic WHERE topic.id_user=#{id}"
 			+ " UNION ALL SELECT 2*COUNT(answer.id_user) AS points FROM answer WHERE answer.id_user=#{id} UNION ALL "
 			+ "SELECT 3*COUNT(answer.id_user) AS points FROM answer WHERE answer.id_user=#{id} AND answer.useful=TRUE) t)" })
-//	 @Select({"SELECT id FROM ",TABLE_NAME,"WHERE id=#{id}"})
 	Long getPoints(@Param("id") Long id);
+
+	@Select({ "SELECT id FROM", TABLE_NAME, "WHERE username=#{username}" })
+	Long getIdByUsername(@Param("username") String username);
 }

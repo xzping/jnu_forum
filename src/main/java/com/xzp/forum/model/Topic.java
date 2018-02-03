@@ -17,6 +17,10 @@ public class Topic {
 	private Date createdDate;
 	private String code;
 	private Integer idUser;
+	
+	private User user;
+	private List<Answer> answers;
+	
 	public Integer getIdUser() {
 		return idUser;
 	}
@@ -24,9 +28,6 @@ public class Topic {
 	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
-
-	private User user;
-	private List<Answer> answers;
 
 	public Long getId() {
 		return id;

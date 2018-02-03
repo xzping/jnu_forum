@@ -28,14 +28,15 @@ public interface TopicDao {
 	@Select({ "SELECT COUNT(title) FROM", TABLE_NAME, "WHERE id_user=#{userId}" })
 	Long countTopicsByUser_Id(@Param("userId") Long userId);
 
-	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id=#{id}" })
-	 Topic findTopicById(@Param("id") Long id);
+	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id=#{id}" })
+	Topic findTopicById(@Param("id") Long id);
 	
-	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE category=#{category} ORDER BY created_date DESC" })
-	 List<Topic> findTopicsByCategoryOrderByCreatedDateDesc(@Param("category") String category);
+	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE category=#{category} ORDER BY created_date DESC" })
+	List<Topic> findTopicsByCategoryOrderByCreatedDateDesc(@Param("category") String category);
 	
-	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE idUser=#{id} ORDER BY created_date DESC" })
-	 List<Topic> findTopicsByUser_IdOrderByCreatedDateDesc(@Param("id") Long id);
+	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE idUser=#{id} ORDER BY created_date DESC" })
+	List<Topic> findTopicsByUser_IdOrderByCreatedDateDesc(@Param("id") Long id);
 	 
-	 List<Topic> findAll();
+	@Select({"SELECT",SELECT_FIELDS,"FROM",TABLE_NAME})
+	List<Topic> findAll();
 }
