@@ -14,12 +14,17 @@
             </header>
             <section class="row">
                 <div class="col s12">
-                    <a th:href="@{'/profile/' + ${topic.getUser().getId()}}">
+                    <!-- <a th:href="@{'/profile/' + ${topic.getUser().getId()}}">
                         <span class="chip left" th:text="${topic.getUser().getUsername()}">Topic's author</span>
+                    </a> -->
+                    
+                    <a th:href="@{'/profile/' + ${topic.getIdUser()}}">
+                        <span class="chip left" th:text="${userDao.getUsernameById(topic.getIdUser())}">Topic's author</span>
                     </a>
                     <a th:href="@{'/topics/' + ${topic.getCategory()}}">
                         <span class="chip left" th:text="${topic.getCategory()}" style="background-color: #ee6e73;">Category</span>
                     </a>
+                    
                     <span class="right" th:text="${topic.displayParsedCreatedDate()}"></span>
                 </div>
             </section>

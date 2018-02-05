@@ -48,6 +48,7 @@ public class TopicController {
 		model.addAttribute("topic", topic);
 		model.addAttribute("answers", answers);
 		model.addAttribute("idUser", idUser);
+		model.addAttribute("userDao", userDao);
 		return "topic";
 	}
 
