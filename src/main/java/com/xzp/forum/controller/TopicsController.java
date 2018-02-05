@@ -39,20 +39,6 @@ public class TopicsController {
 	public String displayAllTopics(Model model,HttpServletRequest request) {
 		List<Topic> topics = topicDao.findAll();
 		String header = setHeader("all");
-
-		// 修复getId()为null的bug
-//		 List<ViewObject> vos = new ArrayList<>();
-//		for (Topic topic : topics) {
-//			System.out.println(topic.getUser().getId());
-//			System.out.println(topic.getUser().getUsername());
-//			 ViewObject vo = new ViewObject();
-//			 vo.set("topicv", topic);
-//			 vo.set("username", topic.getUser().getUsername());
-//			 vo.set("userId", topic.getUser().getId());
-//			 vos.add(vo);
-//		}
-//		 model.addAttribute("vos", vos);
-		
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
@@ -67,6 +53,7 @@ public class TopicsController {
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
+		model.addAttribute("userDao", userDao);
 		return "topics";
 	}
 
@@ -77,6 +64,7 @@ public class TopicsController {
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
+		model.addAttribute("userDao", userDao);
 		return "topics";
 	}
 
