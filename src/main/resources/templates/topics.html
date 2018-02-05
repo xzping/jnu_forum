@@ -28,8 +28,10 @@
                                     <td th:text="${answerDao.countAnswersByTopic_Id(topic.getId())}">Number of answers</td>
                                     <td th:text="${topic.getTitle()}">Topic's title</td>
                                     <td>
-                                        <a th:href="@{'/profile/' + ${topic.getUser().getId()}}">
-                                            <div class="chip" th:text="${topic.getUser().getUsername()}">Topic's author</div>
+                                        <!-- <a th:href="@{'/profile/' + ${topic.getUser().getId()}}"> -->
+                                        <a th:href="@{'/profile/9'}">
+                                            <!-- <div class="chip" th:text="${topic.getUser().getUsername()}">Topic's author</div> -->
+                                            <div class="chip" th:text="xzp2">Topic's author</div>
                                         </a>
                                     </td>
                                     <td th:text="${topic.displayParsedCreatedDate()}">Topic's created date</td>

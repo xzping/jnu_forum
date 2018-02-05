@@ -2,6 +2,8 @@ package com.xzp.forum.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.xzp.forum.dao.AnswerDao;
 import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
+import com.xzp.forum.model.Answer;
 import com.xzp.forum.model.Topic;
+import com.xzp.forum.model.User;
 
 @Controller
 public class TopicsController {
@@ -26,12 +30,19 @@ public class TopicsController {
 	private AnswerDao answerDao;
 
 	@RequestMapping(path = "/topics", method = RequestMethod.GET)
-	public String displayAllTopics(Model model) {
+	public String displayAllTopics(Model model,HttpServletRequest request) {
 		List<Topic> topics = topicDao.findAll();
+		
+//		request.setAttribute("user", new User());
+//		request.setAttribute("topic", new Topic());
+//		request.setAttribute("answer", new Answer());
+//		request.setAttribute("user", arg1);
+		
 		String header = setHeader("all");
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
+		model.addAttribute("userDao", userDao);
 		return "topics";
 	}
 

@@ -1,8 +1,11 @@
 package com.xzp.forum.model;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * topic的model实体层
@@ -11,11 +14,11 @@ import java.util.List;
  */
 public class Topic {
 	private Long id;
-	private String title;
-	private String content;
 	private String category;
-	private Date createdDate;
 	private String code;
+	private String content;
+	private Date createdDate;
+	private String title;
 	private Integer idUser;
 	
 	private User user;
@@ -93,4 +96,15 @@ public class Topic {
 		this.answers = answers;
 	}
 
+	public String displayParsedCreatedDate() {
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		return formatter.format(this.createdDate);
+    }
+
+    public String displayCode() {
+        if (Optional.ofNullable(code).isPresent())
+            return Optional.ofNullable(code).get();
+        else
+            return "";
+    }
 }

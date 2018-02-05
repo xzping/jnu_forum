@@ -25,6 +25,25 @@ public class User implements UserDetails {
 	private String password;
 	private String introduction;
 	private Date createdDate;
+	
+	private List<Answer> answers;
+	private List<Topic> topics;
+	
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
+	public List<Topic> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(List<Topic> topics) {
+		this.topics = topics;
+	}
 
 	public Long getId() {
 		return id;

@@ -23,7 +23,7 @@ public interface AnswerDao {
 	String INSERT_FIELDS = "content,useful,created_date,code,id_user,id_topic";
 	String SELECT_FIELDS = "id,content,useful,created_date,code,id_user,id_topic";
 
-	@Insert({"INSERT INTO ",TABLE_NAME," (",INSERT_FIELDS,") VALUES ( #{content},#{userful},#{createdDate},#{code},#{idUser},#{idTopic})"})
+	@Insert({"INSERT INTO ",TABLE_NAME," (",INSERT_FIELDS,") VALUES ( #{content},#{useful},#{createdDate},#{code},#{idUser},#{idTopic})"})
 	int addAnswer(Answer answer);
 	
 	@Update({ "UPADATE", TABLE_NAME, "SET userful=#{bool} WHERE id=#{id}" })
@@ -41,10 +41,10 @@ public interface AnswerDao {
 	 @Select({ "SELECT COUNT(content) FROM", TABLE_NAME, "WHERE id_topic=#{idTopic}" })
 	 Long countAnswersByTopic_Id(@Param("idTopic") Long idTopic);
 	
-	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE user_id=#{id} ORDER BY createdDate DESC" })
+	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_user=#{id} ORDER BY created_date DESC" })
 	 List<Answer> findAnswerByUser_IdOrderByCreatedDateDesc(@Param("id") Long id);
 	
-	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_user=#{idUser} AND userful=#{userful} ORDER BY createdDate DESC" })
+	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_user=#{idUser} AND useful=#{useful} ORDER BY created_date DESC" })
 	 List<Answer> findAnswerByUser_IdAndUsefulOrderByCreatedDateDesc(@Param("idUser") Long idUser, @Param("useful") boolean useful);
 	
 	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_topic=#{idTopic}" })

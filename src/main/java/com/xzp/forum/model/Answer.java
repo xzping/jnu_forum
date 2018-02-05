@@ -17,6 +17,10 @@ public class Answer {
 	private String code;
 	private Integer idTopic;
 	private Integer idUser;
+
+	private User user;
+	private Topic topic;
+
 	public Integer getIdTopic() {
 		return idTopic;
 	}
@@ -32,9 +36,6 @@ public class Answer {
 	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
-
-	private User user;
-	private Topic topic;
 
 	public Long getId() {
 		return id;

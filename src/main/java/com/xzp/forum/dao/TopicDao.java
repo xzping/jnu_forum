@@ -34,7 +34,7 @@ public interface TopicDao {
 	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE category=#{category} ORDER BY created_date DESC" })
 	List<Topic> findTopicsByCategoryOrderByCreatedDateDesc(@Param("category") String category);
 	
-	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE idUser=#{id} ORDER BY created_date DESC" })
+	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_user=#{id} ORDER BY created_date DESC" })
 	List<Topic> findTopicsByUser_IdOrderByCreatedDateDesc(@Param("id") Long id);
 	 
 	@Select({"SELECT",SELECT_FIELDS,"FROM",TABLE_NAME})
