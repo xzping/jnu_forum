@@ -1,5 +1,6 @@
 package com.xzp.forum.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,8 @@ import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Answer;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
+import com.xzp.forum.util.LocalHost;
+import com.xzp.forum.util.ViewObject;
 
 @Controller
 public class TopicsController {
@@ -28,24 +31,35 @@ public class TopicsController {
 
 	@Autowired
 	private AnswerDao answerDao;
+	
+	@Autowired
+	private LocalHost localHost;
 
 	@RequestMapping(path = "/topics", method = RequestMethod.GET)
 	public String displayAllTopics(Model model,HttpServletRequest request) {
 		List<Topic> topics = topicDao.findAll();
-		
-//		request.setAttribute("user", new User());
-//		request.setAttribute("topic", new Topic());
-//		request.setAttribute("answer", new Answer());
-//		request.setAttribute("user", arg1);
-		
 		String header = setHeader("all");
+
+		// 修复getId()为null的bug
+//		 List<ViewObject> vos = new ArrayList<>();
+//		for (Topic topic : topics) {
+//			System.out.println(topic.getUser().getId());
+//			System.out.println(topic.getUser().getUsername());
+//			 ViewObject vo = new ViewObject();
+//			 vo.set("topicv", topic);
+//			 vo.set("username", topic.getUser().getUsername());
+//			 vo.set("userId", topic.getUser().getId());
+//			 vos.add(vo);
+//		}
+//		 model.addAttribute("vos", vos);
+		
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
 		model.addAttribute("userDao", userDao);
 		return "topics";
 	}
-
+	
 	@RequestMapping(path = "/topics/{category}", method = RequestMethod.GET)
 	public String displayTopicsByCategory(@PathVariable String category, Model model) {
 		List<Topic> topics = topicDao.findTopicsByCategoryOrderByCreatedDateDesc(category);

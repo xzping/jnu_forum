@@ -42,4 +42,7 @@ public interface UserDao {
 
 	@Select({ "SELECT id FROM", TABLE_NAME, "WHERE username=#{username}" })
 	Long getIdByUsername(@Param("username") String username);
+
+	@Select({ "SELECT username FROM ", TABLE_NAME, "WHERE id=#{id}" })
+	String getUsernameById(@Param("id") Integer id);
 }

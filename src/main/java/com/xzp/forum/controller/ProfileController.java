@@ -22,6 +22,7 @@ import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
+import com.xzp.forum.util.LocalHost;
 
 /**
  * 个人简介接口
@@ -31,6 +32,7 @@ import com.xzp.forum.model.User;
  */
 @Controller
 public class ProfileController {
+	
 	@Autowired
 	private UserDao userDao;
 
