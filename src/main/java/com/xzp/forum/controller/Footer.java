@@ -16,4 +16,9 @@ public class Footer {
 	public String aboutUs() {
 		return "aboutUs";
 	}
+	
+	@RequestMapping(path = "/title")
+	public String title() {
+		return "title";
+	}
 }
