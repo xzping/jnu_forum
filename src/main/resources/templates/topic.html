@@ -46,8 +46,11 @@
                         background: -webkit-linear-gradient(left, #e7e4e4, #f3f2f2);
                         background: -o-linear-gradient(right, #e7e4e4, #f3f2f2);
                         background: -moz-linear-gradient(right, #e7e4e4, #f3f2f2);">
-                    <a th:href="@{'/profile/' + ${answer.getUser().getId()}}">
-                        <span class="chip left" style="background-color: #f3f2f2;" th:text="${answer.getUser().getUsername()}">
+                    
+                    <!-- <a th:href="@{'/profile/' + ${answer.getUser().getId()}}"> -->
+                    <a th:href="@{'/profile/' + ${answer.getIdUser()}}">
+                        <!-- <span class="chip left" style="background-color: #f3f2f2;" th:text="${answer.getUser().getUsername()}"> -->
+                        <span class="chip left" style="background-color: #f3f2f2;" th:text="${userDao.getUsernameById(answer.getIdUser())}">
                             Answer's author
                         </span>
                     </a>
@@ -55,7 +58,9 @@
                         Useful
                     </span>
                     <span class="right" th:text="${answer.displayParsedCreatedDate()}"></span>
-                    <span th:if="${topic.getUser().getId() == idUser}">
+                    
+                    <!-- <span th:if="${topic.getUser().getId() == idUser}"> -->
+                    <span th:if="${topic.getIdUser() == idUser}">
                         <form th:action="@{/topic/{topic.getId()}}" method="post">
                             <input type="hidden" name="id_answer" th:value="${answer.getId()}"/>
                             <input type="hidden" name="state" th:value="${answer.isUseful()}"/>
@@ -64,7 +69,8 @@
                             <button class="chip left" style="background-color: #37b7ab;">Set useful/useless</button>
                         </form>
                     </span>
-                    <span th:if="${answer.getUser().getId() == idUser}">
+                    <!-- <span th:if="${answer.getUser().getId() == idUser}"> -->
+                    <span th:if="${answer.getIdUser() == idUser}">
                         <form th:action="@{/topic/{topic.getId()}}" method="post">
                             <input type="hidden" name="id_answer" th:value="${answer.getId()}"/>
                             <input type="hidden" name="action" th:value="delete"/>

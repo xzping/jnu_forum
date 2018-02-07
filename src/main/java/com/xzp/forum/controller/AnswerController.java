@@ -10,24 +10,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.xzp.forum.dao.AnswerDao;
+import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.model.Answer;
 
 @Controller
 public class AnswerController {
 	@Autowired
 	private AnswerDao answerDao;
-	
-	@RequestMapping(path="/answers/{id}",method=RequestMethod.GET)
+
+	@Autowired
+	private TopicDao topicDao;
+
+	@RequestMapping(path = "/answers/{id}", method = RequestMethod.GET)
 	public String displayAnswersByUser(@PathVariable String id, Model model) {
-		List<Answer> answers=answerDao.findAnswerByUser_IdOrderByCreatedDateDesc(Long.parseLong(id));
+		List<Answer> answers = answerDao.findAnswerByUser_IdOrderByCreatedDateDesc(Long.parseLong(id));
 		model.addAttribute("answers", answers);
+		model.addAttribute("topicDao", topicDao);
 		return "answers";
 	}
-	
-	@RequestMapping(path="/answers/useful/{id}",method=RequestMethod.GET)
+
+	@RequestMapping(path = "/answers/useful/{id}", method = RequestMethod.GET)
 	public String displayUsefulAnswersByUser(@PathVariable String id, Model model) {
-		List<Answer> answers=answerDao.findAnswerByUser_IdAndUsefulOrderByCreatedDateDesc(Long.parseLong(id), true);
+		List<Answer> answers = answerDao.findAnswerByUser_IdAndUsefulOrderByCreatedDateDesc(Long.parseLong(id), true);
 		model.addAttribute("answers", answers);
+		model.addAttribute("topicDao", topicDao);
 		return "answers";
 	}
 }

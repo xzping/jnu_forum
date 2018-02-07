@@ -26,10 +26,10 @@ public interface AnswerDao {
 	@Insert({"INSERT INTO ",TABLE_NAME," (",INSERT_FIELDS,") VALUES ( #{content},#{useful},#{createdDate},#{code},#{idUser},#{idTopic})"})
 	int addAnswer(Answer answer);
 	
-	@Update({ "UPADATE", TABLE_NAME, "SET userful=#{bool} WHERE id=#{id}" })
+	@Update({ "UPDATE", TABLE_NAME, "SET useful=#{bool} WHERE id=#{id}" })
 	void setUsefulForAnswer(@Param("bool") Boolean bool, @Param("id") Long id);
 
-	@Delete({ "DELECT FROM", TABLE_NAME, "WHERE id=#{id}" })
+	@Delete({ "DELETE FROM", TABLE_NAME, "WHERE id=#{id}" })
 	void deleteAnswerById(@Param("id") Long id);
 
 	@Select({ "SELECT COUNT(content) FROM", TABLE_NAME, "WHERE id_user=#{IdUser}" })
@@ -49,4 +49,5 @@ public interface AnswerDao {
 	
 	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_topic=#{idTopic}" })
 	 List<Answer> findAnswerByTopic_Id(@Param("idTopic") Long idTopic);
+	 
 }

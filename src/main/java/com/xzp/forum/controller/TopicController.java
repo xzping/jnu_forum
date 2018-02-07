@@ -40,7 +40,6 @@ public class TopicController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((UserDetails) principal).getUsername();
 		Long idUser = userDao.getUserByUsername(username).getId();
-//		Long idUser=userDao.getIdByUsername(username);//修复getId()方法有误
 		
 		Topic topic = topicDao.findTopicById(Long.valueOf(id));
 		List<Answer> answers = answerDao.findAnswerByTopic_Id(Long.valueOf(id));
