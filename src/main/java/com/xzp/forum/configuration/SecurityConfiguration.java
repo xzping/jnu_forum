@@ -48,9 +48,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.authorizeRequests().antMatchers("/", "/login", "/register").permitAll().anyRequest()
-				.authenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/profile").and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+		httpSecurity
+				.authorizeRequests()
+				.antMatchers("/", "/login", "/register","/aboutUs").permitAll() //访问/、/login、/register、/aboutUs无需登录认证权限
+				.anyRequest().authenticated() //其他所有资源需要认证，登录后访问
+				.and()
+				.formLogin()
+				.loginPage("/login") //指定登录页面为/login
+				.defaultSuccessUrl("/profile")//登录成功后页面跳转至/profile
+				.and()
+				.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login");
 	}
 
 	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
