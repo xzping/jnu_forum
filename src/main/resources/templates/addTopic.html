@@ -1,73 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/online">
-<!--/*@thymesVar id="user" type="com.plkpiotr.forum.entities.User"*/-->
 <head>
-    <title th:text="${user.getUsername() + ' | JF'}">Title of profile view</title>
+    <title>Add Topic</title>
 </head>
 <body>
     <main layout:fragment="content">
         <article class="container" style="padding: 3% 0 2%;">
             <header class="row">
                 <div class="col s12">
-                    <blockquote class="flow-text left" th:text="${user.getUsername()} + |&apos; s profile|">Profile</blockquote>
-                    <blockquote class="flow-text right" th:text="|Points: | + ${points}">Commitment</blockquote>
-                </div>
-            </header>
-            <section class="row">
-                <div class="col s12 m6">
-                    <ul class="collection">
-                        <li class="collection-item center">Personal data</li>
-                        <li class="collection-item">
-                            <span class="badge">
-                                <span th:text="${user.getUsername()}">Nick</span>
-                            </span>用户名:
-                        </li>
-                        <li class="collection-item">
-                            <span class="badge">
-                                <span th:text="${user.displayContentOfOptional()}">Introduction</span>
-                            </span>简介:
-                        </li>
-                        <li class="collection-item">
-                            <span class="badge">
-                                <span th:text="${user.displayParsedDate()}">Created date</span>
-                            </span>注册时间:
-                        </li>
-                    </ul>
-                </div>
-                <div class="col s12 m6">
-                    <ul class="collection">
-                        <li class="collection-item center strong">Activity</li>
-                        <li class="collection-item">
-                            <a th:href="@{'/topics/user/' + ${user.getId()}}" style="display: block; color: #26a69a">
-                                <span class="badge">
-                                    <span th:text="${numberOfTopics}"></span>
-                                </span>Topics:
-                            </a>
-                        </li>
-                        <li class="collection-item">
-                            <a th:href="@{'/answers/' + ${user.getId()}}" style="display: block; color: #26a69a">
-                                <span class="badge">
-                                    <span th:text="${numberOfAnswers}"></span>
-                                </span>Answers:
-                            </a>
-                        </li>
-                        <li class="collection-item">
-                            <a th:href="@{'/answers/useful/' + ${user.getId()}}" style="display: block; color: #26a69a">
-                                <span class="badge">
-                                    <span th:text="${numberOfHelped}"></span>
-                                </span>Helped:
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-            <!-- <header class="row">
-                <div class="col s12">
                     <blockquote class="flow-text left" th:text="|Select category and add topic: |">Add topic</blockquote>
                 </div>
             </header>
             <section>
-                <form th:action="@{/profile}" method="post">
+                <form th:action="@{/addTopic}" method="post">
                     <div class="row">
                         <div class="col s12">
                             <p>
@@ -122,7 +67,7 @@
                         </div>
                     </div>
                 </form>
-            </section> -->
+            </section>
         </article>
     </main>
 </body>

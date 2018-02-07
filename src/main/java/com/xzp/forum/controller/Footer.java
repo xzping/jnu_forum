@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class footer {
+public class Footer {
 	
 	@RequestMapping(path = "/aboutUs")
 	public String aboutUs() {
