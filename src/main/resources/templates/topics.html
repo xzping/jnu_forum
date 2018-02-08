@@ -27,13 +27,6 @@
                                 <tr>
                                     <td th:text="${answerDao.countAnswersByTopic_Id(topic.getId())}">Number of answers</td>
                                     <td th:text="${topic.getTitle()}">Topic's title</td>
-                                    
-                                    <!-- <td>
-                                        <a th:href="@{'/profile/' + ${topic.getUser().getId()}}">
-                                            <div class="chip" th:text="${topic.getUser().getUsername()}">Topic's author</div>
-                                        </a>
-                                    </td> -->
-                                    
                                     <td>
                                     <a th:href="@{'/profile/' + ${topic.getIdUser()}}">
                                             <div class="chip" th:text="${userDao.getUsernameById(topic.getIdUser())}">Topic's author</div>
