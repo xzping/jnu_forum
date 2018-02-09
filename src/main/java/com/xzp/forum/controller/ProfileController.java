@@ -22,7 +22,7 @@ import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
-import com.xzp.forum.util.LocalHost;
+import com.xzp.forum.util.HostHolder;
 
 /**
  * 个人简介接口

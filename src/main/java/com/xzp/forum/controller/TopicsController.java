@@ -18,7 +18,7 @@ import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Answer;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
-import com.xzp.forum.util.LocalHost;
+import com.xzp.forum.util.HostHolder;
 import com.xzp.forum.util.ViewObject;
 
 @Controller
@@ -33,7 +33,7 @@ public class TopicsController {
 	private AnswerDao answerDao;
 	
 	@Autowired
-	private LocalHost localHost;
+	private HostHolder localHost;
 
 	@RequestMapping(path = "/topics", method = RequestMethod.GET)
 	public String displayAllTopics(Model model,HttpServletRequest request) {

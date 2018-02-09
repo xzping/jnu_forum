@@ -1,19 +1,99 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/online">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/online">
 <head>
-    <title>站内信通知</title>
+<title>站内信通知</title>
 </head>
 <body>
-    <main layout:fragment="content">
-        <article class="container">
-       		<header class="row">
-                <div class="col s12">
-                    <h1 class="flow-text center">Notice</h1>
-                    <p class="center">
-                    站内信功能正在实现中...</p>
-                </div>
-            </header>
-        </article>
-    </main>
+	<main layout:fragment="content">
+	<article class="container">
+		
+		<ul class="letter-list">
+			<li id="conversation-item-10005_622873">
+			<a class="letter-link" href="/profile"></a>
+				<div class="letter-detail">
+					<a href="/profile" class="letter-name level-color-1"> 放逐。</a> 
+					<span class="l-time">2018-02-09 13:48</span>
+					<p class="letter-brief">
+						<a href="/profile"> 放逐。认为你的评论很有用！ </a>
+					</p>
+				</div>
+			</li>
+		</ul>
+		<hr></hr>
+
+		<ul class="letter-list">
+			<li id="conversation-item-10005_622873">
+			<a class="letter-link" href="/profile"></a>
+				<div class="letter-detail">
+					<a href="/profile" class="letter-name level-color-1"> Xzping-</a> 
+					<span class="l-time">2018-02-08 13:48</span>
+					<p class="letter-brief">
+						<a href="/profile"> Xzping-评论了你的话题 </a>
+					</p>
+				</div>
+			</li>
+		</ul>
+		<hr></hr>
+		
+		<ul class="letter-list">
+			<li id="conversation-item-10005_622873">
+			<a class="letter-link" href="/profile"></a>
+				<div class="letter-detail">
+					<a href="/profile" class="letter-name level-color-1"> 放逐。</a> 
+					<span class="l-time">2018-02-09 13:48</span>
+					<p class="letter-brief">
+						<a href="/profile"> 放逐。评论了你的话题 </a>
+					</p>
+				</div>
+			</li>
+		</ul>
+		<hr></hr>
+
+		<ul class="letter-list">
+			<li id="conversation-item-10005_622873">
+			<a class="letter-link" href="/profile"></a>
+				<div class="letter-detail">
+					<a href="/profile" class="letter-name level-color-1"> Xzping-</a> 
+					<span class="l-time">2018-02-08 13:48</span>
+					<p class="letter-brief">
+						<a href="/profile"> Xzping-认为你的评论很有用！ </a>
+					</p>
+				</div>
+			</li>
+		</ul>
+		<hr></hr>
+		
+		<ul class="letter-list">
+			<li id="conversation-item-10005_622873">
+			<a class="letter-link" href="/profile"></a>
+				<div class="letter-detail">
+					<a href="/profile" class="letter-name level-color-1"> Xzping-</a> 
+					<span class="l-time">2018-02-08 13:48</span>
+					<p class="letter-brief">
+						<a href="/profile"> Xzping-认为你的评论很有用！ </a>
+					</p>
+				</div>
+			</li>
+		</ul>
+		<hr></hr>
+		
+		<ul class="letter-list">
+			<li id="conversation-item-10005_622873">
+			<a class="letter-link" href="/profile"></a>
+				<div class="letter-detail">
+					<a href="/profile" class="letter-name level-color-1" th:text="${username}"> ${username}-</a> 
+					<span class="l-time" th:text="${createdDate}">${createdDate}</span>
+					<p class="letter-brief">
+						<a href="/profile" th:text="${content}"> ${content} </a>
+					</p>
+				</div>
+			</li>
+		</ul>
+		<hr></hr>
+		
+	</article>
+	</main>
 </body>
 </html>

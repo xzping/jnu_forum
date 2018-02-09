@@ -18,11 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.xzp.forum.async.EventModel;
+import com.xzp.forum.async.EventProducer;
+import com.xzp.forum.async.EventType;
 import com.xzp.forum.dao.AnswerDao;
 import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Answer;
 import com.xzp.forum.model.Topic;
+import com.xzp.forum.util.EntityType;
 
 @Controller
 public class TopicController {
@@ -34,10 +38,14 @@ public class TopicController {
 
 	@Autowired
 	private AnswerDao answerDao;
+	
+	@Autowired
+	private EventProducer eventProducer;
 
 	@RequestMapping(path = "/topic/{id}", method = RequestMethod.GET)
 	public String displayTopic(@PathVariable String id, Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//通过UserDetails可以得到username等登录信息！！！
 		String username = ((UserDetails) principal).getUsername();
 		Long idUser = userDao.getUserByUsername(username).getId();
 		
@@ -85,6 +93,12 @@ public class TopicController {
 		answer.setIdUser(Integer.parseInt(id_user));
 
 		answerDao.addAnswer(answer);
+		
+		//触发评论的异步队列
+		eventProducer.fireEvent(new EventModel(EventType.COMMENT)
+				.setActorId(Integer.valueOf(id_user)).setEntityId(Integer.valueOf(id_topic))
+				.setEntityType(EntityType.ENTITY_COMMENT).setEntityOwnerId(Integer.parseInt(String.valueOf(userDao.getUserById(Long.parseLong(id_user)).getId()))));
+		
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/topic/" + id_topic);
 	}
