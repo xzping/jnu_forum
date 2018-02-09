@@ -26,13 +26,13 @@ import com.xzp.forum.util.HostHolder;
 public class MessageController {
 	
 	@Autowired
-	MessageDao messageDao;
+	private MessageDao messageDao;
 	
 	@Autowired
-	UserDao userDao;
+	private UserDao userDao;
 	
 	@Autowired
-	HostHolder hostHolder;
+	private HostHolder hostHolder;
 	
 	@RequestMapping(path="/message",method= {RequestMethod.GET,RequestMethod.POST})
 	public String message(Model model) {
