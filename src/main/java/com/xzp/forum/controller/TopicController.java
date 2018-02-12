@@ -110,4 +110,16 @@ public class TopicController {
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/topic/" + id_topic);
 	}
+	
+	/**
+	 * 解决按分话题时候再点击站内信无法跳转到站内信的页面，此方法主要实现一个跳转
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(path = "/topics/message", method = RequestMethod.GET)
+	public View transform(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
+	}
 }
