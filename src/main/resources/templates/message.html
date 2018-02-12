@@ -9,32 +9,36 @@
 	<main layout:fragment="content">
 	<article class="container" style="padding: 3% 0 2%;">
 		<header class="row">
-                <blockquote class="flow-text left" th:text="站内信通知">Header</blockquote>
-                <blockquote class="flow-text right" th:text="|Total: | + ${messages.size()}">Number of messages</blockquote>
-        </header>
+			<blockquote class="flow-text left" th:text="站内信通知">Header</blockquote>
+			<blockquote class="flow-text right"
+				th:text="|Total: | + ${messages.size()}">Number of
+				messages</blockquote>
+		</header>
 		<section class="row">
 			<div class="col s12">
-				<table class="striped bordered centered" th:if="${messages.size() != 0}">
+				<table class="striped bordered centered"
+					th:if="${messages.size() != 0}">
 					<thead>
-					<tr>
-                            <th>Username</th>
-                            <th>CreatedDate</th>
-                            <th>Content</th>
-                    </tr>
-                    </thead>
+						<tr>
+							<th>用户</th>
+							<th>创建时间</th>
+							<th>内容</th>
+							<th>Enter</th>
+						</tr>
+					</thead>
 					<tbody>
 						<th:block th:each="message:${messages}">
 							<tr>
-								<!-- message.getFromId()会报错无法找到String的Type，在message中加上$即可 -->
-								<td th:text="${userDao.getUsernameById(message.getFromId())}">Username</td>
-								<td th:text="${message.displayParsedCreatedDate(message.getCreatedDate())}">CreatedDate</td>
-								<td th:text="${message.getContent()}">Content</td>
+								<td th:text="${userDao.getUsernameById(message.getFromId())}">用户</td>
+								<!-- <td th:text="${message.getCreatedDate()}">创建时间</td> -->
 								
-								<!-- <td th:text="Xzping-">Username</td> -->
-								<!-- <td th:text="${userDao.getUsernameById(12)}">Username</td>
-								<td th:text="'2018-02-12 17'+':'+'18'">CreatedDate</td>
-								<td th:text="Xzping-评论了你的话题">Content</td> -->
-								
+								<td th:text="${#dates.format(message.getCreatedDate(), 'yyyy-MM-dd HH:mm')}">创建时间</td>
+								<td th:text="${message.getContent()}">内容</td>
+								<td>
+									<a th:href="@{'/topic/' + ${message.getIdTopic()}}" class="btn btn-floating pulse"> 
+										<i class="material-icons">arrow_forward</i>
+									</a>
+								</td>
 							</tr>
 						</th:block>
 					</tbody>

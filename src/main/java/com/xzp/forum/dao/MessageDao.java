@@ -13,11 +13,11 @@ import com.xzp.forum.model.Message;
 @Mapper
 public interface MessageDao {
 	String TABLE_NAME = "message";
-	String INSERT_FIELDS = "from_id,to_id,content,created_date";
-	String SELECT_FIELDS = "id,from_id,to_id,content,created_date";
+	String INSERT_FIELDS = "from_id,to_id,content,created_date,id_topic";
+	String SELECT_FIELDS = "id,from_id,to_id,content,created_date,id_topic";
 
 	@Insert({ "INSERT INTO ", TABLE_NAME, "(", INSERT_FIELDS,
-			") VALUES (#{fromId},#{toId},#{content},#{createdDate})" })
+			") VALUES (#{fromId},#{toId},#{content},#{createdDate},#{idTopic})" })
 	int addMessage(Message message);
 	
 	@Select({"SELECT",SELECT_FIELDS,"FROM",TABLE_NAME,"WHERE to_id=#{toId}"})

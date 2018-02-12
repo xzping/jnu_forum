@@ -9,6 +9,15 @@ public class Message {
 	private Integer toId;
 	private String content;
 	private Date createdDate;
+	private Integer idTopic;
+
+	public Integer getIdTopic() {
+		return idTopic;
+	}
+
+	public void setIdTopic(Integer idTopic) {
+		this.idTopic = idTopic;
+	}
 
 	public Long getId() {
 		return id;
