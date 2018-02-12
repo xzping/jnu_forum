@@ -7,92 +7,40 @@
 </head>
 <body>
 	<main layout:fragment="content">
-	<article class="container">
-		
-		<ul class="letter-list">
-			<li id="conversation-item-10005_622873">
-			<a class="letter-link" href="/profile"></a>
-				<div class="letter-detail">
-					<a href="/profile" class="letter-name level-color-1"> 放逐。</a> 
-					<span class="l-time">2018-02-09 13:48</span>
-					<p class="letter-brief">
-						<a href="/profile"> 放逐。认为你的评论很有用！ </a>
-					</p>
-				</div>
-			</li>
-		</ul>
-		<hr></hr>
-
-		<ul class="letter-list">
-			<li id="conversation-item-10005_622873">
-			<a class="letter-link" href="/profile"></a>
-				<div class="letter-detail">
-					<a href="/profile" class="letter-name level-color-1"> Xzping-</a> 
-					<span class="l-time">2018-02-08 13:48</span>
-					<p class="letter-brief">
-						<a href="/profile"> Xzping-评论了你的话题 </a>
-					</p>
-				</div>
-			</li>
-		</ul>
-		<hr></hr>
-		
-		<ul class="letter-list">
-			<li id="conversation-item-10005_622873">
-			<a class="letter-link" href="/profile"></a>
-				<div class="letter-detail">
-					<a href="/profile" class="letter-name level-color-1"> 放逐。</a> 
-					<span class="l-time">2018-02-09 13:48</span>
-					<p class="letter-brief">
-						<a href="/profile"> 放逐。评论了你的话题 </a>
-					</p>
-				</div>
-			</li>
-		</ul>
-		<hr></hr>
-
-		<ul class="letter-list">
-			<li id="conversation-item-10005_622873">
-			<a class="letter-link" href="/profile"></a>
-				<div class="letter-detail">
-					<a href="/profile" class="letter-name level-color-1"> Xzping-</a> 
-					<span class="l-time">2018-02-08 13:48</span>
-					<p class="letter-brief">
-						<a href="/profile"> Xzping-认为你的评论很有用！ </a>
-					</p>
-				</div>
-			</li>
-		</ul>
-		<hr></hr>
-		
-		<ul class="letter-list">
-			<li id="conversation-item-10005_622873">
-			<a class="letter-link" href="/profile"></a>
-				<div class="letter-detail">
-					<a href="/profile" class="letter-name level-color-1"> Xzping-</a> 
-					<span class="l-time">2018-02-08 13:48</span>
-					<p class="letter-brief">
-						<a href="/profile"> Xzping-认为你的评论很有用！ </a>
-					</p>
-				</div>
-			</li>
-		</ul>
-		<hr></hr>
-		
-		<ul class="letter-list">
-			<li id="conversation-item-10005_622873">
-			<a class="letter-link" href="/profile"></a>
-				<div class="letter-detail">
-					<a href="/profile" class="letter-name level-color-1" th:text="${username}"> ${username}-</a> 
-					<span class="l-time" th:text="${createdDate}">${createdDate}</span>
-					<p class="letter-brief">
-						<a href="/profile" th:text="${content}"> ${content} </a>
-					</p>
-				</div>
-			</li>
-		</ul>
-		<hr></hr>
-		
+	<article class="container" style="padding: 3% 0 2%;">
+		<header class="row">
+                <blockquote class="flow-text left" th:text="站内信通知">Header</blockquote>
+                <blockquote class="flow-text right" th:text="|Total: | + ${messages.size()}">Number of messages</blockquote>
+        </header>
+		<section class="row">
+			<div class="col s12">
+				<table class="striped bordered centered" th:if="${messages.size() != 0}">
+					<thead>
+					<tr>
+                            <th>Username</th>
+                            <th>CreatedDate</th>
+                            <th>Content</th>
+                    </tr>
+                    </thead>
+					<tbody>
+						<th:block th:each="message:${messages}">
+							<tr>
+								<!-- message.getFromId()会报错无法找到String的Type，在message中加上$即可 -->
+								<td th:text="${userDao.getUsernameById(message.getFromId())}">Username</td>
+								<td th:text="${message.displayParsedCreatedDate(message.getCreatedDate())}">CreatedDate</td>
+								<td th:text="${message.getContent()}">Content</td>
+								
+								<!-- <td th:text="Xzping-">Username</td> -->
+								<!-- <td th:text="${userDao.getUsernameById(12)}">Username</td>
+								<td th:text="'2018-02-12 17'+':'+'18'">CreatedDate</td>
+								<td th:text="Xzping-评论了你的话题">Content</td> -->
+								
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</section>
 	</article>
 	</main>
 </body>

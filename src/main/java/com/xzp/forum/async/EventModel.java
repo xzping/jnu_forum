@@ -1,5 +1,6 @@
 package com.xzp.forum.async;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,17 @@ public class EventModel {
 	private int entityType; //触发的对象
 	private int entityId;
     private int entityOwnerId; //触发的对象的拥有者
-    private Map<String, String> exts = new HashMap<String, String>();
+    private Date createdDate;
+    
+    public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	private Map<String, String> exts = new HashMap<String, String>();
 
     public String getExt(String key) {
         return exts.get(key);

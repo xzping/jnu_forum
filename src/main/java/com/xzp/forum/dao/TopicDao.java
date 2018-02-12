@@ -39,4 +39,7 @@ public interface TopicDao {
 	 
 	@Select({"SELECT",SELECT_FIELDS,"FROM",TABLE_NAME,"ORDER BY created_date DESC"})
 	List<Topic> findAll();
+	
+	@Select({"SELECT id_user FROM ",TABLE_NAME,"WHERE id=#{id}"})
+	int getId_userById(@Param("id") Long id);
 }

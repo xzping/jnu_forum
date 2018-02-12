@@ -10,10 +10,12 @@ import org.springframework.stereotype.Component;
 import com.xzp.forum.async.EventHandler;
 import com.xzp.forum.async.EventModel;
 import com.xzp.forum.async.EventType;
+import com.xzp.forum.dao.AnswerDao;
 import com.xzp.forum.dao.MessageDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Message;
 import com.xzp.forum.model.User;
+import com.xzp.forum.util.HostHolder;
 
 /**
  * 评论的处理器
@@ -30,14 +32,20 @@ public class CommentHandler implements EventHandler{
 	@Autowired
 	MessageDao messageDao;
 	
+	@Autowired
+	HostHolder hostHolder;
+	
+	@Autowired
+	AnswerDao answerDao;
+	
 	@Override
 	public void doHandle(EventModel model) {
 		Message message=new Message();
-		message.setFromId(3);
+		message.setFromId(model.getActorId());
 		message.setToId(model.getEntityOwnerId());
 		User user=userDao.getUserById((long) model.getActorId());
 		message.setContent("用户"+user.getUsername()+"评论你的话题！");
-		message.setCreatedDate(new Date());
+		message.setCreatedDate(model.getCreatedDate());
 		messageDao.addMessage(message);
 	}
 

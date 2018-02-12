@@ -1,5 +1,6 @@
 package com.xzp.forum.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Message {
@@ -8,7 +9,6 @@ public class Message {
 	private Integer toId;
 	private String content;
 	private Date createdDate;
-	private String conversationId;
 
 	public Long getId() {
 		return id;
@@ -49,13 +49,9 @@ public class Message {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-
-	public String getConversationId() {
-		return conversationId;
-	}
-
-	public void setConversationId(String conversationId) {
-		this.conversationId = conversationId;
-	}
-
+	
+	public String displayParsedCreatedDate(Date date) {
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		return formatter.format(date);
+    }
 }

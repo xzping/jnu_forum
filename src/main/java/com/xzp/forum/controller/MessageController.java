@@ -2,6 +2,10 @@ package com.xzp.forum.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.xzp.forum.dao.MessageDao;
 import com.xzp.forum.dao.UserDao;
+import com.xzp.forum.model.Message;
+import com.xzp.forum.model.User;
 import com.xzp.forum.util.HostHolder;
 
 /**
@@ -34,13 +40,14 @@ public class MessageController {
 	@Autowired
 	private HostHolder hostHolder;
 	
-	@RequestMapping(path="/message",method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(path="/message",method= RequestMethod.GET)
 	public String message(Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((UserDetails) principal).getUsername();
-		model.addAttribute("username", username);
-		model.addAttribute("createdDate", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-		model.addAttribute("content", messageDao.getContent());
+		User user=hostHolder.getUser();
+		Long toId=user.getId();
+		List<Message> messages=messageDao.getMessageByToId(toId);
+//		System.out.println(messages.size());
+		model.addAttribute("messages", messages);
+		model.addAttribute("userDao", userDao);
 		return "message";
 	}
 }

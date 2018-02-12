@@ -26,7 +26,9 @@ import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Answer;
 import com.xzp.forum.model.Topic;
+import com.xzp.forum.model.User;
 import com.xzp.forum.util.EntityType;
+import com.xzp.forum.util.HostHolder;
 
 @Controller
 public class TopicController {
@@ -41,6 +43,9 @@ public class TopicController {
 	
 	@Autowired
 	private EventProducer eventProducer;
+	
+	@Autowired
+	HostHolder hostHolder;
 
 	@RequestMapping(path = "/topic/{id}", method = RequestMethod.GET)
 	public String displayTopic(@PathVariable String id, Model model) {
@@ -95,9 +100,12 @@ public class TopicController {
 		answerDao.addAnswer(answer);
 		
 		//触发评论的异步队列
-		eventProducer.fireEvent(new EventModel(EventType.COMMENT)
-				.setActorId(Integer.valueOf(id_user)).setEntityId(Integer.valueOf(id_topic))
-				.setEntityType(EntityType.ENTITY_COMMENT).setEntityOwnerId(Integer.parseInt(String.valueOf(userDao.getUserById(Long.parseLong(id_user)).getId()))));
+		User user=hostHolder.getUser();
+		EventModel eventModel=new EventModel(EventType.COMMENT);
+		eventProducer.fireEvent(eventModel
+				.setActorId(Integer.parseInt(String.valueOf(user.getId()))).setEntityId(Integer.valueOf(id_topic))
+				.setEntityType(EntityType.ENTITY_COMMENT).setEntityOwnerId(topicDao.getId_userById(Long.parseLong(id_topic))));
+		eventModel.setCreatedDate(new Date());
 		
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/topic/" + id_topic);

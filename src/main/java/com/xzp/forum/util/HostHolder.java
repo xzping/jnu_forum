@@ -23,11 +23,8 @@ public class HostHolder {
 	UserDao userDao;
 	
 	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		user=userDao.getUserByUsername(((UserDetails) principal).getUsername());
-		this.user = user;
+		return user;
 	}
 }
