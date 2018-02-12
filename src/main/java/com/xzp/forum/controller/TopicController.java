@@ -102,10 +102,16 @@ public class TopicController {
 		//触发评论的异步队列
 		User user=hostHolder.getUser();
 		EventModel eventModel=new EventModel(EventType.COMMENT);
-		eventProducer.fireEvent(eventModel
-				.setActorId(Integer.parseInt(String.valueOf(user.getId()))).setEntityId(Integer.valueOf(id_topic))
-				.setEntityType(EntityType.ENTITY_COMMENT).setEntityOwnerId(topicDao.getId_userById(Long.parseLong(id_topic))));
 		eventModel.setCreatedDate(new Date());
+		eventModel.setActorId(Integer.parseInt(String.valueOf(user.getId())));
+		eventModel.setEntityId(Integer.valueOf(id_topic));
+		eventModel.setEntityType(EntityType.ENTITY_COMMENT);
+		eventModel.setEntityOwnerId(topicDao.getId_userById(Long.parseLong(id_topic)));
+		eventProducer.fireEvent(eventModel);
+		
+//		eventProducer.fireEvent(eventModel
+//				.setActorId(Integer.parseInt(String.valueOf(user.getId()))).setEntityId(Integer.valueOf(id_topic))
+//				.setEntityType(EntityType.ENTITY_COMMENT).setEntityOwnerId(topicDao.getId_userById(Long.parseLong(id_topic))));
 		
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/topic/" + id_topic);
@@ -118,7 +124,13 @@ public class TopicController {
 	 * @return
 	 */
 	@RequestMapping(path = "/topics/message", method = RequestMethod.GET)
-	public View transform(HttpServletRequest request) {
+	public View topicsTransform(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
+	}
+	
+	@RequestMapping(path = "/topic/message", method = RequestMethod.GET)
+	public View topicTransform(HttpServletRequest request) {
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/message");
 	}
