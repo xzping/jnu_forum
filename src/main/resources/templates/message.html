@@ -29,9 +29,12 @@
 					<tbody>
 						<th:block th:each="message:${messages}">
 							<tr>
-								<td th:text="${userDao.getUsernameById(message.getFromId())}">用户</td>
-								<!-- <td th:text="${message.getCreatedDate()}">创建时间</td> -->
-								
+								<td>
+                                    <a th:href="@{'/profile/' + ${message.getFromId()}}">
+                                         <div class="chip" th:text="${userDao.getUsernameById(message.getFromId())}">用户</div>
+                                    </a>
+                                </td>
+								<!-- <td th:text="${userDao.getUsernameById(message.getFromId())}">用户</td> -->
 								<td th:text="${#dates.format(message.getCreatedDate(), 'yyyy-MM-dd HH:mm')}">创建时间</td>
 								<td th:text="${message.getContent()}">内容</td>
 								<td>

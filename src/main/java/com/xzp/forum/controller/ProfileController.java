@@ -101,4 +101,10 @@ public class ProfileController {
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/profile");
 	}
+	
+	@RequestMapping(path = "/profile/message", method = RequestMethod.GET)
+	public View topicsTransform(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
+	}
 }
