@@ -39,6 +39,8 @@ public class TopicsController {
 	public String displayAllTopics(Model model,HttpServletRequest request) {
 		List<Topic> topics = topicDao.findAll();
 		String header = setHeader("all");
+		
+		model.addAttribute("user", localHost.getUser());
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
@@ -50,6 +52,7 @@ public class TopicsController {
 	public String displayTopicsByCategory(@PathVariable String category, Model model) {
 		List<Topic> topics = topicDao.findTopicsByCategoryOrderByCreatedDateDesc(category);
 		String header = setHeader(category);
+		model.addAttribute("user", localHost.getUser());
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
@@ -61,6 +64,7 @@ public class TopicsController {
 	public String displayTopicsByUser(@PathVariable String id, Model model) {
 		List<Topic> topics = topicDao.findTopicsByUser_IdOrderByCreatedDateDesc(Long.valueOf(id));
 		String header = setHeader("user");
+		model.addAttribute("user", localHost.getUser());
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
