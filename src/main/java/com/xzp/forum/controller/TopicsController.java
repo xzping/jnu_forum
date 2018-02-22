@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.xzp.forum.dao.AnswerDao;
 import com.xzp.forum.dao.TopicDao;
@@ -89,5 +91,16 @@ public class TopicsController {
 		default:
 			return "User's topics";
 		}
+	}
+	
+	/**
+	 * 页面跳转bug
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(path = "/topics/user/message", method = RequestMethod.GET)
+	public View topicTransform(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
 	}
 }

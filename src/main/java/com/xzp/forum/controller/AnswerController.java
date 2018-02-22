@@ -2,12 +2,16 @@ package com.xzp.forum.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.xzp.forum.dao.AnswerDao;
 import com.xzp.forum.dao.TopicDao;
@@ -47,5 +51,22 @@ public class AnswerController {
 		model.addAttribute("answers", answers);
 		model.addAttribute("topicDao", topicDao);
 		return "answers";
+	}
+	
+	/**
+	 * 页面跳转bug
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(path = "/answers/message", method = RequestMethod.GET)
+	public View answersTransform(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
+	}
+	
+	@RequestMapping(path = "/answers/useful/message", method = RequestMethod.GET)
+	public View answerUsefulTransform(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
 	}
 }

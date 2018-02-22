@@ -8,17 +8,17 @@
         <article class="container" style="padding: 3% 0 2%;">
             <header class="row">
                 <blockquote class="flow-text left" th:text="${header}">Header</blockquote>
-                <blockquote class="flow-text right" th:text="|Topics: | + ${topics.size()}">Number of topics</blockquote>
+                <blockquote class="flow-text right" th:text="|话题数量： | + ${topics.size()}">Number of topics</blockquote>
             </header>
             <section class="row">
                 <div class="col s12">
                     <table class="striped bordered centered" th:if="${topics.size() != 0}">
                         <thead>
                         <tr>
-                            <th>Answers</th>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Created</th>
+                            <th>评论数</th>
+                            <th>标题</th>
+                            <th>作者</th>
+                            <th>创建时间</th>
                             <th>Enter</th>
                         </tr>
                         </thead>
