@@ -70,6 +70,16 @@ public class TopicController {
 		return "topic";
 	}
 
+	/**
+	 * 删除评论或置为有用/没用的评论
+	 * 
+	 * @param id_topic
+	 * @param action
+	 * @param id_answer
+	 * @param state
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(path = "/topic/{id}", method = RequestMethod.POST)
 	public View updateAnswer(@RequestParam String id_topic, @RequestParam String action, @RequestParam String id_answer,
 			@RequestParam(required = false) String state, HttpServletRequest request) {
@@ -85,6 +95,13 @@ public class TopicController {
 		return new RedirectView(contextPath + "/topic/" + id_topic);
 	}
 	
+	/**
+	 * 删除话题
+	 * @param id_topic
+	 * @param action
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(path = "/topicC/{id}", method = RequestMethod.POST)
 	public View updateTopic(@RequestParam String id_topic, @RequestParam String action,
 			HttpServletRequest request) {
@@ -97,8 +114,8 @@ public class TopicController {
 				answerDao.deleteAnswerByTopic_id(Long.parseLong(id_topic));
 			}
 			topicDao.deleteTopicById(Long.parseLong(id_topic));
-			messageDao.deleteMessageByTopicIdAndFromIdAndToId(Long.parseLong(id_topic));
-			
+			//把该话题的评论时候引起的站内信通知也对应删除掉，避免出现话题的查找的bug
+			messageDao.deleteMessageByTopicId(Long.parseLong(id_topic));
 			break;
 		}
 		String contextPath = request.getContextPath();

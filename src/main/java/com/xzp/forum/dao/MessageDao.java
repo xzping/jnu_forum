@@ -25,5 +25,5 @@ public interface MessageDao {
 	List<Message> getMessageByToId(@Param("toId") Long toId);
 	
 	@Delete({"DELETE FROM",TABLE_NAME,"WHERE id_topic=#{topic_id}"})
-	void deleteMessageByTopicIdAndFromIdAndToId(@Param("topic_id") Long topic_id);
+	void deleteMessageByTopicId(@Param("topic_id") Long topic_id);
 }
