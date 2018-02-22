@@ -19,7 +19,6 @@
                     <a th:href="@{'/topics/' + ${topic.getCategory()}}">
                         <span class="chip left" th:text="${topic.getCategory()}" style="background-color: #ee6e73;">Category</span>
                     </a>
-                    
                     <span class="right" th:text="${topic.displayParsedCreatedDate()}"></span>
                 </div>
             </section>

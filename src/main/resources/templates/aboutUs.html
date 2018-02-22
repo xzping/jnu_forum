@@ -1,10 +1,26 @@
-<html>
-	<head>
-		<title>关于我们</title>
-	</head>
-	<body>
-		<p>姓名：谢志平</p>
-		<p>学号：2014052505</p>
-		<p>专业：电子信息科学与技术</p>
-	</body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/offline">
+<head>
+    <title>关于我们</title>
+</head>
+<body>
+    <main layout:fragment="content">
+        <article class="container">
+            <header class="row">
+                <div class="col s12">
+                    <h1 class="flow-text center">关于我们</h1>
+                    <p class="center">
+                    	姓名：谢志平
+                		</p>
+                		<p class="center">
+                   	学号：2014052505
+                		</p>
+                		<p class="center">
+                    	专业：电子信息科学与技术
+                		</p>
+                </div>
+            </header>
+        </article>
+    </main>
+</body>
 </html>
