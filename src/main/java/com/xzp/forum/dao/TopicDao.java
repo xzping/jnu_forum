@@ -2,6 +2,7 @@ package com.xzp.forum.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,6 +25,9 @@ public interface TopicDao {
 	@Insert({ "INSERT INTO ", TABLE_NAME, "(", INSERT_FIELDS,
 			") VALUES (#{title},#{content},#{category},#{createdDate},#{code},#{idUser})" })
 	int addTopic(Topic topic);
+	
+	@Delete({"DELETE FROM ",TABLE_NAME,"WHERE id=#{id}"})
+	void deleteTopicById(@Param("id") Long id);
 
 	@Select({ "SELECT COUNT(title) FROM", TABLE_NAME, "WHERE id_user=#{userId}" })
 	Long countTopicsByUser_Id(@Param("userId") Long userId);

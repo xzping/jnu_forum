@@ -31,6 +31,9 @@ public interface AnswerDao {
 
 	@Delete({ "DELETE FROM", TABLE_NAME, "WHERE id=#{id}" })
 	void deleteAnswerById(@Param("id") Long id);
+	
+	@Delete({"DELETE FROM",TABLE_NAME,"WHERE id_topic=#{topic_id}"})
+	void deleteAnswerByTopic_id(@Param("topic_id") Long topic_id);
 
 	@Select({ "SELECT COUNT(content) FROM", TABLE_NAME, "WHERE id_user=#{IdUser}" })
 	Long countAnswersByUser_Id(@Param("IdUser") Long IdUser);
@@ -50,4 +53,6 @@ public interface AnswerDao {
 	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_topic=#{idTopic}" })
 	 List<Answer> findAnswerByTopic_Id(@Param("idTopic") Long idTopic);
 	 
+	 @Select({"SELECT id_user FROM",TABLE_NAME,"WHERE id=#{id}"})
+	 Long getIdUserById(@Param("id") Long id);
 }

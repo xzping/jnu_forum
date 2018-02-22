@@ -22,6 +22,7 @@ import com.xzp.forum.async.EventModel;
 import com.xzp.forum.async.EventProducer;
 import com.xzp.forum.async.EventType;
 import com.xzp.forum.dao.AnswerDao;
+import com.xzp.forum.dao.MessageDao;
 import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Answer;
@@ -42,6 +43,9 @@ public class TopicController {
 	private AnswerDao answerDao;
 	
 	@Autowired
+	private MessageDao messageDao;
+	
+	@Autowired
 	private EventProducer eventProducer;
 	
 	@Autowired
@@ -49,8 +53,9 @@ public class TopicController {
 
 	@RequestMapping(path = "/topic/{id}", method = RequestMethod.GET)
 	public String displayTopic(@PathVariable String id, Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
 		//通过UserDetails可以得到username等登录信息！！！
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((UserDetails) principal).getUsername();
 		Long idUser = userDao.getUserByUsername(username).getId();
 		
@@ -78,6 +83,26 @@ public class TopicController {
 		}
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/topic/" + id_topic);
+	}
+	
+	@RequestMapping(path = "/topicC/{id}", method = RequestMethod.POST)
+	public View updateTopic(@RequestParam String id_topic, @RequestParam String action,
+			HttpServletRequest request) {
+		
+		List<Answer> answers = answerDao.findAnswerByTopic_Id(Long.valueOf(id_topic));
+		switch (action) {
+		case "delete":
+			//如果当前话题的评论数不为0时，删除当前话题会出现数据库的主外键关联的删除问题，即无法删除当前字段，因此必须先把当前话题的评论删除才可以删除话题
+			if(answers.size()!=0) {
+				answerDao.deleteAnswerByTopic_id(Long.parseLong(id_topic));
+			}
+			topicDao.deleteTopicById(Long.parseLong(id_topic));
+			messageDao.deleteMessageByTopicIdAndFromIdAndToId(Long.parseLong(id_topic));
+			
+			break;
+		}
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/topics");
 	}
 
 	@RequestMapping(path = "/topic", method = RequestMethod.POST)
@@ -109,11 +134,6 @@ public class TopicController {
 		eventModel.setEntityType(EntityType.ENTITY_COMMENT);
 		eventModel.setEntityOwnerId(topicDao.getId_userById(Long.parseLong(id_topic)));
 		eventProducer.fireEvent(eventModel);
-		
-//		eventProducer.fireEvent(eventModel
-//				.setActorId(Integer.parseInt(String.valueOf(user.getId()))).setEntityId(Integer.valueOf(id_topic))
-//				.setEntityType(EntityType.ENTITY_COMMENT).setEntityOwnerId(topicDao.getId_userById(Long.parseLong(id_topic))));
-		
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/topic/" + id_topic);
 	}

@@ -19,6 +19,15 @@
                     <a th:href="@{'/topics/' + ${topic.getCategory()}}">
                         <span class="chip left" th:text="${topic.getCategory()}" style="background-color: #ee6e73;">Category</span>
                     </a>
+                    
+                     <span th:if="${topic.getIdUser() == idUser}">
+                        <form th:action="@{/topicC/{topic.getId()}}" method="post">
+                            <input type="hidden" name="action" th:value="delete"/>
+                            <input type="hidden" name="id_topic" th:value="${topic.getId()}"/>
+                            <button class="chip left" style="background-color: #37b7ab;">Delete</button>
+                        </form>
+                    </span>
+                    
                     <span class="right" th:text="${topic.displayParsedCreatedDate()}"></span>
                 </div>
             </section>

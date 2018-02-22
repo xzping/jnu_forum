@@ -3,6 +3,7 @@ package com.xzp.forum.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,4 +24,6 @@ public interface MessageDao {
 	@Select({"SELECT",SELECT_FIELDS,"FROM",TABLE_NAME,"WHERE to_id=#{toId}"})
 	List<Message> getMessageByToId(@Param("toId") Long toId);
 	
+	@Delete({"DELETE FROM",TABLE_NAME,"WHERE id_topic=#{topic_id}"})
+	void deleteMessageByTopicIdAndFromIdAndToId(@Param("topic_id") Long topic_id);
 }
