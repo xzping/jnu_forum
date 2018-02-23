@@ -6,7 +6,7 @@
 	<groupId>com.xzp</groupId>
 	<artifactId>jnu_forum</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>jnu_forum</name>
 	<description>Demo project for Spring Boot</description>
@@ -52,7 +52,7 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>materializecss</artifactId>
 			<version>0.100.2</version>
@@ -62,7 +62,7 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
 			<version>3.2.1</version>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

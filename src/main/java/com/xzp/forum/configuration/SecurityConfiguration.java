@@ -50,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
 				.authorizeRequests()
-				.antMatchers("/", "/login", "/register","/aboutUs").permitAll() //访问/、/login、/register、/aboutUs无需登录认证权限
+				.antMatchers("/", "/login", "/register","/aboutUs.html","/title.html").permitAll() //访问/、/login、/register、/aboutUs无需登录认证权限
 				.anyRequest().authenticated() //其他所有资源需要认证，登录后访问
 				.and()
 				.formLogin()

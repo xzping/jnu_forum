@@ -95,32 +95,32 @@ public class TopicController {
 		return new RedirectView(contextPath + "/topic/" + id_topic);
 	}
 	
-	/**
-	 * 删除话题
-	 * @param id_topic
-	 * @param action
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(path = "/topicC/{id}", method = RequestMethod.POST)
-	public View updateTopic(@RequestParam String id_topic, @RequestParam String action,
-			HttpServletRequest request) {
-		
-		List<Answer> answers = answerDao.findAnswerByTopic_Id(Long.valueOf(id_topic));
-		switch (action) {
-		case "delete":
-			//如果当前话题的评论数不为0时，删除当前话题会出现数据库的主外键关联的删除问题，即无法删除当前字段，因此必须先把当前话题的评论删除才可以删除话题
-			if(answers.size()!=0) {
-				answerDao.deleteAnswerByTopic_id(Long.parseLong(id_topic));
-			}
-			topicDao.deleteTopicById(Long.parseLong(id_topic));
-			//把该话题的评论时候引起的站内信通知也对应删除掉，避免出现话题的查找的bug
-			messageDao.deleteMessageByTopicId(Long.parseLong(id_topic));
-			break;
-		}
-		String contextPath = request.getContextPath();
-		return new RedirectView(contextPath + "/topics");
-	}
+//	/**
+//	 * 删除话题
+//	 * @param id_topic
+//	 * @param action
+//	 * @param request
+//	 * @return
+//	 */
+//	@RequestMapping(path = "/topicC/{id}", method = RequestMethod.POST)
+//	public View updateTopic(@RequestParam String id_topic, @RequestParam String action,
+//			HttpServletRequest request) {
+//		
+//		List<Answer> answers = answerDao.findAnswerByTopic_Id(Long.valueOf(id_topic));
+//		switch (action) {
+//		case "delete":
+//			//如果当前话题的评论数不为0时，删除当前话题会出现数据库的主外键关联的删除问题，即无法删除当前字段，因此必须先把当前话题的评论删除才可以删除话题
+//			if(answers.size()!=0) {
+//				answerDao.deleteAnswerByTopic_id(Long.parseLong(id_topic));
+//			}
+//			topicDao.deleteTopicById(Long.parseLong(id_topic));
+//			//把该话题的评论时候引起的站内信通知也对应删除掉，避免出现话题的查找的bug
+//			messageDao.deleteMessageByTopicId(Long.parseLong(id_topic));
+//			break;
+//		}
+//		String contextPath = request.getContextPath();
+//		return new RedirectView(contextPath + "/topics");
+//	}
 
 	@RequestMapping(path = "/topic", method = RequestMethod.POST)
 	public View addAnswer(@RequestParam("content") String content, @RequestParam("code") String code,
