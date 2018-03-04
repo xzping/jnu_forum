@@ -20,11 +20,11 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  */
 public class User implements UserDetails {
-	private Long id;
-	private String username;
-	private String password;
-	private String introduction;
-	private Date createdDate;
+	private Long id; //用户的userId
+	private String username; //用户名
+	private String password;//用户密码
+	private String introduction;//用户的介绍
+	private Date createdDate;//用户的注册时间
 	
 	private List<Answer> answers;
 	private List<Topic> topics;

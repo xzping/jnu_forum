@@ -123,11 +123,12 @@ public class TopicController {
 //	}
 
 	/**
+	 * 话题评论接口
 	 * 
-	 * @param content
-	 * @param code
+	 * @param content 评论的内容
+	 * @param code 评论附加的代码
 	 * @param id_topic 话题的id
-	 * @param id_user 该话题的话题用户的userId
+	 * @param id_user 该话题的用户的userId
 	 * @param request
 	 * @return
 	 */
@@ -154,8 +155,6 @@ public class TopicController {
 		// 触发评论的异步队列
 		User user=hostHolder.getUser();
 		// 如果评论自己的话题不会触发站内信通知
-		System.out.println("登录用户的ID："+user.getId());
-		System.out.println("评论对象的ID："+topicDao.getId_userById(Long.parseLong(id_topic)));
 		if(user.getId()!=topicDao.getId_userById(Long.parseLong(id_topic))) {
 			EventModel eventModel=new EventModel(EventType.COMMENT);
 			eventModel.setCreatedDate(new Date());
