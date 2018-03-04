@@ -122,6 +122,15 @@ public class TopicController {
 //		return new RedirectView(contextPath + "/topics");
 //	}
 
+	/**
+	 * 
+	 * @param content
+	 * @param code
+	 * @param id_topic 话题的id
+	 * @param id_user 该话题的话题用户的userId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(path = "/topic", method = RequestMethod.POST)
 	public View addAnswer(@RequestParam("content") String content, @RequestParam("code") String code,
 			@RequestParam("id_topic") String id_topic, @RequestParam("id_user") String id_user,
@@ -142,15 +151,20 @@ public class TopicController {
 
 		answerDao.addAnswer(answer);
 		
-		//触发评论的异步队列
+		// 触发评论的异步队列
 		User user=hostHolder.getUser();
-		EventModel eventModel=new EventModel(EventType.COMMENT);
-		eventModel.setCreatedDate(new Date());
-		eventModel.setActorId(Integer.parseInt(String.valueOf(user.getId())));
-		eventModel.setEntityId(Integer.valueOf(id_topic));
-		eventModel.setEntityType(EntityType.ENTITY_COMMENT);
-		eventModel.setEntityOwnerId(topicDao.getId_userById(Long.parseLong(id_topic)));
-		eventProducer.fireEvent(eventModel);
+		// 如果评论自己的话题不会触发站内信通知
+		System.out.println("登录用户的ID："+user.getId());
+		System.out.println("评论对象的ID："+topicDao.getId_userById(Long.parseLong(id_topic)));
+		if(user.getId()!=topicDao.getId_userById(Long.parseLong(id_topic))) {
+			EventModel eventModel=new EventModel(EventType.COMMENT);
+			eventModel.setCreatedDate(new Date());
+			eventModel.setActorId(Integer.parseInt(String.valueOf(user.getId())));
+			eventModel.setEntityId(Integer.valueOf(id_topic));
+			eventModel.setEntityType(EntityType.ENTITY_COMMENT);
+			eventModel.setEntityOwnerId(topicDao.getId_userById(Long.parseLong(id_topic)));
+			eventProducer.fireEvent(eventModel);
+		}
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/topic/" + id_topic);
 	}
