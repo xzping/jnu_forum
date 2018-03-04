@@ -26,4 +26,7 @@ public interface MessageDao {
 	
 	@Delete({"DELETE FROM",TABLE_NAME,"WHERE id_topic=#{topic_id}"})
 	void deleteMessageByTopicId(@Param("topic_id") Long topic_id);
+	
+	@Select({"SELECT COUNT(id) FROM",TABLE_NAME,"WHERE to_id=#{toId}"})
+	int countMessageByToId(@Param("toId") Long toId);
 }

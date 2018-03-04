@@ -14,6 +14,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.xzp.forum.dao.AnswerDao;
+import com.xzp.forum.dao.MessageDao;
 import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.model.Answer;
 import com.xzp.forum.model.User;
@@ -28,6 +29,9 @@ public class AnswerController {
 	private TopicDao topicDao;
 	
 	@Autowired
+	private MessageDao messageDao;
+	
+	@Autowired
 	HostHolder hostHolder;
 
 	@RequestMapping(path = "/answers/{id}", method = RequestMethod.GET)
@@ -36,7 +40,7 @@ public class AnswerController {
 		
 		User user=hostHolder.getUser();
 		model.addAttribute("user",user);
-		
+		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("answers", answers);
 		model.addAttribute("topicDao", topicDao);
 		return "answers";
@@ -48,6 +52,7 @@ public class AnswerController {
 		
 		User user=hostHolder.getUser();
 		model.addAttribute("user",user);
+		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("answers", answers);
 		model.addAttribute("topicDao", topicDao);
 		return "answers";

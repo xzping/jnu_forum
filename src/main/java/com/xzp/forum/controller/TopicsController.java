@@ -15,6 +15,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.xzp.forum.dao.AnswerDao;
+import com.xzp.forum.dao.MessageDao;
 import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Answer;
@@ -35,6 +36,9 @@ public class TopicsController {
 	private AnswerDao answerDao;
 	
 	@Autowired
+	private MessageDao messageDao;
+	
+	@Autowired
 	private HostHolder localHost;
 
 	@RequestMapping(path = "/topics", method = RequestMethod.GET)
@@ -42,7 +46,9 @@ public class TopicsController {
 		List<Topic> topics = topicDao.findAll();
 		String header = setHeader("all");
 		
-		model.addAttribute("user", localHost.getUser());
+		User user=localHost.getUser();
+		model.addAttribute("user", user);
+		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
@@ -54,7 +60,10 @@ public class TopicsController {
 	public String displayTopicsByCategory(@PathVariable String category, Model model) {
 		List<Topic> topics = topicDao.findTopicsByCategoryOrderByCreatedDateDesc(category);
 		String header = setHeader(category);
-		model.addAttribute("user", localHost.getUser());
+		
+		User user=localHost.getUser();
+		model.addAttribute("user", user);
+		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
@@ -66,7 +75,10 @@ public class TopicsController {
 	public String displayTopicsByUser(@PathVariable String id, Model model) {
 		List<Topic> topics = topicDao.findTopicsByUser_IdOrderByCreatedDateDesc(Long.valueOf(id));
 		String header = setHeader("user");
-		model.addAttribute("user", localHost.getUser());
+		
+		User user=localHost.getUser();
+		model.addAttribute("user", user);
+		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);

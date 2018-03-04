@@ -18,6 +18,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.xzp.forum.dao.AnswerDao;
+import com.xzp.forum.dao.MessageDao;
 import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Topic;
@@ -39,6 +40,9 @@ public class AddTopicController {
 
 	@Autowired
 	private AnswerDao answerDao;
+	
+	@Autowired
+	private MessageDao messageDao;
 
 	@RequestMapping(path = "/addTopic", method = RequestMethod.GET)
 	public String displayMyProfile(Model model) {
@@ -53,6 +57,7 @@ public class AddTopicController {
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
 
 		model.addAttribute("user", user);
+		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("points", points);
 		model.addAttribute("numberOfTopics", numberOfTopics);
 		model.addAttribute("numberOfAnswers", numberOfAnswers);
@@ -70,6 +75,7 @@ public class AddTopicController {
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(id, true);
 
 		model.addAttribute("user", user);
+		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("points", points);
 		model.addAttribute("numberOfTopics", numberOfTopics);
 		model.addAttribute("numberOfAnswers", numberOfAnswers);
