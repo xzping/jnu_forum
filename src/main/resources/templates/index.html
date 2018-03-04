@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/offline">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/offline">
 <head>
-    <title>暨大论坛</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<title>暨大论坛</title>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"
+	rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
 </head>
 <body>
-    <main layout:fragment="content">
-        <article class="container">
-            <header class="row">
+	<main layout:fragment="content">
+	<article class="container">
+		<!-- <header class="row">
                 <div class="col s12">
                     <h1 class="flow-text center">Description</h1>
                     <p class="center">
@@ -29,8 +34,43 @@
                     <h1 class="flow-text center">Store</h1>
                     <p class="center">Github</p>
                 </div>
-            </section>
-        </article>
-    </main>
+            </section> -->
+
+
+
+
+		<div class="card">
+			<div class="card-image waves-effect waves-block waves-light">
+				<img class="activator" src="images/office.jpg" width="500"
+					height="500"></img>
+			</div>
+			<div class="card-content">
+				<span class="card-title activator grey-text text-darken-4">系统介绍<i
+					class="material-icons right">more_vert</i>
+				</span>
+				<p>
+					<a href="/">Jnu_forum</a>
+				</p>
+			</div>
+			<div class="card-reveal">
+				<span class="card-title grey-text text-darken-4">Description<i
+					class="material-icons right">close</i></span>
+				<p>暨大论坛一个Java开发的web项目，主要功能有登录、注册、浏览话题、发表话题、话题分类浏览、评论、个人用户的积分、点赞（置为有用评论）、站内信等等。
+					它是一个校内讨论交流的平台，师生可以畅所欲言。</p>
+
+				<span class="card-title grey-text text-darken-4">Technologies</span>
+				<p>Java 8 Standard Edition、 Spring MVC、 Spring Data、 Spring
+					Security、 Spring Boot、 MyBatis、 HTML （Themyleaf）、 CSS （Materialize）</p>
+
+				<span class="card-title grey-text text-darken-4">Software
+					tools</span>
+				<p>Eclipse、 Maven、 MySQLWorkbench [MySQL]、PostMan</p>
+
+				<span class="card-title grey-text text-darken-4">Store</span>
+				<p>Github</p>
+			</div>
+		</div>
+	</article>
+	</main>
 </body>
 </html>
