@@ -16,15 +16,17 @@
 		</header>
 		<section class="row">
 			<div class="col s12">
-				<a th:href="@{'/profile/' + ${topic.getIdUser()}}"> <span
-					class="chip left"
-					th:text="${userDao.getUsernameById(topic.getIdUser())}">Topic's
-						author</span>
-				</a> <a th:href="@{'/topics/' + ${topic.getCategory()}}"> <span
-					class="chip left" th:text="${topic.getCategory()}"
-					style="background-color: #ee6e73;">Category</span>
+				<!-- <a th:href="@{'/profile/' + ${topic.getIdUser()}}"> 
+					<span class="chip left" th:text="${userDao.getUsernameById(topic.getIdUser())}">Topic's author</span>
+				</a> -->
+				<a th:href="@{'/profile/' + ${topic.getIdUser()}}">
+					<div class="chip left">
+						<img src="/images/index/dlrb.jpg" alt="Contact Person" th:text="${userDao.getUsernameById(topic.getIdUser())}" th:href="@{'/profile/' + ${topic.getIdUser()}}">Topic's author</img>
+					</div>
 				</a>
-
+				<a th:href="@{'/topics/' + ${topic.getCategory()}}"> 
+					<span class="chip left" th:text="${topic.getCategory()}" style="background-color: #ee6e73;">Category</span>
+				</a>
 				<!-- 删除话题 -->
 				<!-- 
                      <span th:if="${topic.getIdUser() == idUser}">
@@ -49,67 +51,44 @@
 		</section>
 		<header class="row">
 			<div class="col s12">
-				<blockquote class="flow-text left"
-					th:text="|Answers: | + ${answers.size()}">Number of
-					answers</blockquote>
+				<blockquote class="flow-text left" th:text="|Answers: | + ${answers.size()}">Number of answers</blockquote>
 			</div>
 		</header>
 		<section class="row">
-			<div class="col s12" th:each="answer : ${answers}"
-				style="margin: 3% 0 3%; padding: 2%; border-top-right-radius: 10px; border-bottom-right-radius: 10px; background: linear-gradient(to right, #e7e4e4, #f3f2f2); background: -webkit-linear-gradient(left, #e7e4e4, #f3f2f2); background: -o-linear-gradient(right, #e7e4e4, #f3f2f2); background: -moz-linear-gradient(right, #e7e4e4, #f3f2f2);">
-
-				<a th:href="@{'/profile/' + ${answer.getIdUser()}}"> <span
-					class="chip left" style="background-color: #f3f2f2;"
-					th:text="${userDao.getUsernameById(answer.getIdUser())}">
-						Answer's author </span>
-				</a> <span class="chip left" th:if="${answer.isUseful()}"
-					th:text="|Useful|" style="background-color: #ee6e73;">
-					Useful </span> <span class="right"
-					th:text="${answer.displayParsedCreatedDate()}"></span> <span
-					th:if="${topic.getIdUser() == idUser}">
+			<div class="col s12" th:each="answer : ${answers}" style="margin: 3% 0 3%; padding: 2%; border-top-right-radius: 10px; border-bottom-right-radius: 10px; background: linear-gradient(to right, #e7e4e4, #f3f2f2); background: -webkit-linear-gradient(left, #e7e4e4, #f3f2f2); background: -o-linear-gradient(right, #e7e4e4, #f3f2f2); background: -moz-linear-gradient(right, #e7e4e4, #f3f2f2);">
+				<a th:href="@{'/profile/' + ${answer.getIdUser()}}"> 
+					<span class="chip left" style="background-color: #f3f2f2;" th:text="${userDao.getUsernameById(answer.getIdUser())}">Answer's author</span>
+				</a>
+				<span class="chip left" th:if="${answer.isUseful()}" th:text="|Useful|" style="background-color: #ee6e73;">Useful </span> 
+				<span class="right" th:text="${answer.displayParsedCreatedDate()}"> </span> 
+				<span th:if="${topic.getIdUser() == idUser}">
 					<form th:action="@{/topic/{topic.getId()}}" method="post">
 						<input type="hidden" name="id_answer" th:value="${answer.getId()}" />
 						<input type="hidden" name="state" th:value="${answer.isUseful()}" />
-						<input type="hidden" name="action" th:value="useful" /> <input
-							type="hidden" name="id_topic" th:value="${topic.getId()}" />
-						<button class="chip left" style="background-color: #37b7ab;">Set
-							useful/useless</button>
+						<input type="hidden" name="action" th:value="useful" /> 
+						<input type="hidden" name="id_topic" th:value="${topic.getId()}" />
+						<button class="chip left" style="background-color: #37b7ab;">Set useful/useless</button>
 					</form>
-				</span> <span th:if="${answer.getIdUser() == idUser}">
+				</span> 
+				<span th:if="${answer.getIdUser() == idUser}">
 					<form th:action="@{/topic/{topic.getId()}}" method="post">
 						<input type="hidden" name="id_answer" th:value="${answer.getId()}" />
-						<input type="hidden" name="action" th:value="delete" /> <input
-							type="hidden" name="id_topic" th:value="${topic.getId()}" />
+						<input type="hidden" name="action" th:value="delete" /> 
+						<input type="hidden" name="id_topic" th:value="${topic.getId()}" />
 						<button class="chip left" style="background-color: #37b7ab;">Delete</button>
 					</form>
 				</span>
 				<div class="row">
-					<p class="col s12"
-						style="text-align: justify; display: block; white-space: pre-wrap"
-						th:text="${answer.getContent()}">Answer's content</p>
+					<p class="col s12" style="text-align: justify; display: block; white-space: pre-wrap" th:text="${answer.getContent()}">Answer's content</p>
 				</div>
 				<div class="row">
-					<code style="display: block; white-space: pre-wrap" class="col s12"
-						th:text="${answer.displayCode()}"> Source code </code>
+					<code style="display: block; white-space: pre-wrap" class="col s12" th:text="${answer.displayCode()}"> Source code </code>
 				</div>
-				<!-- <div class="col s12 m8 offset-m2 l6 offset-l3">
-					<div class="card-panel grey lighten-5 z-depth-1">
-						<div class="row valign-wrapper">
-							<div class="col s2">
-								<img src="/images/logo/jnu_logo.png" alt="" class="circle responsive-img"></img>
-							</div>
-							<div class="col s10">
-								<span class="black-text" th:text="${answer.getContent()}">评论的内容 </span>
-							</div>
-						</div>
-					</div>
-				</div> -->
 			</div>
 		</section>
 		<header class="row">
 			<div class="col s12">
-				<blockquote class="flow-text left" th:text="|Add answer: |">Add
-					answer</blockquote>
+				<blockquote class="flow-text left" th:text="|Add answer: |">Add answer</blockquote>
 			</div>
 		</header>
 		<section>
