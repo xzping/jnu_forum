@@ -59,70 +59,28 @@
                         </li>
                     </ul>
                 </div>
-            </section>
-            <!-- <header class="row">
-                <div class="col s12">
-                    <blockquote class="flow-text left" th:text="|Select category and add topic: |">Add topic</blockquote>
-                </div>
-            </header>
-            <section>
-                <form th:action="@{/profile}" method="post">
-                    <div class="row">
-                        <div class="col s12">
-                            <p>
-                                <input value="se" name="category" class="with-gap" type="radio" id="se" required="required"/>
-                                <label for="se">Java Standard Edition</label>
-                            </p>
-                            <p>
-                                <input value="ee" name="category" class="with-gap" type="radio" id="ee" required="required"/>
-                                <label for="ee">Java Enterprise Edition</label>
-                            </p>
-                            <p>
-                                <input value="jpa" name="category" class="with-gap" type="radio" id="jpa" required="required"/>
-                                <label for="jpa">Java Persistence API and Hibernate</label>
-                            </p>
-                            <p>
-                                <input value="spring" name="category" class="with-gap" type="radio" id="spring" required="required"/>
-                                <label for="spring">Spring Framework</label>
-                            </p>
-                            <p>
-                                <input value="web" name="category" class="with-gap" type="radio" id="web" required="required"/>
-                                <label for="web">HTML/CSS/JavaScript</label>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <label>Title:
-                                <input type="text" name="title" minlength="10" maxlength="32" data-length="32" required="required"/>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <label>Content:
-                                <textarea name="content" class="materialize-textarea" minlength="5" maxlength="1024"
-                                          data-length="1024" required="required"></textarea>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <label>Code:
-                                <textarea name="code" class="materialize-textarea" placeholder="[optional]"
-                                          style="font-family: monospace, monospace;" maxlength="1024" data-length="1024"></textarea>
-                            </label>
-                        </div>
-                    </div>
-                    <input type="hidden" name="id_user" th:value="${user.getId()}"/>
-                    <div class="row">
-                        <div class="col s12 center">
-                            <button class="btn waves-effect waves-light btn-large" type="submit" name="add">Add topic</button>
-                        </div>
-                    </div>
-                </form>
-            </section> -->
-        </article>
+
+
+			<form action="/upload" method="post" enctype="multipart/form-data">
+				<div class="file-field input-field">
+					<div class="btn">
+						<span>选择照片</span> <input type="file" name="file"></input>
+					</div>
+					<div class="file-path-wrapper">
+						<input class="file-path validate" type="text"></input>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 center">
+						<button class="btn waves-effect waves-light btn-large"
+							type="submit" name="add">上传</button>
+					</div>
+				</div>
+			</form>
+
+
+		</section>
+	</article>
     </main>
 </body>
 </html>

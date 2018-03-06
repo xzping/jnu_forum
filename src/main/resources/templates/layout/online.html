@@ -22,7 +22,6 @@
                     <li><a th:href="@{'/topics/web'}">HTML/CSS/JS</a></li>
                 </ul>
                 <ul id="nav-right" class="right hide-on-med-and-down">
-                    <!-- <li><a th:href="@{'/profile'}">简介</a></li> -->
                     <li><a th:href="@{'/profile'}" th:text="${user.getUsername()}">简介</a></li>
                     <li><a th:href="@{'/addTopic'}">发表</a></li>
                     <li><a th:href="@{'message'}">站内信<span class="new badge" th:text="${newMessage}">2</span></a></li>

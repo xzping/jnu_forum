@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +25,7 @@ import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
+import com.xzp.forum.util.FileUtil;
 import com.xzp.forum.util.HostHolder;
 
 /**
@@ -106,6 +109,24 @@ public class ProfileController {
 		topicDao.addTopic(topic);
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/profile");
+	}
+	
+	@RequestMapping(path="/upload",method=RequestMethod.GET)
+	public String getUpload() {
+		return "profile";
+	}
+	
+	@RequestMapping(path="/upload",method=RequestMethod.POST)
+	@ResponseBody
+	public String uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+		String fileName = file.getOriginalFilename();
+		String filePath = request.getSession().getServletContext().getRealPath("imgupload/");
+		try {
+            FileUtil.uploadFile(file.getBytes(), filePath, fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		return "upload success!";
 	}
 	
 	@RequestMapping(path = "/profile/message", method = RequestMethod.GET)
