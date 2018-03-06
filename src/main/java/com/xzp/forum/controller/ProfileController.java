@@ -1,5 +1,6 @@
 package com.xzp.forum.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 
@@ -25,7 +26,9 @@ import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
+import com.xzp.forum.service.QiniuService;
 import com.xzp.forum.util.FileUtil;
+import com.xzp.forum.util.ForumUtil;
 import com.xzp.forum.util.HostHolder;
 
 /**
@@ -48,6 +51,9 @@ public class ProfileController {
 
 	@Autowired
 	private AnswerDao answerDao;
+	
+	@Autowired
+	QiniuService qiniuService;
 
 	@RequestMapping(path = "/profile", method = RequestMethod.GET)
 	public String displayMyProfile(Model model) {
@@ -118,15 +124,17 @@ public class ProfileController {
 	
 	@RequestMapping(path="/upload",method=RequestMethod.POST)
 	@ResponseBody
-	public String uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
-		String fileName = file.getOriginalFilename();
-		String filePath = request.getSession().getServletContext().getRealPath("imgupload/");
+	public String uploadImage(@RequestParam("file") MultipartFile file) {
 		try {
-            FileUtil.uploadFile(file.getBytes(), filePath, fileName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		return "upload success!";
+			String fileUrl=qiniuService.saveImage(file);
+			if(fileUrl == null) {
+				return ForumUtil.getJSONString(1, "上传图片失败");
+			}
+			return ForumUtil.getJSONString(0, fileUrl);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return ForumUtil.getJSONString(1, "上传失败");
+		}
 	}
 	
 	@RequestMapping(path = "/profile/message", method = RequestMethod.GET)

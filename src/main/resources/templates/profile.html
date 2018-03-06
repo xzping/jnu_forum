@@ -76,6 +76,8 @@
 							type="submit" name="add">上传</button>
 					</div>
 				</div>
+				<!-- 这一句主要防止CSRF攻击 -->
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			</form>
 
 

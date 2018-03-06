@@ -93,6 +93,12 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.13</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.qiniu</groupId>
+			<artifactId>qiniu-java-sdk</artifactId>
+			<version>7.2.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>
