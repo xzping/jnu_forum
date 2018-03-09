@@ -60,8 +60,31 @@
                     </ul>
                 </div>
 
+			<hr></hr>
+			<i class="large material-icons">camera_alt</i>
+			<hr></hr>
 
-			<form action="/upload" method="post" enctype="multipart/form-data">
+			<div class="row">
+				<th:block th:each="imgUrl:${myImgs}">
+					<div class="col s12 m6">
+						<div class="card">
+							<div class="card-image">
+								<img th:src="${imgUrl}" width="300" height="400"></img>
+								<!-- <span class="card-title">2018-03-09 21:25</span> -->
+							</div>
+							<!-- <div class="card-content">
+								<p th:text="${imgUrl}"></p>
+								http://ox6xu9hb7.bkt.clouddn.com/244526d530014c6eae10b58030a91fd9.jpg
+							</div> -->
+							<!-- <div class="card-action">
+								<a th:href="${imgUrl}">This is a link</a>
+							</div> -->
+						</div>
+					</div>
+				</th:block>
+			</div>
+			<form action="/upload" method="post" enctype="multipart/form-data"
+				th:if="${switch}">
 				<div class="file-field input-field">
 					<div class="btn">
 						<span>选择照片</span> <input type="file" name="file"></input>
@@ -76,10 +99,7 @@
 							type="submit" name="add">上传</button>
 					</div>
 				</div>
-				<!-- 这一句主要防止CSRF攻击 -->
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			</form>
-
 
 		</section>
 	</article>

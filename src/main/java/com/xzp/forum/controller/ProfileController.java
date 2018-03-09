@@ -2,6 +2,7 @@ package com.xzp.forum.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +22,11 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.xzp.forum.dao.AnswerDao;
+import com.xzp.forum.dao.ImageDao;
 import com.xzp.forum.dao.MessageDao;
 import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
+import com.xzp.forum.model.Image;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
 import com.xzp.forum.service.QiniuService;
@@ -53,6 +56,12 @@ public class ProfileController {
 	private AnswerDao answerDao;
 	
 	@Autowired
+	private ImageDao imageDao;
+	
+	@Autowired
+	private HostHolder hostHolder;
+	
+	@Autowired
 	QiniuService qiniuService;
 
 	@RequestMapping(path = "/profile", method = RequestMethod.GET)
@@ -66,6 +75,7 @@ public class ProfileController {
 		Long numberOfTopics = topicDao.countTopicsByUser_Id(user.getId());
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
+		List<String> myImgs=imageDao.getImgByUserId(user.getId());
 
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
@@ -73,6 +83,8 @@ public class ProfileController {
 		model.addAttribute("numberOfTopics", numberOfTopics);
 		model.addAttribute("numberOfAnswers", numberOfAnswers);
 		model.addAttribute("numberOfHelped", numberOfHelped);
+		model.addAttribute("myImgs", myImgs);
+		model.addAttribute("switch", true);
 		return "profile";
 	}
 
@@ -84,6 +96,7 @@ public class ProfileController {
 		Long numberOfTopics = topicDao.countTopicsByUser_Id(id);
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(id);
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(id, true);
+		List<String> myImgs=imageDao.getImgByUserId(user.getId());
 
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
@@ -91,6 +104,8 @@ public class ProfileController {
 		model.addAttribute("numberOfTopics", numberOfTopics);
 		model.addAttribute("numberOfAnswers", numberOfAnswers);
 		model.addAttribute("numberOfHelped", numberOfHelped);
+		model.addAttribute("myImgs", myImgs);
+		model.addAttribute("switch", false);
 
 		return "profile";
 	}
@@ -117,23 +132,38 @@ public class ProfileController {
 		return new RedirectView(contextPath + "/profile");
 	}
 	
-	@RequestMapping(path="/upload",method=RequestMethod.GET)
-	public String getUpload() {
-		return "profile";
-	}
-	
 	@RequestMapping(path="/upload",method=RequestMethod.POST)
-	@ResponseBody
-	public String uploadImage(@RequestParam("file") MultipartFile file) {
+	public String uploadImage(@RequestParam("file") MultipartFile file,HttpServletRequest request, Model model) {
 		try {
 			String fileUrl=qiniuService.saveImage(file);
-			if(fileUrl == null) {
-				return ForumUtil.getJSONString(1, "上传图片失败");
-			}
-			return ForumUtil.getJSONString(0, fileUrl);
+//			if(fileUrl == null) {
+//				return ForumUtil.getJSONString(1, "上传图片失败");
+//			}
+			Image image=new Image();
+			image.setImgUrl(fileUrl);
+			image.setIdUser(hostHolder.getUser().getId());
+			imageDao.addImg(image);
+			
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String username = ((UserDetails) principal).getUsername();
+			User user = userDao.getUserByUsername(username);
+			Long points = userDao.getPoints(user.getId());
+			Long numberOfTopics = topicDao.countTopicsByUser_Id(user.getId());
+			Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
+			Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
+			List<String> myImgs=imageDao.getImgByUserId(user.getId());
+			model.addAttribute("user", user);
+			model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
+			model.addAttribute("points", points);
+			model.addAttribute("numberOfTopics", numberOfTopics);
+			model.addAttribute("numberOfAnswers", numberOfAnswers);
+			model.addAttribute("numberOfHelped", numberOfHelped);
+			model.addAttribute("myImgs", myImgs);
+			model.addAttribute("switch", true);
+			return "profile";
 		} catch (IOException e) {
 			e.printStackTrace();
-			return ForumUtil.getJSONString(1, "上传失败");
+			return "profile";
 		}
 	}
 	

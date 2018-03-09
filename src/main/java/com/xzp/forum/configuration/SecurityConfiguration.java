@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/");
-		httpSecurity.csrf().disable();
+		httpSecurity.csrf().disable();//关闭CSRF攻击
 	}
 
 	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
