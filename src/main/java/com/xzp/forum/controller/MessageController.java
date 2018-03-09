@@ -46,6 +46,7 @@ public class MessageController {
 		Long toId=user.getId();
 		List<Message> messages=messageDao.getMessageByToId(toId);
 		
+		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user",user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("messages", messages);

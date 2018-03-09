@@ -47,6 +47,7 @@ public class TopicsController {
 		String header = setHeader("all");
 		
 		User user=localHost.getUser();
+		model.addAttribute("localHost", localHost.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topics", topics);
@@ -62,6 +63,7 @@ public class TopicsController {
 		String header = setHeader(category);
 		
 		User user=localHost.getUser();
+		model.addAttribute("localHost", localHost.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topics", topics);
@@ -77,6 +79,7 @@ public class TopicsController {
 		String header = setHeader("user");
 		
 		User user=localHost.getUser();
+		model.addAttribute("localHost", localHost.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topics", topics);

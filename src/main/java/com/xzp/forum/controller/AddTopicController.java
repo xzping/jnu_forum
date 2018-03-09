@@ -24,6 +24,7 @@ import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
+import com.xzp.forum.util.HostHolder;
 
 /**
  * 添加话题的接口
@@ -44,6 +45,9 @@ public class AddTopicController {
 	
 	@Autowired
 	private MessageDao messageDao;
+	
+	@Autowired
+	private HostHolder hostHolder;
 
 	@RequestMapping(path = "/addTopic", method = RequestMethod.GET)
 	public String displayMyProfile(Model model) {
@@ -57,6 +61,7 @@ public class AddTopicController {
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
 
+		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("points", points);
@@ -75,6 +80,7 @@ public class AddTopicController {
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(id);
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(id, true);
 
+		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("points", points);

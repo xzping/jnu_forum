@@ -63,6 +63,7 @@ public class TopicController {
 		List<Answer> answers = answerDao.findAnswerByTopic_Id(Long.valueOf(id));
 
 		User user=hostHolder.getUser();
+		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topic", topic);
