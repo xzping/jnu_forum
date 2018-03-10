@@ -66,10 +66,7 @@ public class ProfileController {
 
 	@RequestMapping(path = "/profile", method = RequestMethod.GET)
 	public String displayMyProfile(Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((UserDetails) principal).getUsername();
-
-		User user = userDao.getUserByUsername(username);
+		User user = hostHolder.getUser();
 		Long points = userDao.getPoints(user.getId());
 
 		Long numberOfTopics = topicDao.countTopicsByUser_Id(user.getId());
@@ -101,7 +98,7 @@ public class ProfileController {
 
 		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
-		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
+		model.addAttribute("newMessage", messageDao.countMessageByToId(hostHolder.getUser().getId()));
 		model.addAttribute("points", points);
 		model.addAttribute("numberOfTopics", numberOfTopics);
 		model.addAttribute("numberOfAnswers", numberOfAnswers);
@@ -146,15 +143,13 @@ public class ProfileController {
 			image.setIdUser(hostHolder.getUser().getId());
 			imageDao.addImg(image);
 			
-			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			String username = ((UserDetails) principal).getUsername();
-			User user = userDao.getUserByUsername(username);
+			User user = hostHolder.getUser();
 			Long points = userDao.getPoints(user.getId());
 			Long numberOfTopics = topicDao.countTopicsByUser_Id(user.getId());
 			Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
 			Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
 			List<String> myImgs=imageDao.getImgByUserId(user.getId());
-			model.addAttribute("localHost", hostHolder.getUser().getUsername());
+			model.addAttribute("localHost", user.getUsername());
 			model.addAttribute("user", user);
 			model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 			model.addAttribute("points", points);

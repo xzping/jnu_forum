@@ -51,10 +51,7 @@ public class AddTopicController {
 
 	@RequestMapping(path = "/addTopic", method = RequestMethod.GET)
 	public String displayMyProfile(Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((UserDetails) principal).getUsername();
-
-		User user = userDao.getUserByUsername(username);
+		User user = hostHolder.getUser();
 		Long points = userDao.getPoints(user.getId());
 
 		Long numberOfTopics = topicDao.countTopicsByUser_Id(user.getId());

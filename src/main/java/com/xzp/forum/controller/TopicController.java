@@ -54,16 +54,13 @@ public class TopicController {
 	@RequestMapping(path = "/topic/{id}", method = RequestMethod.GET)
 	public String displayTopic(@PathVariable String id, Model model) {
 		
-		//通过UserDetails可以得到username等登录信息！！！
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((UserDetails) principal).getUsername();
-		Long idUser = userDao.getUserByUsername(username).getId();
+		User user = hostHolder.getUser();
+		Long idUser = user.getId();
 		
 		Topic topic = topicDao.findTopicById(Long.valueOf(id));
 		List<Answer> answers = answerDao.findAnswerByTopic_Id(Long.valueOf(id));
 
-		User user=hostHolder.getUser();
-		model.addAttribute("localHost", hostHolder.getUser().getUsername());
+		model.addAttribute("localHost", user.getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topic", topic);

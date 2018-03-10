@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/online">
+<head>
+<title>排行榜</title>
+</head>
+<body>
+	<main layout:fragment="content">
+	<article class="container" style="padding: 3% 0 2%;">
+		<header class="row">
+			<div class="col s12">
+				<blockquote class="flow-text left" th:text="|排行榜： |">Ranking</blockquote>
+			</div>
+		</header>
+		<ul class="collection">
+			<li class="collection-item avatar">
+				<img src="images/index/dlrb.jpg" alt="" class="circle"/> 
+				<span class="title">Title</span>
+				<p>
+					First Line <br> Second Line</br>
+				</p> 
+				<a href="#!" class="secondary-content">
+					<i class="material-icons">grade</i>
+				</a>
+			</li>
+			<li class="collection-item avatar">
+				<i class="material-icons circle">folder</i> 
+				<span class="title">Title</span>
+				<p>
+					First Line <br> Second Line</br>
+				</p> 
+				<a href="#!" class="secondary-content">
+					<i class="material-icons">grade</i>
+				</a>
+			</li>
+			<li class="collection-item avatar">
+				<i class="material-icons circle green">insert_chart</i> 
+				<span class="title">Title</span>
+				<p>
+					First Line <br> Second Line</br>
+				</p> 
+				<a href="#!" class="secondary-content">
+					<i class="material-icons">grade</i>
+				</a>
+			</li>
+			<li class="collection-item avatar">
+				<i class="material-icons circle red">play_arrow</i> 
+				<span class="title">Title</span>
+				<p>
+					First Line <br> Second Line</br>
+				</p> 
+				<a href="#!" class="secondary-content">
+					<i class="material-icons">grade</i>
+				</a>
+			</li>
+		</ul>
+	</article>
+	</main>
+</body>
+</html>
