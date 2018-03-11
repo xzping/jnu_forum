@@ -13,10 +13,10 @@
 				<blockquote class="flow-text left" th:text="|排行榜： |">Ranking</blockquote>
 			</div>
 		</header>
-		<ul class="collection">
+		<ul class="collection" th:each="point : ${pointSet}">
 			<li class="collection-item avatar">
 				<img src="images/index/dlrb.jpg" alt="" class="circle"/> 
-				<span class="title">Title</span>
+				<span class="title" th:text="${point}">point</span>
 				<p>
 					First Line <br> Second Line</br>
 				</p> 
@@ -24,7 +24,7 @@
 					<i class="material-icons">grade</i>
 				</a>
 			</li>
-			<li class="collection-item avatar">
+			<!-- <li class="collection-item avatar">
 				<i class="material-icons circle">folder</i> 
 				<span class="title">Title</span>
 				<p>
@@ -53,7 +53,7 @@
 				<a href="#!" class="secondary-content">
 					<i class="material-icons">grade</i>
 				</a>
-			</li>
+			</li> -->
 		</ul>
 	</article>
 	</main>

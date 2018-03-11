@@ -8,18 +8,15 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.xzp.forum.dao.AnswerDao;
 import com.xzp.forum.dao.ImageDao;
@@ -30,9 +27,8 @@ import com.xzp.forum.model.Image;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
 import com.xzp.forum.service.QiniuService;
-import com.xzp.forum.util.FileUtil;
-import com.xzp.forum.util.ForumUtil;
 import com.xzp.forum.util.HostHolder;
+import com.xzp.forum.util.JedisAdapter;
 
 /**
  * 个人简介接口
@@ -63,11 +59,17 @@ public class ProfileController {
 	
 	@Autowired
 	QiniuService qiniuService;
+	
+	@Autowired
+	private JedisAdapter jedisAdapter;
+	
+	private String rankKey="forumRankKey";
 
 	@RequestMapping(path = "/profile", method = RequestMethod.GET)
 	public String displayMyProfile(Model model) {
 		User user = hostHolder.getUser();
 		Long points = userDao.getPoints(user.getId());
+		jedisAdapter.zadd(rankKey, points, user.getUsername());
 
 		Long numberOfTopics = topicDao.countTopicsByUser_Id(user.getId());
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
@@ -90,7 +92,7 @@ public class ProfileController {
 	public String displayProfileById(@PathVariable Long id, Model model) {
 		User user = userDao.getUserById(id);
 		Long points = userDao.getPoints(user.getId());
-
+		
 		Long numberOfTopics = topicDao.countTopicsByUser_Id(id);
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(id);
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(id, true);
