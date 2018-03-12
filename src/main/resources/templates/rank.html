@@ -13,14 +13,17 @@
 				<blockquote class="flow-text left" th:text="|排行榜： |">Ranking</blockquote>
 			</div>
 		</header>
-		<ul class="collection" th:each="point : ${pointSet}">
+		<ul class="collection" th:each="pointName : ${pointSet}">
 			<li class="collection-item avatar">
 				<img src="images/index/dlrb.jpg" alt="" class="circle"/> 
-				<span class="title" th:text="${point}">point</span>
-				<p>
-					First Line <br> Second Line</br>
+				<a class="title" th:text="${pointName}" th:href="@{'/profile/' + ${userDao.getIdByUsername(pointName)}}">pointName</a>
+				<p th:text="|得分:|+${userDao.getPoints(userDao.getIdByUsername(pointName))}">
+					point
 				</p> 
-				<a href="#!" class="secondary-content">
+				<p th:text="|个人简介:|+${userDao.getUserByUsername(pointName).getIntroduction()}">
+					point
+				</p>
+				<a th:href="@{'/profile/' + ${userDao.getIdByUsername(pointName)}}" class="secondary-content">
 					<i class="material-icons">grade</i>
 				</a>
 			</li>

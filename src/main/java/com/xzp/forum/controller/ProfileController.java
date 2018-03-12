@@ -69,7 +69,7 @@ public class ProfileController {
 	public String displayMyProfile(Model model) {
 		User user = hostHolder.getUser();
 		Long points = userDao.getPoints(user.getId());
-		jedisAdapter.zadd(rankKey, points, user.getUsername());
+//		jedisAdapter.zadd(rankKey, points, user.getUsername());
 
 		Long numberOfTopics = topicDao.countTopicsByUser_Id(user.getId());
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
