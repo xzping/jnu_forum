@@ -79,6 +79,7 @@
 						</div>
 					</div>
 				</th:block>
+				<!-- <span th:if="${myImgs.size()==0}" class="col s12">照片墙为空...</span> -->
 			</div>
 			
 			<header class="row" th:if="${switch}">
@@ -87,8 +88,7 @@
 				</div>
 			</header>
 			
-			<form action="/upload" method="post" enctype="multipart/form-data"
-				th:if="${switch}">
+			<form action="/upload" method="post" enctype="multipart/form-data" th:if="${switch}">
 				<div class="file-field input-field">
 					<div class="btn">
 						<span>选择照片</span> 
