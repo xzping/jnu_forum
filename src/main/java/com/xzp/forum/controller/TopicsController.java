@@ -95,12 +95,14 @@ public class TopicsController {
 			return "Java Standard Edition";
 		case "ee":
 			return "Java Enterprise Edition";
-		case "jpa":
-			return "Java Persistence API and Hibernate";
+		case "mbs":
+			return "MyBatis";
 		case "spring":
 			return "Spring Framework";
 		case "web":
 			return "HTML/CSS/JavaScript";
+		case "other":
+			return "其他";
 		case "all":
 			return "All topics";
 		default:
