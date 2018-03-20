@@ -11,7 +11,7 @@
 		<header class="row">
 			<blockquote class="flow-text left" th:text="站内信通知">Header</blockquote>
 			<blockquote class="flow-text right"
-				th:text="|通知数量: | + ${messages.size()}">Number of
+				th:text="|通知数量: | + ${unReadMessages.size()}">Number of
 				messages</blockquote>
 		</header>
 		<section class="row">
@@ -28,19 +28,28 @@
 					</thead>
 					<tbody>
 						<th:block th:each="message:${messages}">
-							<tr>
+							<tr th:if="${message.getHasRead()==0}">
 								<td>
                                     <a th:href="@{'/profile/' + ${message.getFromId()}}">
                                          <div class="chip" th:text="${userDao.getUsernameById(message.getFromId())}">用户</div>
                                     </a>
                                 </td>
-								<!-- <td th:text="${userDao.getUsernameById(message.getFromId())}">用户</td> -->
 								<td th:text="${#dates.format(message.getCreatedDate(), 'yyyy-MM-dd HH:mm')}">创建时间</td>
 								<td th:text="${message.getContent()}">内容</td>
-								<td>
-									<a th:href="@{'/topic/' + ${message.getIdTopic()}}" class="btn btn-floating pulse"> 
+								<!-- <td>
+									<a th:href="@{'/topic/' + ${message.getIdTopic()}}" class="btn btn-floating pulse">
+									th:text="${messageDao.changeReadStatement(message.getId())}" 
 										<i class="material-icons">arrow_forward</i>
 									</a>
+								</td> -->
+								
+								<!-- 改成form表单来提交 -->
+								<td>
+									<form th:action="@{'/topicM/' + ${message.getIdTopic()} + '_' + ${message.getId()}}" method="get">
+										<button class="btn btn-floating pulse" type="submit">
+											<i class="material-icons">arrow_forward</i>
+										</button>
+									</form>
 								</td>
 							</tr>
 						</th:block>

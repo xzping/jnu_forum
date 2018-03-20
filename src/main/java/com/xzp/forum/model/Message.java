@@ -10,6 +10,7 @@ public class Message {
 	private String content;//站内信的内容
 	private Date createdDate;//站内信触发的时间
 	private Integer idTopic;//站内信对应的话题
+	private int hasRead;//站内信是否已读
 
 	public Integer getIdTopic() {
 		return idTopic;
@@ -57,6 +58,14 @@ public class Message {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+	
+	public int getHasRead() {
+		return hasRead;
+	}
+
+	public void setHasRead(int hasRead) {
+		this.hasRead = hasRead;
 	}
 	
 	public String displayParsedCreatedDate(Date date) {

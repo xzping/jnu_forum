@@ -47,6 +47,7 @@ public class CommentHandler implements EventHandler{
 		message.setContent("用户"+user.getUsername()+"评论你的话题！");
 		message.setCreatedDate(model.getCreatedDate());
 		message.setIdTopic(model.getEntityId());
+		message.setHasRead(0);
 		messageDao.addMessage(message);
 	}
 
