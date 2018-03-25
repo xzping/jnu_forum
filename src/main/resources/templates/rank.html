@@ -15,7 +15,7 @@
 		</header>
 		<ul class="collection" th:each="pointName : ${pointSet}">
 			<li class="collection-item avatar">
-				<img src="images/index/dlrb.jpg" alt="" class="circle"/> 
+				<img src="http://ox6xu9hb7.bkt.clouddn.com/87858783a5854d4b90fdcba8e9d5f5bf.jpg" alt="" class="circle"/> 
 				<a class="title" th:text="${pointName}" th:href="@{'/profile/' + ${userDao.getIdByUsername(pointName)}}">pointName</a>
 				<p th:text="|得分:|+${userDao.getPoints(userDao.getIdByUsername(pointName))}">
 					point
@@ -27,36 +27,6 @@
 					<i class="material-icons">grade</i>
 				</a>
 			</li>
-			<!-- <li class="collection-item avatar">
-				<i class="material-icons circle">folder</i> 
-				<span class="title">Title</span>
-				<p>
-					First Line <br> Second Line</br>
-				</p> 
-				<a href="#!" class="secondary-content">
-					<i class="material-icons">grade</i>
-				</a>
-			</li>
-			<li class="collection-item avatar">
-				<i class="material-icons circle green">insert_chart</i> 
-				<span class="title">Title</span>
-				<p>
-					First Line <br> Second Line</br>
-				</p> 
-				<a href="#!" class="secondary-content">
-					<i class="material-icons">grade</i>
-				</a>
-			</li>
-			<li class="collection-item avatar">
-				<i class="material-icons circle red">play_arrow</i> 
-				<span class="title">Title</span>
-				<p>
-					First Line <br> Second Line</br>
-				</p> 
-				<a href="#!" class="secondary-content">
-					<i class="material-icons">grade</i>
-				</a>
-			</li> -->
 		</ul>
 	</article>
 	</main>

@@ -41,13 +41,13 @@ public class ProfileController {
 	
 	@Autowired
 	private UserDao userDao;
-
+	
 	@Autowired
 	private TopicDao topicDao;
 	
 	@Autowired
 	private MessageDao messageDao;
-
+	
 	@Autowired
 	private AnswerDao answerDao;
 	
@@ -60,22 +60,17 @@ public class ProfileController {
 	@Autowired
 	QiniuService qiniuService;
 	
-	@Autowired
-	private JedisAdapter jedisAdapter;
-	
-	private String rankKey="forumRankKey";
-
 	@RequestMapping(path = "/profile", method = RequestMethod.GET)
 	public String displayMyProfile(Model model) {
 		User user = hostHolder.getUser();
 		Long points = userDao.getPoints(user.getId());
 //		jedisAdapter.zadd(rankKey, points, user.getUsername());
-
+		
 		Long numberOfTopics = topicDao.countTopicsByUser_Id(user.getId());
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
 		List<String> myImgs=imageDao.getImgByUserId(user.getId());
-
+		
 		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
@@ -97,7 +92,7 @@ public class ProfileController {
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(id);
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(id, true);
 		List<String> myImgs=imageDao.getImgByUserId(user.getId());
-
+		
 		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(hostHolder.getUser().getId()));
@@ -107,7 +102,7 @@ public class ProfileController {
 		model.addAttribute("numberOfHelped", numberOfHelped);
 		model.addAttribute("myImgs", myImgs);
 		model.addAttribute("switch", false);
-
+		
 		return "profile";
 	}
 
