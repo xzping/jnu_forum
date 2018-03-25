@@ -70,6 +70,7 @@ public class ProfileController {
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
 		List<String> myImgs=imageDao.getImgByUserId(user.getId());
+		List<String> myAllImgs=imageDao.getAllImgByUserId(user.getId());
 		
 		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
@@ -79,6 +80,7 @@ public class ProfileController {
 		model.addAttribute("numberOfAnswers", numberOfAnswers);
 		model.addAttribute("numberOfHelped", numberOfHelped);
 		model.addAttribute("myImgs", myImgs);
+		model.addAttribute("isHasMoreImg", myAllImgs.size()>myImgs.size());
 		model.addAttribute("switch", true);
 		return "profile";
 	}
@@ -92,6 +94,7 @@ public class ProfileController {
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(id);
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(id, true);
 		List<String> myImgs=imageDao.getImgByUserId(user.getId());
+		List<String> myAllImgs=imageDao.getAllImgByUserId(user.getId());
 		
 		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
@@ -101,6 +104,7 @@ public class ProfileController {
 		model.addAttribute("numberOfAnswers", numberOfAnswers);
 		model.addAttribute("numberOfHelped", numberOfHelped);
 		model.addAttribute("myImgs", myImgs);
+		model.addAttribute("isHasMoreImg", myAllImgs.size()>myImgs.size());
 		model.addAttribute("switch", false);
 		
 		return "profile";
@@ -126,6 +130,15 @@ public class ProfileController {
 		topicDao.addTopic(topic);
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/profile");
+	}
+	
+	@RequestMapping(path="/imageWall/{id}",method=RequestMethod.GET)
+	public String imageWall(@PathVariable Long id, Model model) {
+		User user = userDao.getUserById(id);
+		List<String> myAllImgs=imageDao.getAllImgByUserId(user.getId());
+		model.addAttribute("user", user);
+		model.addAttribute("myImgs", myAllImgs);
+		return "imageWall";
 	}
 	
 	@RequestMapping(path="/upload",method=RequestMethod.POST)

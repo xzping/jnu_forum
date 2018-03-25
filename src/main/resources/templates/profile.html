@@ -79,7 +79,7 @@
 						</div>
 					</div>
 				</th:block>
-				<!-- <span th:if="${myImgs.size()==0}" class="col s12">照片墙为空...</span> -->
+				<a th:if="${isHasMoreImg}" th:href="@{'/imageWall/'+${user.getId()}}">查看更多的照片...</a>
 			</div>
 			
 			<header class="row" th:if="${switch}">

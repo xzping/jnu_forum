@@ -18,6 +18,9 @@ public interface ImageDao {
 	@Insert({"INSERT INTO ",TABLE_NAME,"(",INSERT_FIELDS,") VALUES (#{imgUrl},#{idUser})"})
 	int addImg(Image img);
 	
-	@Select({"SELECT imgUrl FROM",TABLE_NAME,"WHERE id_user=#{userId}"})
+	@Select({"SELECT imgUrl FROM",TABLE_NAME,"WHERE id_user=#{userId} LIMIT 4"})
 	List<String> getImgByUserId(@Param("userId") Long userId);
+	
+	@Select({"SELECT imgUrl FROM",TABLE_NAME,"WHERE id_user=#{userId}"})
+	List<String> getAllImgByUserId(@Param("userId") Long userId);
 }
