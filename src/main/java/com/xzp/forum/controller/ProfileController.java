@@ -136,8 +136,11 @@ public class ProfileController {
 	public String imageWall(@PathVariable Long id, Model model) {
 		User user = userDao.getUserById(id);
 		List<String> myAllImgs=imageDao.getAllImgByUserId(user.getId());
+		
+		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("myImgs", myAllImgs);
+		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		return "imageWall";
 	}
 	
@@ -180,4 +183,10 @@ public class ProfileController {
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/message");
 	}
+	
+	@RequestMapping(path = "/imageWall/message", method = RequestMethod.GET)
+	public View messageTransform(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
+	}	
 }
