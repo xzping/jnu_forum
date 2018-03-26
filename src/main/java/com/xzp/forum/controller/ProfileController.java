@@ -188,5 +188,5 @@ public class ProfileController {
 	public View messageTransform(HttpServletRequest request) {
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/message");
-	}	
+	}
 }
