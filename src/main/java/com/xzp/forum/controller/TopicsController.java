@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -19,8 +20,10 @@ import com.xzp.forum.dao.MessageDao;
 import com.xzp.forum.dao.TopicDao;
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Answer;
+import com.xzp.forum.model.PageBean;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
+import com.xzp.forum.service.PageService;
 import com.xzp.forum.util.HostHolder;
 import com.xzp.forum.util.ViewObject;
 
@@ -39,11 +42,36 @@ public class TopicsController {
 	private MessageDao messageDao;
 	
 	@Autowired
+	public PageService pageService;
+	
+	@Autowired
 	private HostHolder localHost;
 
 	@RequestMapping(path = "/topics", method = RequestMethod.GET)
 	public String displayAllTopics(Model model,HttpServletRequest request) {
-		List<Topic> topics = topicDao.findAll();
+//		List<Topic> topics = topicDao.findAll();
+		// 实现分页处理
+		PageBean<Topic> pageTopic=pageService.findItemByPage(1, 5);
+		List<Topic> topics=pageTopic.getItems();
+		String header = setHeader("all");
+		
+		User user=localHost.getUser();
+		model.addAttribute("localHost", user.getUsername());
+		model.addAttribute("user", user);
+		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
+		model.addAttribute("topics", topics);
+		model.addAttribute("header", header);
+		model.addAttribute("answerDao", answerDao);
+		model.addAttribute("userDao", userDao);
+		return "topics";
+	}
+	
+	@RequestMapping(path = "/topics/page/{currentPage}", method = RequestMethod.GET)
+	public String displayAllTopicsPage(@PathVariable int currentPage, Model model,HttpServletRequest request) {
+//		List<Topic> topics = topicDao.findAll();
+		// 实现分页处理
+		PageBean<Topic> pageTopic=pageService.findItemByPage(currentPage, 5);
+		List<Topic> topics=pageTopic.getItems();
 		String header = setHeader("all");
 		
 		User user=localHost.getUser();
