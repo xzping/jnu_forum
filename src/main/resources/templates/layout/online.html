@@ -14,7 +14,7 @@
         <div class="nav-wrapper">
             <div class="container">
                 <ul id="nav-left" class="left hide-on-med-and-down">
-                    <li><a th:href="@{'/topics'}">All</a></li>
+                    <li><a th:href="@{'/topics/all'}">All</a></li>
                     <li><a th:href="@{'/topics/se'}">Java SE</a></li>
                     <li><a th:href="@{'/topics/ee'}">Java EE</a></li>
                     <li><a th:href="@{'/topics/mbs'}">MyBatis</a></li>
@@ -23,7 +23,7 @@
                     <li><a th:href="@{'/topics/other'}">其他</a></li>
                 </ul>
                 <ul id="nav-right" class="right hide-on-med-and-down">
-                    <li><a th:href="@{'/profile'}" th:text="${localHost}">简介</a></li>
+                    <li><a th:href="@{'/profile'}" th:text="${user.getUsername()}">简介</a></li>
                     <li><a th:href="@{'/addTopic'}">发表</a></li>
                     <li><a th:href="@{'message'}">站内信<span class="new badge" th:text="${newMessage}">2</span></a></li>
                     <li><a th:href="@{'/rank'}">排行榜</a></li>

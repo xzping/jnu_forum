@@ -1,9 +1,12 @@
 package com.xzp.forum.service;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.User;
@@ -14,21 +17,30 @@ import com.xzp.forum.model.User;
  * @author xiezhiping
  *
  */
-//@Service
+@Service
 public class RegisterService {
-//	@Autowired
-//	UserDao userDao;
-//	
-//	public void register(String username,String password,String introduction) {
-//		User user = new User();
-//		if (userDao.getUserByUsername(username) == null) {
-//			user.setUsername(username);
-//			user.setPassword(password);
-//			user.setIntroduction(introduction);
-//			user.setCreatedDate(LocalDateTime.now());
-//			userDao.addUser(user);
-//		}else {
-//			//用户已经被注册
-//		}
-//	}
+	@Autowired
+	UserDao userDao;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
+	public String reg(String username, String password, String introduction) {
+		User user = new User();
+		if (userDao.getUserByUsername(username) == null) {
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setPassword(passwordEncoder.encode(password));
+			if (Objects.equals(introduction, "")) {
+				user.setIntroduction(null);
+			} else {
+				user.setIntroduction(introduction);
+			}
+			user.setCreatedDate(new Date());
+			userDao.addUser(user);
+			return "/login";
+		} else {
+			return "/register";
+		}
+	}
 }

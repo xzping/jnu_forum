@@ -72,7 +72,6 @@ public class ProfileController {
 		List<String> myImgs=imageDao.getImgByUserId(user.getId());
 		List<String> myAllImgs=imageDao.getAllImgByUserId(user.getId());
 		
-		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("points", points);
@@ -96,7 +95,6 @@ public class ProfileController {
 		List<String> myImgs=imageDao.getImgByUserId(user.getId());
 		List<String> myAllImgs=imageDao.getAllImgByUserId(user.getId());
 		
-		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(hostHolder.getUser().getId()));
 		model.addAttribute("points", points);
@@ -137,7 +135,6 @@ public class ProfileController {
 		User user = userDao.getUserById(id);
 		List<String> myAllImgs=imageDao.getAllImgByUserId(user.getId());
 		
-		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("myImgs", myAllImgs);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
@@ -162,7 +159,6 @@ public class ProfileController {
 			Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
 			Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
 			List<String> myImgs=imageDao.getImgByUserId(user.getId());
-			model.addAttribute("localHost", user.getUsername());
 			model.addAttribute("user", user);
 			model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 			model.addAttribute("points", points);

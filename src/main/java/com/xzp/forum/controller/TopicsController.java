@@ -18,6 +18,7 @@ import com.xzp.forum.model.PageBean;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
 import com.xzp.forum.service.PageService;
+import com.xzp.forum.service.TopicsService;
 import com.xzp.forum.util.HostHolder;
 
 @Controller
@@ -26,40 +27,16 @@ public class TopicsController {
 	private UserDao userDao;
 
 	@Autowired
-	private TopicDao topicDao;
-
-	@Autowired
 	private AnswerDao answerDao;
 	
 	@Autowired
 	private MessageDao messageDao;
 	
 	@Autowired
-	public PageService pageService;
+	private HostHolder localHost;
 	
 	@Autowired
-	private HostHolder localHost;
-
-	@RequestMapping(path = "/topics", method = RequestMethod.GET)
-	public String displayAllTopics(Model model,HttpServletRequest request) {
-		List<Topic> topics = topicDao.findAll();
-		// 实现分页处理
-//		PageBean<Topic> pageTopic=pageService.findItemByPage(1, 5);
-//		List<Topic> topics=pageTopic.getItems();
-		String header = setHeader("all");
-		
-		User user=localHost.getUser();
-		model.addAttribute("localHost", user.getUsername());
-		model.addAttribute("user", user);
-		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
-		model.addAttribute("topics", topics);
-		model.addAttribute("header", header);
-		model.addAttribute("answerDao", answerDao);
-		model.addAttribute("userDao", userDao);
-//		model.addAttribute("currentPage", pageTopic.getCurrentPage());
-//		model.addAttribute("hasMore", pageTopic.getIsMore());
-		return "topics";
-	}
+	private TopicsService topicsService;
 	
 //	@RequestMapping(path = "/topics/page/{currentPage}", method = RequestMethod.GET)
 //	public String displayAllTopicsPage(@PathVariable int currentPage, Model model,HttpServletRequest request) {
@@ -70,7 +47,6 @@ public class TopicsController {
 //		String header = setHeader("all");
 //		
 //		User user=localHost.getUser();
-//		model.addAttribute("localHost", user.getUsername());
 //		model.addAttribute("user", user);
 //		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 //		model.addAttribute("topics", topics);
@@ -85,11 +61,10 @@ public class TopicsController {
 	
 	@RequestMapping(path = "/topics/{category}", method = RequestMethod.GET)
 	public String displayTopicsByCategory(@PathVariable String category, Model model) {
-		List<Topic> topics = topicDao.findTopicsByCategoryOrderByCreatedDateDesc(category);
+		List<Topic> topics = topicsService.getTopicsByCategory(category);
 		String header = setHeader(category);
 		
 		User user=localHost.getUser();
-		model.addAttribute("localHost", user.getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topics", topics);
@@ -101,17 +76,17 @@ public class TopicsController {
 
 	@RequestMapping(path = "/topics/user/{id}", method = RequestMethod.GET)
 	public String displayTopicsByUser(@PathVariable String id, Model model) {
-		List<Topic> topics = topicDao.findTopicsByUser_IdOrderByCreatedDateDesc(Long.valueOf(id));
+		List<Topic> topics = topicsService.getTopicsByUser(id);
 		String header = setHeader("user");
 		
 		User user=localHost.getUser();
-		model.addAttribute("localHost", user.getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topics", topics);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
 		model.addAttribute("userDao", userDao);
+		
 		return "topics";
 	}
 

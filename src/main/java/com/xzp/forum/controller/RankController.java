@@ -37,9 +37,8 @@ public class RankController {
 		User user=hostHolder.getUser();
 		Long points = userDao.getPoints(user.getId());
 		jedisAdapter.zadd(rankKey, points, user.getUsername());
-		
 		Set<String> pointSet=jedisAdapter.zrevrange(rankKey, 0, 9);
-		model.addAttribute("localHost", user.getUsername());
+		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("pointSet", pointSet);
 		model.addAttribute("userDao", userDao);

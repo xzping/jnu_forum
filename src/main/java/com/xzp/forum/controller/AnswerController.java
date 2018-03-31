@@ -39,7 +39,6 @@ public class AnswerController {
 		List<Answer> answers = answerDao.findAnswerByUser_IdOrderByCreatedDateDesc(Long.parseLong(id));
 		
 		User user=hostHolder.getUser();
-		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user",user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("answers", answers);
@@ -52,7 +51,6 @@ public class AnswerController {
 		List<Answer> answers = answerDao.findAnswerByUser_IdAndUsefulOrderByCreatedDateDesc(Long.parseLong(id), true);
 		
 		User user=hostHolder.getUser();
-		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user",user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("answers", answers);

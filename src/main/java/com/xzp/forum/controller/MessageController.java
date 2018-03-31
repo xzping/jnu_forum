@@ -21,6 +21,7 @@ import com.xzp.forum.model.Answer;
 import com.xzp.forum.model.Message;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
+import com.xzp.forum.service.MessageService;
 import com.xzp.forum.util.HostHolder;
 
 /**
@@ -48,14 +49,17 @@ public class MessageController {
 	@Autowired
 	private HostHolder hostHolder;
 	
+	@Autowired
+	MessageService messageService;
+	
 	@RequestMapping(path="/message",method= RequestMethod.GET)
 	public String message(Model model) {
 		User user=hostHolder.getUser();
 		Long toId=user.getId();
-		List<Message> messages=messageDao.getMessageByToId(toId);
-		List<Message> unReadMessages=messageDao.getUnReadMessageByToId(toId);
 		
-		model.addAttribute("localHost", hostHolder.getUser().getUsername());
+		List<Message> messages=messageService.getReadMessageById(toId);
+		List<Message> unReadMessages=messageService.getUnreadMessageById(toId);
+		
 		model.addAttribute("user",user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("messages", messages);
@@ -75,7 +79,6 @@ public class MessageController {
 		List<Answer> answers = answerDao.findAnswerByTopic_Id(Long.valueOf(id));
 		messageDao.changeReadStatement(Long.valueOf(messageId));
 
-		model.addAttribute("localHost", user.getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topic", topic);

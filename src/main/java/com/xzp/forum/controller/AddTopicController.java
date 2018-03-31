@@ -58,7 +58,6 @@ public class AddTopicController {
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
 
-		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("points", points);
@@ -77,7 +76,6 @@ public class AddTopicController {
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(id);
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(id, true);
 
-		model.addAttribute("localHost", hostHolder.getUser().getUsername());
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("points", points);
