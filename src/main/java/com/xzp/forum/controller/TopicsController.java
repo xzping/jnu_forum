@@ -63,6 +63,8 @@ public class TopicsController {
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
 		model.addAttribute("userDao", userDao);
+		model.addAttribute("currentPage", pageTopic.getCurrentPage());
+		model.addAttribute("hasMore", pageTopic.getIsMore());
 		return "topics";
 	}
 	
@@ -82,6 +84,9 @@ public class TopicsController {
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
 		model.addAttribute("userDao", userDao);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("hasMore", pageTopic.getIsMore());
+		
 		return "topics";
 	}
 	
