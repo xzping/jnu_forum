@@ -34,7 +34,12 @@ public class PageService {
 		int countNums = topicDao.findTopicsByCategoryOrderByCreatedDateDesc(category).size(); // 总记录数
 		// 设置分页信息，分别是当前页数和每页显示的总记录数【记住：必须在mapper接口中的方法执行之前设置该分页信息】
 		PageHelper.startPage(currentPage, pageSize);
-		List<Topic> allTopic = topicDao.findTopicsByCategoryOrderByCreatedDateDesc(category); // 全部商品
+		List<Topic> allTopic=null;
+		if(category.equals("all")) {
+			allTopic=topicDao.findAll();
+		}else{
+			allTopic = topicDao.findTopicsByCategoryOrderByCreatedDateDesc(category); // 全部商品
+		}
 		PageBean<Topic> pageData = new PageBean<>(currentPage, pageSize, countNums);
 		pageData.setItems(allTopic);
 		pageData.setCurrentPage(currentPage);

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 import com.xzp.forum.dao.AnswerDao;
@@ -38,26 +39,25 @@ public class TopicsController {
 	@Autowired
 	private TopicsService topicsService;
 	
-//	@RequestMapping(path = "/topics/page/{currentPage}", method = RequestMethod.GET)
-//	public String displayAllTopicsPage(@PathVariable int currentPage, Model model,HttpServletRequest request) {
-////		List<Topic> topics = topicDao.findAll();
-//		// 实现分页处理
-//		PageBean<Topic> pageTopic=pageService.findItemByPage(currentPage, 5);
-//		List<Topic> topics=pageTopic.getItems();
-//		String header = setHeader("all");
-//		
-//		User user=localHost.getUser();
-//		model.addAttribute("user", user);
-//		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
-//		model.addAttribute("topics", topics);
-//		model.addAttribute("header", header);
-//		model.addAttribute("answerDao", answerDao);
-//		model.addAttribute("userDao", userDao);
-//		model.addAttribute("currentPage", currentPage);
-//		model.addAttribute("hasMore", pageTopic.getIsMore());
-//		
-//		return "topics";
-//	}
+	@Autowired
+	private PageService pageService;
+	
+	@RequestMapping(path="/topics/{category}/{currentPage}", method=RequestMethod.GET)
+	@ResponseBody
+	public String displayTopicPage(@PathVariable String category, @PathVariable int currentPage, Model model) {
+		PageBean<Topic> pageTopic=pageService.findItemByPage(category, currentPage, 5);
+		List<Topic> pageList=pageTopic.getItems();
+		String header = setHeader(category);
+		
+		User user=localHost.getUser();
+		model.addAttribute("user", user);
+		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
+		model.addAttribute("topics", pageList);
+		model.addAttribute("header", header);
+		model.addAttribute("answerDao", answerDao);
+		model.addAttribute("userDao", userDao);
+		return "topics";
+	}
 	
 	@RequestMapping(path = "/topics/{category}", method = RequestMethod.GET)
 	public String displayTopicsByCategory(@PathVariable String category, Model model) {

@@ -17,14 +17,14 @@ import com.xzp.forum.util.ForumUtil;
 @Controller
 public class PageHelperController {
 	
-//	@Autowired
-//	public PageService pageService;
-//	
-//	@RequestMapping(path="/pageHelper/{currentPage}",method=RequestMethod.GET)
+	@Autowired
+	public PageService pageService;
+	
+//	@RequestMapping(path="/topics/{category}/{currentPage}",method=RequestMethod.GET)
 //	@ResponseBody
-//	public String pageHelper(@PathVariable int currentPage) {
-//		PageBean<Topic> pageTopic=pageService.findItemByPage(currentPage, 5);
-//		List<Topic> topics=pageTopic.getItems();
-//		return ForumUtil.getJSONString(1, topics);
-//	}
+	public String pageHelper(@PathVariable String category, @PathVariable int currentPage) {
+		PageBean<Topic> pageTopic=pageService.findItemByPage(category, currentPage, 5);
+		List<Topic> topics=pageTopic.getItems();
+		return ForumUtil.getJSONString(1, topics);
+	}
 }
