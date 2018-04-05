@@ -42,8 +42,14 @@ public class TopicsController {
 	@Autowired
 	private PageService pageService;
 	
+	/**
+	 * 分页处理
+	 * @param category
+	 * @param currentPage
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(path="/topics/{category}/{currentPage}", method=RequestMethod.GET)
-	@ResponseBody
 	public String displayTopicPage(@PathVariable String category, @PathVariable int currentPage, Model model) {
 		PageBean<Topic> pageTopic=pageService.findItemByPage(category, currentPage, 5);
 		List<Topic> pageList=pageTopic.getItems();
@@ -56,6 +62,11 @@ public class TopicsController {
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
 		model.addAttribute("userDao", userDao);
+		model.addAttribute("currentPage", pageTopic.getCurrentPage());
+		model.addAttribute("totalPage", pageTopic.getTotalPage());
+		model.addAttribute("hasNext", pageTopic.getIsMore());
+		System.out.println(pageTopic.getIsMore());
+		System.out.println(pageTopic.getTotalPage());
 		return "topics";
 	}
 	

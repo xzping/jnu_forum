@@ -43,23 +43,25 @@
                             </th:block>
                         </tbody>
                     </table>
-				<!-- <ul class="pagination center">
-					<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-					
-					<li class="active"><a href="/topics/page/1" th:if="${currentPage==1}">1</a></li>
-					<li class="waves-effect"><a href="/topics/page/1" th:if="${currentPage!=1}">1</a></li>
-					
-					<li class="active"><a href="/topics/page/2" th:if="${currentPage==2}">2</a></li>
-					<li class="waves-effect"><a href="/topics/page/2" th:if="${currentPage!=2}">2</a></li>
-					
-					<li class="active"><a href="/topics/page/3" th:if="${currentPage==3}">3</a></li>
-					<li class="waves-effect"><a href="/topics/page/3" th:if="${currentPage!=3}">3</a></li>
-					
-					<li class="active"><a href="/topics/page/4" th:if="${currentPage==4}">4</a></li>
-					<li class="waves-effect"><a href="/topics/page/4" th:if="${currentPage!=4}">4</a></li>
-					
-					<li class="waves-effect"><a href="#!"><i class="material-icons" th:if="${hasMore==1}">chevron_right</i></a></li>
-				</ul> -->
+						<ul class="pagination center">
+							<li class="disabled"><a th:href="@{'/topics/'+${category}+'/'+ ${currentPage-1}}"><i class="material-icons" th:if="${currentPage>1}">chevron_left</i></a></li>
+							
+							<li class="active"><a th:href="@{'/topics/'+${category}+'/'+ ${currentPage}}" th:text="${currentPage}">page</a></li>
+							
+							<!-- <li class="active"><a th:href="@{'/topics/'+${category}+'/'+ ${page}}" th:if="${currentPage==page}" th:text="${page}">page</a></li>
+							<li class="waves-effect"><a th:href="@{'/topics/'+${category}+'/'+ ${page}}" th:if="${currentPage!=page}" th:text="${page}">page</a></li> -->
+							
+							<!-- <li class="active"><a th:href="@{'/topics/'+${category}+'/2'}" th:if="${currentPage==2}">2</a></li>
+							<li class="waves-effect"><a th:href="@{'/topics/'+${category}+'/2'}" th:if="${currentPage!=2}">2</a></li>
+							
+							<li class="active"><a th:href="@{'/topics/'+${category}+'/3'}" th:if="${currentPage==3}">3</a></li>
+							<li class="waves-effect"><a th:href="@{'/topics/'+${category}+'/3'}" th:if="${currentPage!=3}">3</a></li>
+							
+							<li class="active"><a th:href="@{'/topics/'+${category}+'/4'}" th:if="${currentPage==4}">4</a></li>
+							<li class="waves-effect"><a th:href="@{'/topics/'+${category}+'/4'}" th:if="${currentPage!=4}">4</a></li> -->
+							
+							<li class="waves-effect"><a th:href="@{'/topics/'+${category}+'/'+ ${currentPage+1}}" ><i class="material-icons" th:if="${hasNext}">chevron_right</i></a></li>
+						</ul>
 			</div>
             </section>
         </article>
