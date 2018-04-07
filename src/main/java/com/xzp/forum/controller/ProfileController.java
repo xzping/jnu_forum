@@ -174,15 +174,15 @@ public class ProfileController {
 		}
 	}
 	
-	@RequestMapping(path = "/profile/message", method = RequestMethod.GET)
-	public View topicsTransform(HttpServletRequest request) {
-		String contextPath = request.getContextPath();
-		return new RedirectView(contextPath + "/message");
-	}
-	
-	@RequestMapping(path = "/imageWall/message", method = RequestMethod.GET)
-	public View messageTransform(HttpServletRequest request) {
-		String contextPath = request.getContextPath();
-		return new RedirectView(contextPath + "/message");
-	}
+//	@RequestMapping(path = "/profile/message", method = RequestMethod.GET)
+//	public View topicsTransform(HttpServletRequest request) {
+//		String contextPath = request.getContextPath();
+//		return new RedirectView(contextPath + "/message");
+//	}
+//	
+//	@RequestMapping(path = "/imageWall/message", method = RequestMethod.GET)
+//	public View messageTransform(HttpServletRequest request) {
+//		String contextPath = request.getContextPath();
+//		return new RedirectView(contextPath + "/message");
+//	}
 }

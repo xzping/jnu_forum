@@ -65,8 +65,6 @@ public class TopicsController {
 		model.addAttribute("currentPage", pageTopic.getCurrentPage());
 		model.addAttribute("totalPage", pageTopic.getTotalPage());
 		model.addAttribute("hasNext", pageTopic.getIsMore());
-		System.out.println(pageTopic.getIsMore());
-		System.out.println(pageTopic.getTotalPage());
 		return "topics";
 	}
 	
@@ -127,21 +125,21 @@ public class TopicsController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(path = "/topics/user/message", method = RequestMethod.GET)
-	public View topicTransformUser(HttpServletRequest request) {
-		String contextPath = request.getContextPath();
-		return new RedirectView(contextPath + "/message");
-	}
-	
-	@RequestMapping(path = "/topics/other/message", method = RequestMethod.GET)
-	public View topicTransformOther(HttpServletRequest request) {
-		String contextPath = request.getContextPath();
-		return new RedirectView(contextPath + "/message");
-	}
-	
-	@RequestMapping(path = "/topics/web/message", method = RequestMethod.GET)
-	public View topicTransformWeb(HttpServletRequest request) {
-		String contextPath = request.getContextPath();
-		return new RedirectView(contextPath + "/message");
-	}
+//	@RequestMapping(path = "/topics/user/message", method = RequestMethod.GET)
+//	public View topicTransformUser(HttpServletRequest request) {
+//		String contextPath = request.getContextPath();
+//		return new RedirectView(contextPath + "/message");
+//	}
+//	
+//	@RequestMapping(path = "/topics/other/message", method = RequestMethod.GET)
+//	public View topicTransformOther(HttpServletRequest request) {
+//		String contextPath = request.getContextPath();
+//		return new RedirectView(contextPath + "/message");
+//	}
+//	
+//	@RequestMapping(path = "/topics/web/message", method = RequestMethod.GET)
+//	public View topicTransformWeb(HttpServletRequest request) {
+//		String contextPath = request.getContextPath();
+//		return new RedirectView(contextPath + "/message");
+//	}
 }

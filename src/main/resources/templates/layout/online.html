@@ -14,20 +14,20 @@
         <div class="nav-wrapper">
             <div class="container">
                 <ul id="nav-left" class="left hide-on-med-and-down">
-                    <li><a th:href="@{'/topics/all/1'}">All</a></li>
-                    <li><a th:href="@{'/topics/se/1'}">Java SE</a></li>
-                    <li><a th:href="@{'/topics/ee/1'}">Java EE</a></li>
-                    <li><a th:href="@{'/topics/mbs/1'}">MyBatis</a></li>
-                    <li><a th:href="@{'/topics/spring/1'}">Spring</a></li>
-                    <li><a th:href="@{'/topics/web/1'}">HTML/CSS/JS</a></li>
-                    <li><a th:href="@{'/topics/other/1'}">其他</a></li>
+                    <li><a href="/topics/all/1">All</a></li>
+                    <li><a href="/topics/se/1">Java SE</a></li>
+                    <li><a href="/topics/ee/1">Java EE</a></li>
+                    <li><a href="/topics/mbs/1">MyBatis</a></li>
+                    <li><a href="/topics/spring/1">Spring</a></li>
+                    <li><a href="/topics/web/1">HTML/CSS/JS</a></li>
+                    <li><a href="/topics/other/1">其他</a></li>
                 </ul>
                 <ul id="nav-right" class="right hide-on-med-and-down">
-                    <li><a th:href="@{'/profile'}" th:text="${user.getUsername()}">简介</a></li>
-                    <li><a th:href="@{'/addTopic'}">发表</a></li>
-                    <li><a th:href="@{'message'}">站内信<span class="new badge" th:text="${newMessage}">2</span></a></li>
-                    <li><a th:href="@{'/rank'}">排行榜</a></li>
-                    <li><a th:href="@{'/logout'}">登出</a></li>
+                    <li><a href="/profile" th:text="${user.getUsername()}">简介</a></li>
+                    <li><a href="/addTopic">发表</a></li>
+                    <li><a href="/message">站内信<span class="new badge" th:text="${newMessage}">2</span></a></li>
+                    <li><a href="/rank">排行榜</a></li>
+                    <li><a href="/logout">登出</a></li>
                 </ul>
             </div>
         </div>
