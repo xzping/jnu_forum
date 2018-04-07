@@ -128,7 +128,19 @@ public class TopicsController {
 	 * @return
 	 */
 	@RequestMapping(path = "/topics/user/message", method = RequestMethod.GET)
-	public View topicTransform(HttpServletRequest request) {
+	public View topicTransformUser(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
+	}
+	
+	@RequestMapping(path = "/topics/other/message", method = RequestMethod.GET)
+	public View topicTransformOther(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
+	}
+	
+	@RequestMapping(path = "/topics/web/message", method = RequestMethod.GET)
+	public View topicTransformWeb(HttpServletRequest request) {
 		String contextPath = request.getContextPath();
 		return new RedirectView(contextPath + "/message");
 	}

@@ -55,7 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and()
 				.formLogin()
 				.loginPage("/login") //指定登录页面为/login
-				.defaultSuccessUrl("/topics/all")//登录成功后页面跳转至/profile
+				.defaultSuccessUrl("/topics/all/1")//登录成功后页面跳转至/profile
 				.and()
 				.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
