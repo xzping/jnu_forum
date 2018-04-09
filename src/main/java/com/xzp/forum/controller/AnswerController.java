@@ -63,15 +63,15 @@ public class AnswerController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(path = "/answers/message", method = RequestMethod.GET)
-	public View answersTransform(HttpServletRequest request) {
-		String contextPath = request.getContextPath();
-		return new RedirectView(contextPath + "/message");
-	}
-	
-	@RequestMapping(path = "/answers/useful/message", method = RequestMethod.GET)
-	public View answerUsefulTransform(HttpServletRequest request) {
-		String contextPath = request.getContextPath();
-		return new RedirectView(contextPath + "/message");
-	}
+//	@RequestMapping(path = "/answers/message", method = RequestMethod.GET)
+//	public View answersTransform(HttpServletRequest request) {
+//		String contextPath = request.getContextPath();
+//		return new RedirectView(contextPath + "/message");
+//	}
+//	
+//	@RequestMapping(path = "/answers/useful/message", method = RequestMethod.GET)
+//	public View answerUsefulTransform(HttpServletRequest request) {
+//		String contextPath = request.getContextPath();
+//		return new RedirectView(contextPath + "/message");
+//	}
 }
