@@ -24,7 +24,7 @@
 						<img src="http://ox6xu9hb7.bkt.clouddn.com/87858783a5854d4b90fdcba8e9d5f5bf.jpg" alt="Contact Person" th:text="${userDao.getUsernameById(topic.getIdUser())}" th:href="@{'/profile/' + ${topic.getIdUser()}}">Topic's author</img>
 					</div>
 				</a>
-				<a th:href="@{'/topics/' + ${topic.getCategory()}}"> 
+				<a th:href="@{'/topics/' + ${topic.getCategory()+'/1'}}"> 
 					<span class="chip left" th:text="${topic.getCategory()}" style="background-color: #ee6e73;">Category</span>
 				</a>
 				<!-- 删除话题 -->

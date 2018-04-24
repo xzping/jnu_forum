@@ -88,7 +88,6 @@ public class ProfileController {
 	public String displayProfileById(@PathVariable Long id, Model model) {
 		User user = userDao.getUserById(id);
 		Long points = userDao.getPoints(user.getId());
-		
 		Long numberOfTopics = topicDao.countTopicsByUser_Id(id);
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(id);
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(id, true);

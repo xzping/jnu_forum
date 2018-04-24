@@ -16,20 +16,6 @@ public class PageService {
 	@Autowired
 	private TopicDao topicDao;
 	
-//	public PageBean<Topic> findItemByPage(int currentPage, int pageSize) {
-//		int countNums = topicDao.findAll().size(); // 总记录数
-//		// 设置分页信息，分别是当前页数和每页显示的总记录数【记住：必须在mapper接口中的方法执行之前设置该分页信息】
-//		PageHelper.startPage(currentPage, pageSize);
-//		List<Topic> allTopic = topicDao.findAll(); // 全部商品
-//		PageBean<Topic> pageData = new PageBean<>(currentPage, pageSize, countNums);
-//		pageData.setItems(allTopic);
-//		pageData.setCurrentPage(currentPage);
-//		pageData.setPageSize(pageSize);
-//		pageData.setTotalPage(countNums/pageSize);
-//		pageData.setIsMore(currentPage<(countNums/pageSize)?true:false);//1表示有下一页，0表示没有下一页
-//		return pageData;
-//	}
-	
 	public PageBean<Topic> findItemByPage(String category, int currentPage, int pageSize) {
 		int countNums = 0; // 总记录数
 		if(category.equals("all")) {

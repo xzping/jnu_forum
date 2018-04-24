@@ -105,7 +105,7 @@ public class AddTopicController {
 
 		topicDao.addTopic(topic);
 		String contextPath = request.getContextPath();
-		return new RedirectView(contextPath + "/topics");
+		return new RedirectView(contextPath + "/topics/"+category+"/1");
 	}
 	
 }

@@ -51,14 +51,16 @@ public class TopicsController {
 	 */
 	@RequestMapping(path="/topics/{category}/{currentPage}", method=RequestMethod.GET)
 	public String displayTopicPage(@PathVariable String category, @PathVariable int currentPage, Model model) {
-		PageBean<Topic> pageTopic=pageService.findItemByPage(category, currentPage, 5);
+		PageBean<Topic> pageTopic=pageService.findItemByPage(category, currentPage, 10);
 		List<Topic> pageList=pageTopic.getItems();
 		String header = setHeader(category);
+		int topicsTotalNum=topicsService.getTopicsByCategory(category).size();
 		
 		User user=localHost.getUser();
 		model.addAttribute("user", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 		model.addAttribute("topics", pageList);
+		model.addAttribute("topicsTotalNum", topicsTotalNum);
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
 		model.addAttribute("userDao", userDao);
@@ -68,20 +70,20 @@ public class TopicsController {
 		return "topics";
 	}
 	
-	@RequestMapping(path = "/topics/{category}", method = RequestMethod.GET)
-	public String displayTopicsByCategory(@PathVariable String category, Model model) {
-		List<Topic> topics = topicsService.getTopicsByCategory(category);
-		String header = setHeader(category);
-		
-		User user=localHost.getUser();
-		model.addAttribute("user", user);
-		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
-		model.addAttribute("topics", topics);
-		model.addAttribute("header", header);
-		model.addAttribute("answerDao", answerDao);
-		model.addAttribute("userDao", userDao);
-		return "topics";
-	}
+//	@RequestMapping(path = "/topics/{category}", method = RequestMethod.GET)
+//	public String displayTopicsByCategory(@PathVariable String category, Model model) {
+//		List<Topic> topics = topicsService.getTopicsByCategory(category);
+//		String header = setHeader(category);
+//		
+//		User user=localHost.getUser();
+//		model.addAttribute("user", user);
+//		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
+//		model.addAttribute("topics", topics);
+//		model.addAttribute("header", header);
+//		model.addAttribute("answerDao", answerDao);
+//		model.addAttribute("userDao", userDao);
+//		return "topics";
+//	}
 
 	@RequestMapping(path = "/topics/user/{id}", method = RequestMethod.GET)
 	public String displayTopicsByUser(@PathVariable String id, Model model) {
@@ -101,22 +103,22 @@ public class TopicsController {
 
 	private String setHeader(String category) {
 		switch (category) {
-		case "se":
-			return "Java Standard Edition";
-		case "ee":
-			return "Java Enterprise Edition";
-		case "mbs":
-			return "MyBatis";
-		case "spring":
-			return "Spring Framework";
-		case "web":
-			return "HTML/CSS/JavaScript";
-		case "other":
-			return "其他";
-		case "all":
-			return "All topics";
-		default:
-			return "User's topics";
+			case "se":
+				return "Java Standard Edition";
+			case "ee":
+				return "Java Enterprise Edition";
+			case "mbs":
+				return "MyBatis";
+			case "spring":
+				return "Spring Framework";
+			case "web":
+				return "HTML/CSS/JavaScript";
+			case "other":
+				return "其他";
+			case "all":
+				return "All topics";
+			default:
+				return "User's topics";
 		}
 	}
 	
