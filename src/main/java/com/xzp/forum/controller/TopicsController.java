@@ -67,27 +67,16 @@ public class TopicsController {
 		model.addAttribute("currentPage", pageTopic.getCurrentPage());
 		model.addAttribute("totalPage", pageTopic.getTotalPage());
 		model.addAttribute("hasNext", pageTopic.getIsMore());
+		model.addAttribute("isUserTopicPage", false);
 		return "topics";
 	}
 	
-//	@RequestMapping(path = "/topics/{category}", method = RequestMethod.GET)
-//	public String displayTopicsByCategory(@PathVariable String category, Model model) {
-//		List<Topic> topics = topicsService.getTopicsByCategory(category);
-//		String header = setHeader(category);
-//		
-//		User user=localHost.getUser();
-//		model.addAttribute("user", user);
-//		model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
-//		model.addAttribute("topics", topics);
-//		model.addAttribute("header", header);
-//		model.addAttribute("answerDao", answerDao);
-//		model.addAttribute("userDao", userDao);
-//		return "topics";
-//	}
-
-	@RequestMapping(path = "/topics/user/{id}", method = RequestMethod.GET)
-	public String displayTopicsByUser(@PathVariable String id, Model model) {
-		List<Topic> topics = topicsService.getTopicsByUser(id);
+	@RequestMapping(path = "/topics/user/{id}_{currentPage}", method = RequestMethod.GET)
+	public String displayTopicsByUser(@PathVariable String id, @PathVariable int currentPage, Model model) {
+//		List<Topic> topics = topicsService.getTopicsByUser(id);
+		PageBean<Topic> pageTopic=pageService.findItemByUser(id, currentPage, 10);
+		List<Topic> topics=pageTopic.getItems();
+		int topicsTotalNum=topicsService.getTopicsByUser(id).size();
 		String header = setHeader("user");
 		
 		User user=localHost.getUser();
@@ -97,7 +86,11 @@ public class TopicsController {
 		model.addAttribute("header", header);
 		model.addAttribute("answerDao", answerDao);
 		model.addAttribute("userDao", userDao);
-		
+		model.addAttribute("currentPage", pageTopic.getCurrentPage());
+		model.addAttribute("totalPage", pageTopic.getTotalPage());
+		model.addAttribute("hasNext", pageTopic.getIsMore());
+		model.addAttribute("topicsTotalNum", topicsTotalNum);
+		model.addAttribute("isUserTopicPage", true);
 		return "topics";
 	}
 

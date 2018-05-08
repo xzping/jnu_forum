@@ -39,4 +39,14 @@ public class PageService {
 //		pageData.setIsMore(currentPage<(countNums/pageSize)?true:false);
 		return pageData;
 	}
+	
+	public PageBean<Topic> findItemByUser(String userId, int currentPage, int pageSize) {
+		int countNums = topicDao.findTopicsByUser_IdOrderByCreatedDateDesc(Long.valueOf(userId)).size(); // 总记录数
+		// 设置分页信息，分别是当前页数和每页显示的总记录数【记住：必须在mapper接口中的方法执行之前设置该分页信息】
+		PageHelper.startPage(currentPage, pageSize);
+		List<Topic> allTopic=topicDao.findTopicsByUser_IdOrderByCreatedDateDesc(Long.valueOf(userId));
+		PageBean<Topic> pageData = new PageBean<>(currentPage, pageSize, countNums);
+		pageData.setItems(allTopic);
+		return pageData;
+	}
 }
