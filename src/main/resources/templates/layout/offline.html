@@ -14,13 +14,13 @@
         <div class="nav-wrapper">
             <div class="container">
 				<ul id="nav-left" class="left hide-on-med-and-down">
-                    <li><a href="/" style="font-size:25px;color:white">暨大论坛</a></li>
+                    <li><a th:href="@{'/'}" style="font-size:25px;color:white">暨大论坛</a></li>
                 </ul>
                             
                 <ul id="nav-left" class="right hide-on-med-and-down">
-                    <li><a href="/">主页</a></li>
-                    <li><a href="/login">登录</a></li>
-                    <li><a href="/register">注册</a></li>
+                    <li><a th:href="@{'/'}">主页</a></li>
+                    <li><a th:href="@{'/login'}">登录</a></li>
+                    <li><a th:href="@{'/register'}">注册</a></li>
                 </ul>
             </div>
         </div>
@@ -40,8 +40,8 @@
                     <h5 class="white-text">Links</h5>
                     <ul>
                         <li><a class="white-text" href="https://github.com/xzping/jnu_forum">Github</a></li>
-                        <li><a class="white-text" href="aboutUs.html">关于我们</a></li>
-                        <li><a class="white-text" href="title.html">2018年本科毕业设计</a></li>
+                        <li><a class="white-text" th:href="aboutUs.html">关于我们</a></li>
+                        <li><a class="white-text" th:href="title.html">2018年本科毕业设计</a></li>
                     </ul>
                 </div>
             </div>

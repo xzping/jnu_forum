@@ -104,7 +104,7 @@ public class ProfileController {
 		model.addAttribute("numberOfHelped", numberOfHelped);
 		model.addAttribute("myImgs", myImgs);
 		model.addAttribute("isHasMoreImg", myAllImgs.size()>myImgs.size());
-		model.addAttribute("switch", false);
+		model.addAttribute("switch", (user.getId()==otherUser.getId())?true:false);
 		
 		return "profile";
 	}
@@ -160,13 +160,16 @@ public class ProfileController {
 			Long numberOfAnswers = answerDao.countAnswersByUser_Id(user.getId());
 			Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(user.getId(), true);
 			List<String> myImgs=imageDao.getImgByUserId(user.getId());
+			List<String> myAllImgs=imageDao.getAllImgByUserId(user.getId());
 			model.addAttribute("user", user);
+			model.addAttribute("otherUser", user);
 			model.addAttribute("newMessage", messageDao.countMessageByToId(user.getId()));
 			model.addAttribute("points", points);
 			model.addAttribute("numberOfTopics", numberOfTopics);
 			model.addAttribute("numberOfAnswers", numberOfAnswers);
 			model.addAttribute("numberOfHelped", numberOfHelped);
 			model.addAttribute("myImgs", myImgs);
+			model.addAttribute("isHasMoreImg", myAllImgs.size()>myImgs.size());
 			model.addAttribute("switch", true);
 			return "profile";
 		} catch (IOException e) {
@@ -175,15 +178,15 @@ public class ProfileController {
 		}
 	}
 	
-//	@RequestMapping(path = "/profile/message", method = RequestMethod.GET)
-//	public View topicsTransform(HttpServletRequest request) {
-//		String contextPath = request.getContextPath();
-//		return new RedirectView(contextPath + "/message");
-//	}
-//	
-//	@RequestMapping(path = "/imageWall/message", method = RequestMethod.GET)
-//	public View messageTransform(HttpServletRequest request) {
-//		String contextPath = request.getContextPath();
-//		return new RedirectView(contextPath + "/message");
-//	}
+	@RequestMapping(path = "/profile/message", method = RequestMethod.GET)
+	public View topicsTransform(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
+	}
+	
+	@RequestMapping(path = "/imageWall/message", method = RequestMethod.GET)
+	public View messageTransform(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		return new RedirectView(contextPath + "/message");
+	}
 }
