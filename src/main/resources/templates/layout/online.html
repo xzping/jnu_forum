@@ -23,7 +23,7 @@
                     <li><a href="/topics/other/1">其他</a></li>
                 </ul>
                 <ul id="nav-right" class="right hide-on-med-and-down">
-                    <li><a href="/profile" th:text="${user.getUsername()}">简介</a></li>
+                    <li><a th:href="@{'/profile/'+${user.getId()}}" th:text="${user.getUsername()}">简介</a></li>
                     <li><a href="/addTopic">发表</a></li>
                     <li><a href="/message">站内信<span class="new badge" th:text="${newMessage}">2</span></a></li>
                     <li><a href="/rank">排行榜</a></li>

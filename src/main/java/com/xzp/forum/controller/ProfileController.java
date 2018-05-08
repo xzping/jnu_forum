@@ -94,7 +94,9 @@ public class ProfileController {
 		List<String> myImgs=imageDao.getImgByUserId(user.getId());
 		List<String> myAllImgs=imageDao.getAllImgByUserId(user.getId());
 		
-		model.addAttribute("user", user);
+		User otherUser=hostHolder.getUser();
+		model.addAttribute("user", otherUser);
+		model.addAttribute("otherUser", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(hostHolder.getUser().getId()));
 		model.addAttribute("points", points);
 		model.addAttribute("numberOfTopics", numberOfTopics);
