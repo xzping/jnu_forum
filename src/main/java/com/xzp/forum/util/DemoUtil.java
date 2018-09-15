@@ -1,5 +1,9 @@
 package com.xzp.forum.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import redis.clients.jedis.BinaryClient;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -114,5 +118,13 @@ public class DemoUtil {
 //			System.out.println("POOL"+i);
 //			j.close();//此处必须将使用后的Jedis资源关闭释放回去，否则资源会被耗尽
 //		}
+//	}
+	
+//	public static void main(String[] args) {
+//		DateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		String date=sdf.format(new Date());
+//		long currentTime=new Date().getTime();
+//		System.out.println(date);
+//		System.out.println(System.currentTimeMillis()-currentTime);
 //	}
 }
