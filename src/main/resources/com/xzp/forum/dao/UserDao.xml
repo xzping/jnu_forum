@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzp.forum.dao.UserDao">
+	<sql id="tablename">user</sql>
+	<sql id="insertFields">username,password,introduction,created_date</sql>
+	<sql id="selectFields">id,username,password,introduction,created_date
+	</sql>
+
+	<insert id="addUser" parameterType="com.xzp.forum.model.User"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		<include refid="tablename" />
+		(
+		<include refid="insertFields" />
+		) VALUES ( #{username}, #{password}, #{introduction}, #{createdDate} )
+	</insert>
+
+	<select id="getUserByUsername" resultType="com.xzp.forum.model.User"
+		parameterType="string">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		WHERE username = #{username}
+
+	</select>
+
+	<select id="getUserById" resultType="com.xzp.forum.model.User"
+		parameterType="long">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		WHERE id = #{id}
+	</select>
+
+	<select id="getPoints" resultType="long" parameterType="long">
+		(SELECT
+		SUM(points) FROM (SELECT COUNT(topic.id_user) AS points FROM topic
+		WHERE topic.id_user = #{id}
+		UNION ALL SELECT 2*COUNT(answer.id_user) AS
+		points FROM answer WHERE
+		answer.id_user=#{id} UNION ALL
+		SELECT
+		3*COUNT(answer.id_user) AS points FROM answer WHERE
+		answer.id_user=#{id} AND answer.useful=TRUE) t)
+	</select>
+
+	<select id="getIdByUsername" resultType="long" parameterType="string">
+		SELECT id FROM
+		<include refid="tablename" />
+		WHERE username = #{username}
+	</select>
+
+	<select id="getUsernameById" resultType="string" parameterType="Integer">
+		SELECT username FROM
+		<include refid="tablename" />
+		WHERE id = #{id}
+	</select>
+</mapper>
