@@ -1,13 +1,8 @@
 package com.xzp.forum.dao;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-
 import com.xzp.forum.model.Topic;
 
 /**
@@ -22,28 +17,57 @@ public interface TopicDao {
 	String INSERT_FIELDS = "title,content,category,created_date,code,id_user";
 	String SELECT_FIELDS = "id,title,content,category,created_date,code,id_user";
 
-	@Insert({ "INSERT INTO ", TABLE_NAME, "(", INSERT_FIELDS,
-			") VALUES (#{title},#{content},#{category},#{createdDate},#{code},#{idUser})" })
+	/**
+	 * 插入一条话题记录
+	 * @param topic
+	 * @return int
+	 */
 	int addTopic(Topic topic);
 	
-	@Delete({"DELETE FROM ",TABLE_NAME,"WHERE id=#{id}"})
+	/**
+	 * 根据id删除一条话题记录
+	 * @param id
+	 */
 	void deleteTopicById(@Param("id") Long id);
 
-	@Select({ "SELECT COUNT(title) FROM", TABLE_NAME, "WHERE id_user=#{userId}" })
+	/**
+	 * 统计用户发的话题数量
+	 * @param userId
+	 * @return Long
+	 */
 	Long countTopicsByUser_Id(@Param("userId") Long userId);
 
-	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id=#{id}" })
+	/**
+	 * 根据id查找话题
+	 * @param id
+	 * @return Topic
+	 */
 	Topic findTopicById(@Param("id") Long id);
 	
-	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE category=#{category} ORDER BY created_date DESC" })
+	/**
+	 * 获取目录category下的所有话题
+	 * @param category
+	 * @return List<Topic>
+	 */
 	List<Topic> findTopicsByCategoryOrderByCreatedDateDesc(@Param("category") String category);
 	
-	@Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_user=#{id} ORDER BY created_date DESC" })
+	/**
+	 * 获取用户发布的所有话题记录
+	 * @param id
+	 * @return List<Topic>
+	 */
 	List<Topic> findTopicsByUser_IdOrderByCreatedDateDesc(@Param("id") Long id);
 	 
-	@Select({"SELECT",SELECT_FIELDS,"FROM",TABLE_NAME,"ORDER BY created_date DESC"})
+	/**
+	 * 获得所有话题
+	 * @return List<Topic>
+	 */
 	List<Topic> findAll();
 	
-	@Select({"SELECT id_user FROM ",TABLE_NAME,"WHERE id=#{id}"})
+	/**
+	 * 根据topic的id获得用户id
+	 * @param id
+	 * @return int
+	 */
 	int getId_userById(@Param("id") Long id);
 }

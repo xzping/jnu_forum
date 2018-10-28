@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzp.forum.dao.TopicDao">
+	<sql id="tablename">topic</sql>
+	<sql id="insertFields">title,content,category,created_date,code,id_user</sql>
+	<sql id="selectFields">id,title,content,category,created_date,code,id_user
+	</sql>
+
+	<insert id="addTopic" parameterType="com.xzp.forum.model.Topic"
+		useGeneratedKeys="true">
+		INSERT INTO
+		<include refid="tablename" />
+		(
+		<include refid="insertFields" />
+		) VALUES(
+		#{title},#{content},#{category},#{createdDate},#{code},#{idUser}
+		)
+	</insert>
+
+	<delete id="deleteTopicById" parameterType="long">
+		DELETE FROM
+		<include refid="tablename" />
+		WHERE id = #{id}
+	</delete>
+
+	<select id="countTopicsByUser_Id" parameterType="long"
+		resultType="long">
+		SELECT COUNT(title) FROM
+		<include refid="tablename" />
+		WHERE id_user = #{userId}
+	</select>
+
+	<select id="findTopicById" parameterType="long"
+		resultType="com.xzp.forum.model.Topic">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		WHERE id = #{id}
+	</select>
+
+	<select id="findTopicsByCategoryOrderByCreatedDateDesc"
+		parameterType="string" resultType="com.xzp.forum.model.Topic">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		WHERE category = #{category}
+		ORDER BY created_date DESC
+	</select>
+
+	<select id="findTopicsByUser_IdOrderByCreatedDateDesc"
+		parameterType="long" resultType="com.xzp.forum.model.Topic">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		WHERE id_user=#{id} ORDER BY created_date DESC
+	</select>
+
+	<select id="findAll" resultType="com.xzp.forum.model.Topic">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		ORDER BY created_date DESC
+	</select>
+	
+	<select id="getId_userById" parameterType="long">
+		SELECT id_user FROM
+		<include refid="tablename" />
+		WHERE id = #{id}
+	</select>
+</mapper>
