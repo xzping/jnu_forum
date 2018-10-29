@@ -1,11 +1,8 @@
 package com.xzp.forum.dao;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import com.xzp.forum.model.Image;
 
@@ -15,12 +12,24 @@ public interface ImageDao {
 	String INSERT_FIELDS = "imgUrl,id_user";
 	String SELECT_FIELDS = "id,imgUrl,id_user";
 	
-	@Insert({"INSERT INTO ",TABLE_NAME,"(",INSERT_FIELDS,") VALUES (#{imgUrl},#{idUser})"})
+	/**
+	 * 插入一张照片
+	 * @param img
+	 * @return int
+	 */
 	int addImg(Image img);
 	
-	@Select({"SELECT imgUrl FROM",TABLE_NAME,"WHERE id_user=#{userId} ORDER BY id DESC LIMIT 4"})
+	/**
+	 * 根据userid获得照片列表
+	 * @param userId
+	 * @return List<String>
+	 */
 	List<String> getImgByUserId(@Param("userId") Long userId);
 	
-	@Select({"SELECT imgUrl FROM",TABLE_NAME,"WHERE id_user=#{userId} ORDER BY id DESC"})
+	/**
+	 * 根据userid获得全部照片
+	 * @param userId
+	 * @return List<String>
+	 */
 	List<String> getAllImgByUserId(@Param("userId") Long userId);
 }

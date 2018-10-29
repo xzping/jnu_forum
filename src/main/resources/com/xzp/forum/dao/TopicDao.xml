@@ -67,7 +67,7 @@
 		ORDER BY created_date DESC
 	</select>
 	
-	<select id="getId_userById" parameterType="long">
+	<select id="getId_userById" parameterType="long" resultType="int">
 		SELECT id_user FROM
 		<include refid="tablename" />
 		WHERE id = #{id}

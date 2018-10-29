@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzp.forum.dao.AnswerDao">
+	<sql id="tablename">answer</sql>
+	<sql id="insertFields">content,useful,created_date,code,id_user,id_topic</sql>
+	<sql id="selectFields">id,content,useful,created_date,code,id_user,id_topic
+	</sql>
+
+	<insert id="addAnswer" parameterType="com.xzp.forum.model.Answer"
+		useGeneratedKeys="true">
+		INSERT INTO
+		<include refid="tablename" />
+		(
+		<include refid="insertFields" />
+		)
+		VALUES(#{content},#{useful},#{createdDate},#{code},#{idUser},#{idTopic})
+	</insert>
+
+	<update id="setUsefulForAnswer">
+		UPDATE
+		<include refid="tablename" />
+		SET useful=#{bool} WHERE id=#{id}
+	</update>
+
+	<delete id="deleteAnswerById" parameterType="long">
+		DELETE FROM
+		<include refid="tablename" />
+		WHERE id=#{id}
+	</delete>
+
+	<delete id="deleteAnswerByTopic_id" parameterType="long">
+		DELETE FROM
+		<include refid="tablename" />
+		WHERE id_topic=#{topic_id}
+	</delete>
+
+	<select id="countAnswersByUser_Id" parameterType="long"
+		resultType="long">
+		SELECT COUNT(content) FROM
+		<include refid="tablename" />
+		WHERE id_user=#{IdUser}
+	</select>
+
+	<select id="countAnswersByUser_IdAndUseful" resultType="long">
+		SELECT COUNT(content) FROM
+		<include refid="tablename" />
+		WHERE id_user=#{IdUser} AND useful=#{useful}
+	</select>
+
+	<select id="countAnswersByTopic_Id" parameterType="long"
+		resultType="long">
+		SELECT COUNT(content) FROM
+		<include refid="tablename" />
+		WHERE id_topic=#{idTopic}
+	</select>
+
+	<select id="findAnswerByUser_IdOrderByCreatedDateDesc"
+		parameterType="long" resultType="com.xzp.forum.model.Answer">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		WHERE id_user=#{id} ORDER BY created_date DESC
+	</select>
+
+	<select id="findAnswerByUser_IdAndUsefulOrderByCreatedDateDesc"
+		resultType="com.xzp.forum.model.Answer">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		WHERE id_user=#{idUser} AND useful=#{useful} ORDER BY created_date
+		DESC
+	</select>
+
+	<select id="findAnswerByTopic_Id" parameterType="long"
+		resultType="com.xzp.forum.model.Answer">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		WHERE id_topic=#{idTopic}
+	</select>
+
+	<select id="getIdUserById" parameterType="long" resultType="long">
+		SELECT id_user FROM
+		<include refid="tablename" />
+		WHERE id=#{id}
+	</select>
+</mapper>

@@ -1,14 +1,8 @@
 package com.xzp.forum.dao;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-
 import com.xzp.forum.model.Answer;
 
 /**
@@ -23,36 +17,92 @@ public interface AnswerDao {
 	String INSERT_FIELDS = "content,useful,created_date,code,id_user,id_topic";
 	String SELECT_FIELDS = "id,content,useful,created_date,code,id_user,id_topic";
 
-	@Insert({"INSERT INTO ",TABLE_NAME," (",INSERT_FIELDS,") VALUES ( #{content},#{useful},#{createdDate},#{code},#{idUser},#{idTopic})"})
+	/**
+	 * addAnswer
+	 * 
+	 * @param answer
+	 * @return
+	 */
 	int addAnswer(Answer answer);
-	
-	@Update({ "UPDATE", TABLE_NAME, "SET useful=#{bool} WHERE id=#{id}" })
+
+	/**
+	 * setUsefulForAnswer
+	 * 
+	 * @param bool
+	 * @param id
+	 */
 	void setUsefulForAnswer(@Param("bool") Boolean bool, @Param("id") Long id);
 
-	@Delete({ "DELETE FROM", TABLE_NAME, "WHERE id=#{id}" })
+	/**
+	 * deleteAnswerById
+	 * 
+	 * @param id
+	 */
 	void deleteAnswerById(@Param("id") Long id);
-	
-	@Delete({"DELETE FROM",TABLE_NAME,"WHERE id_topic=#{topic_id}"})
+
+	/**
+	 * deleteAnswerByTopic_id
+	 * 
+	 * @param topic_id
+	 */
 	void deleteAnswerByTopic_id(@Param("topic_id") Long topic_id);
 
-	@Select({ "SELECT COUNT(content) FROM", TABLE_NAME, "WHERE id_user=#{IdUser}" })
+	/**
+	 * countAnswersByUser_Id
+	 * 
+	 * @param IdUser
+	 * @return Long
+	 */
 	Long countAnswersByUser_Id(@Param("IdUser") Long IdUser);
 
-	@Select({ "SELECT COUNT(content) FROM", TABLE_NAME, "WHERE id_user=#{IdUser} AND useful=#{useful}" })
+	/**
+	 * countAnswersByUser_IdAndUseful
+	 * 
+	 * @param IdUser
+	 * @param useful
+	 * @return Long
+	 */
 	Long countAnswersByUser_IdAndUseful(@Param("IdUser") Long IdUser, @Param("useful") boolean useful);
 
-	 @Select({ "SELECT COUNT(content) FROM", TABLE_NAME, "WHERE id_topic=#{idTopic}" })
-	 Long countAnswersByTopic_Id(@Param("idTopic") Long idTopic);
-	
-	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_user=#{id} ORDER BY created_date DESC" })
-	 List<Answer> findAnswerByUser_IdOrderByCreatedDateDesc(@Param("id") Long id);
-	
-	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_user=#{idUser} AND useful=#{useful} ORDER BY created_date DESC" })
-	 List<Answer> findAnswerByUser_IdAndUsefulOrderByCreatedDateDesc(@Param("idUser") Long idUser, @Param("useful") boolean useful);
-	
-	 @Select({ "SELECT", SELECT_FIELDS, "FROM", TABLE_NAME, "WHERE id_topic=#{idTopic}" })
-	 List<Answer> findAnswerByTopic_Id(@Param("idTopic") Long idTopic);
-	 
-	 @Select({"SELECT id_user FROM",TABLE_NAME,"WHERE id=#{id}"})
-	 Long getIdUserById(@Param("id") Long id);
+	/**
+	 * countAnswersByTopic_Id
+	 * 
+	 * @param idTopic
+	 * @return Long
+	 */
+	Long countAnswersByTopic_Id(@Param("idTopic") Long idTopic);
+
+	/**
+	 * findAnswerByUser_IdOrderByCreatedDateDesc
+	 * 
+	 * @param id
+	 * @return List<Answer>
+	 */
+	List<Answer> findAnswerByUser_IdOrderByCreatedDateDesc(@Param("id") Long id);
+
+	/**
+	 * findAnswerByUser_IdAndUsefulOrderByCreatedDateDesc
+	 * 
+	 * @param idUser
+	 * @param useful
+	 * @return List<Answer>
+	 */
+	List<Answer> findAnswerByUser_IdAndUsefulOrderByCreatedDateDesc(@Param("idUser") Long idUser,
+			@Param("useful") boolean useful);
+
+	/**
+	 * findAnswerByTopic_Id
+	 * 
+	 * @param idTopic
+	 * @return List<Answer>
+	 */
+	List<Answer> findAnswerByTopic_Id(@Param("idTopic") Long idTopic);
+
+	/**
+	 * getIdUserById
+	 * 
+	 * @param id
+	 * @return Long
+	 */
+	Long getIdUserById(@Param("id") Long id);
 }

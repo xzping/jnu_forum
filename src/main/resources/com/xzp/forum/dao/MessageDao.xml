@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzp.forum.dao.MessageDao">
+	<sql id="tablename">message</sql>
+	<sql id="insertFields">from_id,to_id,content,created_date,id_topic,has_read</sql>
+	<sql id="selectFields">id,from_id,to_id,content,created_date,id_topic,has_read
+	</sql>
+
+	<insert id="addMessage" parameterType="com.xzp.forum.model.Message"
+		useGeneratedKeys="true">
+		INSERT INTO
+		<include refid="tablename" />
+		(
+		<include refid="insertFields" />
+		)
+		VALUES(#{fromId},#{toId},#{content},#{createdDate},#{idTopic},#{hasRead})
+	</insert>
+
+	<select id="getMessageByToId" parameterType="long"
+		resultType="com.xzp.forum.model.Message">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		WHERE to_id = #{toId}
+	</select>
+
+	<delete id="deleteMessageByTopicId" parameterType="long">
+		DELETE FROM
+		<include refid="tablename" />
+		WHERE id_topic = #{topic_id}
+	</delete>
+
+	<select id="countMessageByToId" parameterType="long" resultType="int">
+		SELECT COUNT(id) FROM
+		<include refid="tablename" />
+		WHERE to_id=#{toId} AND has_read=0
+	</select>
+
+	<select id="getUnReadMessageByToId" parameterType="long"
+		resultType="com.xzp.forum.model.Message">
+		SELECT
+		<include refid="selectFields" />
+		FROM
+		<include refid="tablename" />
+		WHERE to_id=#{toId} AND has_read=0
+	</select>
+	
+	<update id="changeReadStatement" parameterType="long">
+		UPDATE
+		<include refid="tablename" />
+		SET has_read=1 WHERE id=#{id}
+	</update>
+</mapper>

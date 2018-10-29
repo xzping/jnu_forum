@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzp.forum.dao.ImageDao">
+	<sql id="tablename">image</sql>
+	<sql id="insertFields">imgUrl,id_user</sql>
+	<sql id="selectFields">id,imgUrl,id_user
+	</sql>
+
+	<insert id="addImg" parameterType="com.xzp.forum.model.Image"
+		useGeneratedKeys="true">
+		INSERT INTO
+		<include refid="tablename" />
+		(
+		<include refid="insertFields" />
+		) VALUES(#{imgUrl},#{idUser})
+	</insert>
+
+	<select id="getImgByUserId" parameterType="long" resultType="string">
+		SELECT imgUrl FROM
+		<include refid="tablename" />
+		WHERE id_user=#{userId} ORDER BY id DESC LIMIT 4
+	</select>
+
+	<select id="getAllImgByUserId" parameterType="long" resultType="string">
+		SELECT imgUrl FROM
+		<include refid="tablename" />
+		WHERE id_user=#{userId} ORDER BY id DESC
+	</select>
+</mapper>
