@@ -18,20 +18,23 @@
 
 # 页面展示
 1、首页
-<img src="http://ox6xu9hb7.bkt.clouddn.com/%E9%A6%96%E9%A1%B5.jpeg"/>
+<img src="http://pj9qy0grp.bkt.clouddn.com/home.png"/>
 2、注册
-<img src="http://ox6xu9hb7.bkt.clouddn.com/%E6%B3%A8%E5%86%8C.jpeg"/>
+<img src="http://pj9qy0grp.bkt.clouddn.com/register.png"/>
 3、登录
-<img src="http://ox6xu9hb7.bkt.clouddn.com/%E7%99%BB%E5%BD%95.jpeg"/>
+<img src="http://pj9qy0grp.bkt.clouddn.com/login.png"/>
 4、话题浏览页面
-<img src="http://ox6xu9hb7.bkt.clouddn.com/%E8%AF%9D%E9%A2%98%E6%B5%8F%E8%A7%88%E9%A1%B5%E9%9D%A2.jpeg"/>
+<img src="http://pj9qy0grp.bkt.clouddn.com/homepage.png"/>
 5、话题详情页面
-<img src="http://ox6xu9hb7.bkt.clouddn.com/%E8%AF%9D%E9%A2%98%E8%AF%A6%E6%83%85%E9%A1%B5%E9%9D%A2.jpeg"/>
+<img src="http://pj9qy0grp.bkt.clouddn.com/topicdetail.png"/>
 6、个人简介页面
-<img src="http://ox6xu9hb7.bkt.clouddn.com/%E4%B8%AA%E4%BA%BA%E7%AE%80%E4%BB%8B%E9%A1%B5%E9%9D%A2.jpeg"/>
+<img src="http://pj9qy0grp.bkt.clouddn.com/profile.png"/>
 7、发表话题页面
-<img src="http://ox6xu9hb7.bkt.clouddn.com/%E5%8F%91%E8%A1%A8%E8%AF%9D%E9%A2%98%E9%A1%B5%E9%9D%A2.jpeg"/>
+<img src="http://pj9qy0grp.bkt.clouddn.com/posttopic.png"/>
 8、站内信页面
-<img src="http://ox6xu9hb7.bkt.clouddn.com/%E7%AB%99%E5%86%85%E4%BF%A1%E9%A1%B5%E9%9D%A2.jpeg"/>
+<img src="http://pj9qy0grp.bkt.clouddn.com/message.png"/>
 9、照片墙页面
-<img src="http://ox6xu9hb7.bkt.clouddn.com/%E7%85%A7%E7%89%87%E5%A2%99.jpeg"/>
+<img src="http://pj9qy0grp.bkt.clouddn.com/picwall.png"/>
+
+备注：因项目中七牛云过期了，上传的所有照片都失效了，所以项目中有照片的都被和谐了~
+个人博客地址：https://xzping.github.io
