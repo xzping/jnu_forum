@@ -21,7 +21,7 @@
 				</a> -->
 				<a th:href="@{'/profile/' + ${topic.getIdUser()}}">
 					<div class="chip left">
-						<img src="http://ox6xu9hb7.bkt.clouddn.com/87858783a5854d4b90fdcba8e9d5f5bf.jpg" alt="Contact Person" th:text="${userDao.getUsernameById(topic.getIdUser())}" th:href="@{'/profile/' + ${topic.getIdUser()}}">Topic's author</img>
+						<img src="http://pj9qy0grp.bkt.clouddn.com/private.jpg" alt="Contact Person" th:text="${userDao.getUsernameById(topic.getIdUser())}" th:href="@{'/profile/' + ${topic.getIdUser()}}">Topic's author</img>
 					</div>
 				</a>
 				<a th:href="@{'/topics/' + ${topic.getCategory()+'/1'}}"> 
@@ -36,7 +36,6 @@
                             <button class="chip left" style="background-color: #37b7ab;">Delete</button>
                         </form>
                     </span> -->
-
 				<span class="right" th:text="${topic.displayParsedCreatedDate()}"></span>
 			</div>
 		</section>

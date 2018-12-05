@@ -15,7 +15,7 @@
 		</header>
 		<ul class="collection" th:each="pointName : ${pointSet}">
 			<li class="collection-item avatar">
-				<img src="http://ox6xu9hb7.bkt.clouddn.com/87858783a5854d4b90fdcba8e9d5f5bf.jpg" alt="" class="circle"/> 
+				<img src="http://pj9qy0grp.bkt.clouddn.com/private.jpg" alt="" class="circle"/> 
 				<a class="title" th:text="${pointName}" th:href="@{'/profile/' + ${userDao.getIdByUsername(pointName)}}">pointName</a>
 				<p th:text="|得分:|+${userDao.getPoints(userDao.getIdByUsername(pointName))}">
 					point
