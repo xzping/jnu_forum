@@ -35,3 +35,5 @@
 <img src="http://pj9qy0grp.bkt.clouddn.com/message.png"/>
 9、照片墙页面
 <img src="http://pj9qy0grp.bkt.clouddn.com/picwall.png"/>
+
+备注：因项目中七牛云过期了，上传的所有照片都失效了，所以项目中有照片的都被和谐了~
