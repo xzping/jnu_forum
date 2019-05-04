@@ -13,6 +13,19 @@
                 </div>
             </header>
             <section class="row">
+            		<div class="col s12">
+            			<span class="col s6">
+                           &nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${otherUser.displayContentOfOptional()}">Introduction</span>
+                    </span>
+	                	<span th:if="${user.getId() != otherUser.getId()}" class="chip right">
+						<form th:action="@{'/follow/'+${user.getId()}+'_'+${otherUser.getId()}}" method="post">
+							<input type="hidden" name="action" th:value="useful" /> 
+								<button class="chip left" style="background-color: #37b7ab;">关注</button>
+						</form>
+					</span> 
+                	</div>
+            </section>
+            <section class="row">
                 <div class="col s12 m6">
                     <ul class="collection">
                         <li class="collection-item center">Personal data</li>
@@ -23,13 +36,13 @@
                         </li>
                         <li class="collection-item">
                             <span class="badge">
-                                <span th:text="${otherUser.displayContentOfOptional()}">Introduction</span>
-                            </span>简介:
+                                <span th:text="${otherUser.displayParsedDate()}">Created date</span>
+                            </span>注册时间:
                         </li>
                         <li class="collection-item">
                             <span class="badge">
-                                <span th:text="${otherUser.displayParsedDate()}">Created date</span>
-                            </span>注册时间:
+                                <span th:text="${followNums}">Created date</span>
+                            </span>粉丝:
                         </li>
                     </ul>
                 </div>

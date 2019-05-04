@@ -159,6 +159,23 @@ public class JedisAdapter implements InitializingBean {
 			}
 		}
 	}
+	
+	public Set<String> smember(String key)
+	{
+		Jedis jedis = null;
+		try{
+			jedis = pool.getResource();
+			return jedis.smembers(key);
+		} catch (Exception e) {
+			logger.error("exception,e:{}",e);
+			return null;
+		} finally {
+			if (jedis != null){
+				jedis.close();
+			}
+		}
+		
+	}
 
 	public void setex(String key, String value) {
 		// 验证码, 防机器注册，记录上次注册时间，有效期3天

@@ -7,6 +7,8 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
@@ -26,9 +29,9 @@ import com.xzp.forum.dao.UserDao;
 import com.xzp.forum.model.Image;
 import com.xzp.forum.model.Topic;
 import com.xzp.forum.model.User;
+import com.xzp.forum.service.FollowService;
 import com.xzp.forum.service.QiniuService;
 import com.xzp.forum.util.HostHolder;
-import com.xzp.forum.util.JedisAdapter;
 
 /**
  * 个人简介接口
@@ -38,6 +41,8 @@ import com.xzp.forum.util.JedisAdapter;
  */
 @Controller
 public class ProfileController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
 	
 	@Autowired
 	private UserDao userDao;
@@ -56,6 +61,9 @@ public class ProfileController {
 	
 	@Autowired
 	private HostHolder hostHolder;
+	
+	@Autowired
+	private FollowService followService;
 	
 	@Autowired
 	QiniuService qiniuService;
@@ -105,6 +113,7 @@ public class ProfileController {
 		model.addAttribute("myImgs", myImgs);
 		model.addAttribute("isHasMoreImg", myAllImgs.size()>myImgs.size());
 		model.addAttribute("switch", (user.getId()==otherUser.getId())?true:false);
+		model.addAttribute("followNums", followService.getFollowNum(user.getUsername(), user.getId()));
 		
 		return "profile";
 	}
@@ -176,6 +185,20 @@ public class ProfileController {
 			e.printStackTrace();
 			return "profile";
 		}
+	}
+	
+	/**
+	 * userId用户关注otherUserId用户
+	 * @param userId
+	 * @param otherUserId
+	 * @return
+	 */
+	@RequestMapping(path="/follow/{userId}_{otherUserId}",method=RequestMethod.POST)
+	@ResponseBody
+	public String addFollow(@PathVariable Long userId, @PathVariable Long otherUserId) {
+		User otherUser = userDao.getUserById(otherUserId);
+		followService.addFollow(otherUser.getUsername(), userId, otherUserId);
+		return "follow success!";
 	}
 	
 	@RequestMapping(path = "/profile/message", method = RequestMethod.GET)
