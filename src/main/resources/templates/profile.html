@@ -40,9 +40,16 @@
                             </span>注册时间:
                         </li>
                         <li class="collection-item">
-                            <span class="badge">
-                                <span th:text="${followNums}">Created date</span>
-                            </span>粉丝:
+                        		<a th:href="@{'/fans/' + ${otherUser.getId()}}" style="display: block; color: black">
+                        			<span class="badge">
+                                		<span th:text="${followNums}">Created date</span>
+                            		</span>粉丝:
+                        		</a>
+                        		<a th:if="${user.getId() != otherUser.getId()}" th:href="@{'/commonfans/' + ${otherUser.getId()} + '_' + ${user.getId()}}" style="display: block; color: #26a69a">
+                        			<span class="left">
+                                		<span th:text="${user.getUsername()} + 与 + ${otherUser.getUsername()} + 有 + ${followNums} + 个共同粉丝" class="left">Created date</span>
+                            		</span>
+                        		</a>
                         </li>
                     </ul>
                 </div>

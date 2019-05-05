@@ -55,8 +55,28 @@ public class FollowService {
 		String followKey = user.getUsername() + "_" + userId;
 		Set<String> fansSet = jedisAdapter.smember(followKey);
 		Set<User> fansUser = new HashSet<>();
-		for (String fans : fansSet)
-		{
+		for (String fans : fansSet) {
+			User fan = userDao.getUserById(Long.parseLong(fans));
+			fansUser.add(fan);
+		}
+		return fansUser;
+	}
+	
+	/**
+	 * 获取userId1和userId2的共同关注的人
+	 * 
+	 * @param userId1
+	 * @param userId2
+	 * @return
+	 */
+	public Set<User> getCommonFans(Long userId1, Long userId2) {
+		User user1 = userDao.getUserById(userId1);
+		User user2 = userDao.getUserById(userId2);
+		String followKey1 = user1.getUsername() + "_" + userId1;
+		String followKey2 = user2.getUsername() + "_" + userId2;
+		Set<String> commonFans = jedisAdapter.sinter(followKey1, followKey2);
+		Set<User> fansUser = new HashSet<>();
+		for (String fans : commonFans) {
 			User fan = userDao.getUserById(Long.parseLong(fans));
 			fansUser.add(fan);
 		}

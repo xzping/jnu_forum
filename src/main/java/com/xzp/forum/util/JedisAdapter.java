@@ -160,6 +160,11 @@ public class JedisAdapter implements InitializingBean {
 		}
 	}
 	
+	/**
+	 * 获取key的成员内容
+	 * @param key
+	 * @return
+	 */
 	public Set<String> smember(String key)
 	{
 		Jedis jedis = null;
@@ -175,6 +180,27 @@ public class JedisAdapter implements InitializingBean {
 			}
 		}
 		
+	}
+	
+	/**
+	 * 获取key1和key2的交集
+	 * @param key1
+	 * @param key2
+	 * @return
+	 */
+	public Set<String> sinter(String key1, String key2) {
+		Jedis jedis = null;
+		try{
+			jedis = pool.getResource();
+			return jedis.sinter(key1, key2);
+		} catch (Exception e) {
+			logger.error("exception,e:{}",e);
+			return null;
+		} finally {
+			if (jedis != null){
+				jedis.close();
+			}
+		}
 	}
 
 	public void setex(String key, String value) {

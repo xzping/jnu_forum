@@ -2,8 +2,11 @@ package com.xzp.forum.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.alibaba.fastjson.JSON;
 import com.xzp.forum.dao.AnswerDao;
 import com.xzp.forum.dao.ImageDao;
 import com.xzp.forum.dao.MessageDao;
@@ -71,6 +75,7 @@ public class ProfileController {
 	@RequestMapping(path = "/profile", method = RequestMethod.GET)
 	public String displayMyProfile(Model model) {
 		User user = hostHolder.getUser();
+		logger.warn("[displayMyProfile] display profile, username:{}",user.getUsername());
 		Long points = userDao.getPoints(user.getId());
 //		jedisAdapter.zadd(rankKey, points, user.getUsername());
 		
@@ -95,6 +100,7 @@ public class ProfileController {
 	@RequestMapping(path = "/profile/{id}", method = RequestMethod.GET)
 	public String displayProfileById(@PathVariable Long id, Model model) {
 		User user = userDao.getUserById(id);
+		logger.warn("[displayMyProfile] display profile, username:{}",user.getUsername());
 		Long points = userDao.getPoints(user.getId());
 		Long numberOfTopics = topicDao.countTopicsByUser_Id(id);
 		Long numberOfAnswers = answerDao.countAnswersByUser_Id(id);
@@ -196,9 +202,34 @@ public class ProfileController {
 	@RequestMapping(path="/follow/{userId}_{otherUserId}",method=RequestMethod.POST)
 	@ResponseBody
 	public String addFollow(@PathVariable Long userId, @PathVariable Long otherUserId) {
+		User user = userDao.getUserById(userId);
 		User otherUser = userDao.getUserById(otherUserId);
+		logger.warn("[addFollow] addFollow . {} follows {}", user.getUsername(), otherUser.getUsername());
 		followService.addFollow(otherUser.getUsername(), userId, otherUserId);
 		return "follow success!";
+	}
+	
+	@RequestMapping(path="/fans/{userId}",method=RequestMethod.GET)
+	@ResponseBody
+	public String displayFans(@PathVariable Long userId){
+		Set<User> followFans = followService.getFollowUser(userId);
+		Map<String, Long> followFansMap = new HashMap<String, Long>();
+		for (User fan : followFans) {
+			followFansMap.put(fan.getUsername(), fan.getId());
+		}
+		return JSON.toJSONString(followFansMap);
+	}
+	
+	@RequestMapping(path="/commonfans/{userId}_{otherUserId}",method=RequestMethod.GET)
+	@ResponseBody
+	public String displayCommonFans(@PathVariable Long userId, @PathVariable Long otherUserId) {
+		Set<User> commonFans = followService.getCommonFans(userId, otherUserId);
+		logger.warn("[displayCommonFans] commonFans:{}",commonFans);
+		Map<String, Long> commonFansMap = new HashMap<>();
+		for (User commonFan : commonFans) {
+			commonFansMap.put(commonFan.getUsername(), commonFan.getId());
+		}
+		return JSON.toJSONString(commonFansMap);
 	}
 	
 	@RequestMapping(path = "/profile/message", method = RequestMethod.GET)
