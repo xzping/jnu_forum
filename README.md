@@ -21,9 +21,9 @@
 1、首页
 <img src="https://github.com/xzping/jnu_forum/blob/master/image/index.png"/>
 2、注册
-<img src="http://pj9qy0grp.bkt.clouddn.com/register.png"/>
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/register.png"/>
 3、登录
-<img src="http://pj9qy0grp.bkt.clouddn.com/login.png"/>
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/login.png"/>
 4、话题浏览页面
 <img src="http://pj9qy0grp.bkt.clouddn.com/homepage.png"/>
 5、话题详情页面
