@@ -19,7 +19,7 @@
 
 # 页面展示
 1、首页
-<img src="http://pj9qy0grp.bkt.clouddn.com/home.png"/>
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/index.png"/>
 2、注册
 <img src="http://pj9qy0grp.bkt.clouddn.com/register.png"/>
 3、登录
