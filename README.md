@@ -25,17 +25,21 @@
 3、登录
 <img src="https://github.com/xzping/jnu_forum/blob/master/image/login.png"/>
 4、话题浏览页面
-<img src="http://pj9qy0grp.bkt.clouddn.com/homepage.png"/>
-5、话题详情页面
-<img src="http://pj9qy0grp.bkt.clouddn.com/topicdetail.png"/>
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/topics.png"/>
+5、话题详情页面与评论
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/message.png"/>
 6、个人简介页面
-<img src="http://pj9qy0grp.bkt.clouddn.com/profile.png"/>
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/profile.png"/>
 7、发表话题页面
-<img src="http://pj9qy0grp.bkt.clouddn.com/posttopic.png"/>
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/addtopic.png"/>
 8、站内信页面
-<img src="http://pj9qy0grp.bkt.clouddn.com/message.png"/>
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/message.png"/>
 9、照片墙页面
-<img src="http://pj9qy0grp.bkt.clouddn.com/picwall.png"/>
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/picWall.png"/>
+10、关注和粉丝界面
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/followAndFans.png"/>
+10、排行榜界面
+<img src="https://github.com/xzping/jnu_forum/blob/master/image/rank.png"/>
 
 备注：因项目中七牛云过期了，上传的所有照片都失效了，所以项目中有照片的都被和谐了~
 个人博客地址：https://xzping.github.io
