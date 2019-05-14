@@ -82,4 +82,18 @@ public class FollowService {
 		}
 		return fansUser;
 	}
+	
+	/**
+	 * currentUserId是否已经关注了targetUserId
+	 * 
+	 * @param currentUserId
+	 * @param targetUserId
+	 * @return
+	 */
+	public boolean isFollowed(Long currentUserId, Long targetUserId) {
+		User targetUser = userDao.getUserById(targetUserId);
+		String key = targetUser.getUsername() + "_" + targetUserId;
+		boolean isFollowed = jedisAdapter.sismember(key, String.valueOf(currentUserId));
+		return isFollowed;
+	}
 }

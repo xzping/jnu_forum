@@ -107,8 +107,9 @@ public class ProfileController {
 		Long numberOfHelped = answerDao.countAnswersByUser_IdAndUseful(id, true);
 		List<String> myImgs=imageDao.getImgByUserId(user.getId());
 		List<String> myAllImgs=imageDao.getAllImgByUserId(user.getId());
-		
 		User otherUser=hostHolder.getUser();
+		boolean isFollowed = followService.isFollowed(otherUser.getId(), id);
+		
 		model.addAttribute("user", otherUser);
 		model.addAttribute("otherUser", user);
 		model.addAttribute("newMessage", messageDao.countMessageByToId(hostHolder.getUser().getId()));
@@ -120,7 +121,7 @@ public class ProfileController {
 		model.addAttribute("isHasMoreImg", myAllImgs.size()>myImgs.size());
 		model.addAttribute("switch", (user.getId()==otherUser.getId())?true:false);
 		model.addAttribute("followNums", followService.getFollowNum(user.getUsername(), user.getId()));
-		
+		model.addAttribute("isFollowed", isFollowed);
 		return "profile";
 	}
 
