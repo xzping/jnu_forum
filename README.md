@@ -1,5 +1,5 @@
 # jnu_forum
-<a>该系统为Java分享学习网站。前端使用Html+CSS+JS实现，后端使用Java语言开发，使用Spring+SpringMVC+SpringBoot+MyBatis+PageHelper+MySQL+Maven实现，开发工具为Eclipse。</a>
+<a>该系统为Java分享学习网站。前端使用Html+CSS+JS实现，后端使用Java语言开发，使用Spring+SpringMVC+SpringBoot+MyBatis+Redis+PageHelper+MySQL+Maven实现，开发工具为Eclipse。</a>
 
 # 功能
 1、登录和注册<br>
