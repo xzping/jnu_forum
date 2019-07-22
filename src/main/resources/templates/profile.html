@@ -53,7 +53,7 @@
                         		</a>
                         		<a th:if="${user.getId() != otherUser.getId()}" th:href="@{'/commonfans/' + ${otherUser.getId()} + '_' + ${user.getId()}}" style="display: block; color: #26a69a">
                         			<span class="left">
-                                		<span th:text="${user.getUsername()} + 与 + ${otherUser.getUsername()} + 有 + ${followNums} + 个共同粉丝" class="left">Created date</span>
+                                		<span th:text="${user.getUsername()} + 与 + ${otherUser.getUsername()} + 有 + ${commonFansNum} + 个共同粉丝" class="left">Created date</span>
                             		</span>
                         		</a>
                         </li>

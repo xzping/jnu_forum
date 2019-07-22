@@ -4,10 +4,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import redis.clients.jedis.BinaryClient;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.Tuple;
+//import redis.clients.jedis.BinaryClient;
+//import redis.clients.jedis.Jedis;
+//import redis.clients.jedis.JedisPool;
+//import redis.clients.jedis.Tuple;
 
 /**
  * demo工具类

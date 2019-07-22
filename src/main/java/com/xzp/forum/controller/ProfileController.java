@@ -121,6 +121,7 @@ public class ProfileController {
 		model.addAttribute("isHasMoreImg", myAllImgs.size()>myImgs.size());
 		model.addAttribute("switch", (user.getId()==otherUser.getId())?true:false);
 		model.addAttribute("followNums", followService.getFollowNum(user.getUsername(), user.getId()));
+		model.addAttribute("commonFansNum", followService.getCommonFans(user.getId(), otherUser.getId()).size());
 		model.addAttribute("isFollowed", isFollowed);
 		return "profile";
 	}
