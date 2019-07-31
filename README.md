@@ -43,5 +43,6 @@
 
 备注：
 1、本项目的Redis已经换成集群了，本地跑的时候先建立集群，否则自行将集群换成单机Redis，具体修改application.propertie和com.xzp.forum.util.JedisAdapter.java即可（再具体如何修改可以参考提交记录或联系我~）
+
 2、因项目中七牛云过期了，上传的所有照片都失效了，所以项目中有照片的都被和谐了~
 个人博客地址：https://xzping.github.io
