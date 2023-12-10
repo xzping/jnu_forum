@@ -1,5 +1,5 @@
 # jnu_forum
-<a>jnu_forum是基于Java的论坛系统。前端使用Html+CSS+JS实现，后端使用Java语言开发，技术栈包括但不限于Spring/SpringMVC/SpringBoot、MyBatis、Redis、PageHelper、MySQL、Maven等，开发工具为Eclipse。</a>
+<a>jnu_forum是基于Java的论坛系统。前端使用Html+CSS+JS实现，后端使用Java语言开发，技术栈包括但不限于Spring/SpringMVC/SpringBoot、MyBatis、Redis、PageHelper、MySQL、Maven等。</a>
 
 # 功能
 1、登录和注册<br>
